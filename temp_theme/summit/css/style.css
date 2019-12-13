@@ -253,10 +253,10 @@ ol {
 	right: 0;
 	height: 100%;
 	width: 100%;
-	background: -webkit-gradient(linear, left top, right top, from(#ff1a6b), to(#2a34d0));
-	background: linear-gradient(to right, #ff1a6b, #2a34d0);
+	background: -webkit-gradient(linear, left top, right top, from(#ffffff), to(#264ec5));
+	background: linear-gradient(to bottom, #ffffff, #6d5856);
 	content: "";
-	opacity: 0.75;
+	opacity: 0.25;
 	z-index: -1;
 }
 
@@ -509,7 +509,7 @@ ol {
 -----------------------*/
 
 .event-counter {
-	background: #201D6D;
+	background: #6d5856;
 	padding: 55px 0 55px 0;
 }
 
@@ -530,7 +530,7 @@ ol {
 	font-size: 16px;
 	font-weight: 400;
 	padding: 9px 11px 9px 15px;
-	background: #F21E7D;
+	background: #f27895;
 	display: inline-block;
 	margin-left: 12px;
 }
