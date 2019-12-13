@@ -254,9 +254,9 @@ ol {
 	height: 100%;
 	width: 100%;
 	background: -webkit-gradient(linear, left top, right top, from(#ffffff), to(#264ec5));
-	background: linear-gradient(to bottom, #ffffff, #6d5856);
+	background: linear-gradient(to bottom, #ffffff, #41a9d4);
 	content: "";
-	opacity: 0.25;
+	opacity: 0.8;
 	z-index: -1;
 }
 
@@ -509,7 +509,7 @@ ol {
 -----------------------*/
 
 .event-counter {
-	background: #6d5856;
+	background: #9bd096;
 	padding: 55px 0 55px 0;
 }
 
@@ -530,7 +530,7 @@ ol {
 	font-size: 16px;
 	font-weight: 400;
 	padding: 9px 11px 9px 15px;
-	background: #f27895;
+	background: #f20a0f;
 	display: inline-block;
 	margin-left: 12px;
 }
@@ -551,7 +551,7 @@ ol {
 .event-counter .countdown-timer .cd-item span {
 	display: block;
 	color: #fff;
-	font-size: 60px;
+	font-size: 50px;
 	font-weight: 900;
 	margin-bottom: 6px;
 }
