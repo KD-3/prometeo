@@ -509,7 +509,7 @@ ol {
 -----------------------*/
 
 .event-counter {
-	background: #9bd096;
+	background: #59a4d0;
 	padding: 55px 0 55px 0;
 }
 
@@ -551,7 +551,7 @@ ol {
 .event-counter .countdown-timer .cd-item span {
 	display: block;
 	color: #fff;
-	font-size: 50px;
+	font-size: 50	px;
 	font-weight: 900;
 	margin-bottom: 6px;
 }
