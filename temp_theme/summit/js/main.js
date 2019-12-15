@@ -1,14 +1,5 @@
-/* =================================
-------------------------------------
-  The Summit Conference
-  Version: 1.0
- ------------------------------------
- ====================================*/
-
-'use strict';
-
 (function ($) {
-    
+
     /*------------------
         Preloader
     --------------------*/
@@ -28,7 +19,7 @@
     /*------------------
 		Navigation
 	--------------------*/
-	$(".mobile-menu").slicknav({
+    $(".mobile-menu").slicknav({
         prependTo: '#mobile-menu-wrap',
         allowParentLinks: true
     });
@@ -38,7 +29,7 @@
 	--------------------*/
     $(".search-trigger").on('click', function() {
         $(".search-bar-wrap").addClass("active");
-    });              
+    });
 
 
     $(".search-close").on('click', function() {
@@ -61,7 +52,7 @@
         items: 1,
         dots: true,
         animateOut: 'fadeOut',
-    	animateIn: 'fadeIn',
+        animateIn: 'fadeIn',
         navText: ['<i class="flaticon-left-arrow-1"></i>', '<i class="flaticon-right-arrow-1"></i>'],
         smartSpeed: 1200,
         autoplay: true,
@@ -70,7 +61,7 @@
     /*------------------
         CountDown
     --------------------*/
-	$("#countdown").countdown("2020/01/24", function(event) {
+    $("#countdown").countdown("2020/01/24", function(event) {
         $(this).html(event.strftime("<div class='cd-item'><span>%D</span> <p>Days</p> </div>" + "<div class='cd-item'><span>%H</span> <p>Hours</p> </div>" + "<div class='cd-item'><span>%M</span> <p>Minutes</p> </div>" + "<div class='cd-item'><span>%S</span> <p>Seconds</p> </div>"));
     });
 
@@ -83,12 +74,12 @@
     --------------------*/
     $('.counter').each(function () {
         $(this).prop('Counter',0).animate({
-        Counter: $(this).text()
+            Counter: $(this).text()
         }, {
             duration: 4000,
             easing: 'swing',
             step: function (now) {
-            $(this).text(Math.ceil(now));
+                $(this).text(Math.ceil(now));
             }
         });
     });
@@ -107,34 +98,34 @@
     /*------------------
         Progress Loader
     --------------------*/
-	$('.circle-progress').each(function() {
-		var cpvalue = $(this).data("cpvalue");
-		var cpcolor = $(this).data("cpcolor");
-		var cpid 	= $(this).data("cpid");
+    $('.circle-progress').each(function() {
+        var cpvalue = $(this).data("cpvalue");
+        var cpcolor = $(this).data("cpcolor");
+        var cpid 	= $(this).data("cpid");
 
-		$(this).append('<div class="'+ cpid +'"></div><div class="progress-value"><span class="loader-percentage">'+ cpvalue +'%</span></div>');
+        $(this).append('<div class="'+ cpid +'"></div><div class="progress-value"><span class="loader-percentage">'+ cpvalue +'%</span></div>');
 
-		if (cpvalue < 100) {
+        if (cpvalue < 100) {
 
-			$('.' + cpid).circleProgress({
-				value: '0.' + cpvalue,
-				size: 187,
+            $('.' + cpid).circleProgress({
+                value: '0.' + cpvalue,
+                size: 187,
                 thickness: 5,
                 startAngle: -190,
-				fill: cpcolor,
-				emptyFill: "rgba(0, 0, 0, 0)"
-			});
-		} else {
-			$('.' + cpid).circleProgress({
-				value: 1,
-				size: 187,
-				thickness: 5,
-				fill: cpcolor,
-				emptyFill: "rgba(0, 0, 0, 0)"
-			});
-		}
+                fill: cpcolor,
+                emptyFill: "rgba(0, 0, 0, 0)"
+            });
+        } else {
+            $('.' + cpid).circleProgress({
+                value: 1,
+                size: 187,
+                thickness: 5,
+                fill: cpcolor,
+                emptyFill: "rgba(0, 0, 0, 0)"
+            });
+        }
 
-	});
+    });
 
 
 
