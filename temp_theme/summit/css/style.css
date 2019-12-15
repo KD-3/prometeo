@@ -462,7 +462,7 @@ ol {
 }
 
 .hero-items .single-hero-item h1 {
-	color: #000000;
+	color: #090909;
 	font-size: 100px;
 	font-weight: 900;
 	line-height: 100px;
@@ -474,7 +474,7 @@ ol {
 }
 
 .hero-items .single-hero-item h2 {
-	color: #000000;
+	color: #1d1b1b;
 	font-size: 36px;
 	font-weight: 700;
 	opacity: 0;
@@ -829,7 +829,7 @@ ol {
 	padding-top: 80px;
 }
 
-.company-widget h4,
+	.company-widget h4,
 .event-widget h4,
 .links-widget h4,
 .contact-widget h4 {
@@ -914,7 +914,7 @@ ol {
 
 .copyright-text .footer-social {
 	display: inline-block;
-	margin-left: 258px;
+	margin-left: 850px;
 }
 
 .copyright-text .footer-social a {
