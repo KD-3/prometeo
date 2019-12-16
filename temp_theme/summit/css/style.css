@@ -757,12 +757,12 @@ ol {
 }
 
 .subscribe-form .section-title h2 {
-	color: #fff;
+	color: #010101;
 	margin-bottom: -60px;
 }
 
 .subscribe-form p {
-	color: #fff;
+	color: #010101;
 	font-size: 18px;
 	margin-bottom: 82px;
 }
@@ -775,7 +775,7 @@ ol {
 	border: 2px solid #F1F1F1;
 	border-radius: 6px;
 	background: transparent;
-	color: #fff;
+	color: #010101;
 	font-size: 18px;
 	display: inline-block;
 	height: 62px;
@@ -784,31 +784,31 @@ ol {
 }
 
 .subscribe-form .subs-form input::-webkit-input-placeholder {
-	color: #fff;
+	color: #010101;
 	font-style: italic;
 	opacity: 0.35;
 }
 
 .subscribe-form .subs-form input::-moz-placeholder {
-	color: #fff;
+	color: #010101;
 	font-style: italic;
 	opacity: 0.35;
 }
 
 .subscribe-form .subs-form input:-ms-input-placeholder {
-	color: #fff;
+	color: #010101;
 	font-style: italic;
 	opacity: 0.35;
 }
 
 .subscribe-form .subs-form input::-ms-input-placeholder {
-	color: #fff;
+	color: #010101;
 	font-style: italic;
 	opacity: 0.35;
 }
 
 .subscribe-form .subs-form input::placeholder {
-	color: #fff;
+	color: #010101;
 	font-style: italic;
 	opacity: 0.35;
 }
@@ -1778,6 +1778,7 @@ ol {
 		font-size: 53px;
 	}
 	.subscribe-form .subs-form input {
+		color: #000000;
 		width: 650px;
 	}
 	.tickets-table .table-features {
@@ -1841,6 +1842,7 @@ ol {
 		display: inline-block;
 	}
 	.subscribe-form .subs-form input {
+		color:#000000;
 		width: 100%;
 		margin-bottom: 25px;
 	}
