@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} {{ event.name }} - Register {% endblock %}
+
+{% block bgimage %}
+{% if event.image %}
+    {{ event.image.url }} 
+{% else %}
+    {% static "img/event.jpg" %}
+{% endif %}
+{% endblock %}
+
+{% block heading %} {{ event.name }} {% endblock %}
+
+{% block content %}
+
+<!-- Tickets Price Area Begin -->
+<section class="tickets-table-price spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10 col-md-12">
+                <div class="tickets-table">
+                    <div class="table-price text-center">
+                        <span>Programming Club</span>
+                        <h2 class="table-title">{{ event.name }}</h2>
+                    </div>
+                    <div class="table-features">
+                        <div class ="row">
+                            <div class="col-lg-6 col-md-6 col-xs-6" align="center">
+                                <ul>
+                                    <li><img src="{% static "img/check.png" %}" alt=""> PROBLEM STATEMENT/DESCRIPTION
+                                    <p>{{ event.description }}</p></li>
+                                    <li><img src="{% static "img/check.png" %}" alt="">DATE: {{ event.date }}</li>
+                                    {% if event.time %}
+                                    <li><img src="{% static "img/check.png" %}" alt="">TIME: {{ event.time }}</li>
+                                    {% endif %}
+                                    {% if event.venue %}
+                                    <li><img src="{% static "img/check.png" %}" alt=""> VENUE: {{ event.venue }}</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-xs-6" align="center">
+                                <ul>
+                                    {% if event.rulebook %}
+                                    <li><a href="{{ event.rulebook.url }}" download="{{ event.name }}"><img src="{% static "img/download.png" %}" height="15" width="18" alt="">Download Rulebook</a></li>
+                                    {% endif %}
+                                    {% if event.prize %}
+                                    <li><h3><img src="{% static "img/prize.png" %}" alt="" height="30" width="30"> Prizes worth Rs. {{ event.prize }}</h3></li>
+                                    {% endif %}
+                                </ul>
+                                <!-- <form action="{% url 'events' %}" method="GET">
+                                    <input type="submit" class="primary-btn buy-tickets" name="register"></input>
+                                </form> -->
+                                <a href="{% url 'register' event.pk %}" class="primary-btn buy-tickets">REGISTER</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Tickets Price Area End -->
+
+<!-- Hurry Up Begin -->
+<section class="hurry-up set-bg spad" data-setbg="{% static "img/hurry-up-bg.jpg" %}">
+    <div class="container" >
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <h2>Hurry up, save your spot!</h2>
+                <div class="countdown-timer" id="countdown-2">
+                    <div class="cd-time">
+                        <span>00</span>
+                        <p>Days</p>
+                    </div>
+                    <div class="cd-time">
+                        <span>00</span>
+                        <p>Hours</p>
+                    </div>
+                    <div class="cd-time">
+                        <span>00</span>
+                        <p>Minutes</p>
+                    </div>
+                    <div class="cd-time">
+                        <span>00</span>
+                        <p>Seconds</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hurry Up End -->
+{% endblock %}
