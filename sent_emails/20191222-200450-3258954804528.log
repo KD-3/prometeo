@@ -1,0 +1,38 @@
+Content-Type: multipart/alternative;
+ boundary="===============7050112314440364432=="
+MIME-Version: 1.0
+Subject: [example.com] Please Confirm Your E-mail Address
+From: webmaster@localhost
+To: foo.bar@example.com
+Date: Sun, 22 Dec 2019 14:34:50 -0000
+Message-ID: <157702529042.11848.4417316245516669170@DESKTOP-IEU8RU2>
+
+--===============7050112314440364432==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+Hello from example.com!
+
+You're receiving this e-mail because user rajesh has given yours as an e-mail address to connect their account.
+
+To confirm this is correct, go to http://127.0.0.1:8000/accounts/confirm-email/Mw:1ij2Jm:SsH4xOdgteZ5FViXSjDFH9ikwGg/
+
+Thank you from example.com!
+127.0.0.1
+--===============7050112314440364432==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+Hello from example.com!
+
+You're receiving this e-mail because user rajesh has given yours as an e-mail address to connect their account.
+
+To confirm this is correct, go to http://127.0.0.1:8000/accounts/confirm-email/Mw:1ij2Jm:SsH4xOdgteZ5FViXSjDFH9ikwGg/
+
+Thank you from example.com!
+127.0.0.1
+--===============7050112314440364432==--
+
+-------------------------------------------------------------------------------

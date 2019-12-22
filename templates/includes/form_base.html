@@ -1,0 +1,57 @@
+{% load widget_tweaks %}
+
+{% for field in form %}
+<!-- <p> {{field.name}} </p> -->
+<div class="input-group form-group">
+  {% if field.name == 'remember' %}
+    <div class="row align-items-center remember">
+        {% render_field field %} Remember Me
+    </div>
+  {% elif form.is_bound %}
+    <div class="input-group-prepend">
+      {% if field.name == 'email' %}
+        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+      {% elif field.name == 'username'  or field.name == 'login' %}
+        <span class="input-group-text"><i class="fas fa-user"></i></span>
+      {% else %}
+        <span class="input-group-text"><i class="fas fa-key"></i></span>
+      {% endif %}
+    </div>
+    {% if field.errors %}
+
+      {% render_field field class="form-control is-invalid" placeholder=field.label %}
+      {% for error in field.errors %}
+        <div class="invalid-feedback" style="color:#fcbbbf">
+          {{ error }}
+        </div>
+      {% endfor %}
+
+    {% else %}
+      {% if field.name == 'password1' or field.name == 'password2' or field.name == 'password ' %}
+        {% render_field field class="form-control" placeholder=field.label %}
+      {% else %}
+        {% render_field field class="form-control is-valid" placeholder=field.label %}
+      {% endif %}
+    {% endif %}
+  {% else %}
+    <div class="input-group-prepend">
+      {% if field.name == 'email' %}
+        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+      {% elif field.name == 'username'  or field.name == 'login' %}
+        <span class="input-group-text"><i class="fas fa-user"></i></span>
+      {% else %}
+        <span class="input-group-text"><i class="fas fa-key"></i></span>
+      {% endif %}
+    </div>
+    {% render_field field class="form-control" placeholder=field.label %}
+  {% endif %}
+
+  {% if field.help_text %}
+    <small class="form-text text-muted" style="color:wheat">
+      {{ field.help_text }}
+    </small>
+  {% endif %}
+  <!-- <p style="color:white" >{{ field.errors }}</p>
+              <p style="color: white;">{{ field.help_text }}</p> -->
+</div>
+{% endfor %}

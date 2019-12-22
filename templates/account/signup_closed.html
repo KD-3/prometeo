@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block bgimage %} {% static 'img/iitj.jfif' %} {% endblock %}
+{% block head_title %}{% trans "Sign Up Closed" %}{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top:50px; margin-bottom:50px;">
+    <div class="row">
+        <div class="col-lg-12" style="text-align: center;">
+            <h1>{% trans "Sign Up Closed" %}</h1>
+
+            <p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

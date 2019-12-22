@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="{% static "css/owl.carousel.min.css" %}" type="text/css">
     <link rel="stylesheet" href="{% static "css/slicknav.min.css" %}" type="text/css">
     <link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- <link rel="stylesheet" href="{% static "css/user_menu.css" %}" type="text/css"> -->
+
+
+    {% block style %} {% endblock %}
+    {% block head_links %} {% endblock %}
 </head>
 
 <body>
@@ -44,12 +51,19 @@
                                     <ul>
                                         <li><a href="./index.html">Home</a></li>
                                         <li><a href="./speakers.html">Speakers</a></li>
-                                        <li><a class="active" href="./events.html">Events</a></li>
+                                        <li><a href="./events.html">Events</a></li>
                                         <li><a href="./informals.html">Informals</a></li>
                                         <li><a href="./workshops.html">Workshops</a></li>
                                         <li><a href="./symposium.html">Symposium</a></li>
                                         <li><a href="./sponsors.html">Sponsors</a></li>
-                                        <li><a href="./login.html">Login</a></li>
+                                        {% if user.is_authenticated %}
+                                        <li><a href="#">Registered Events</a></li>
+                                        <li><a href="/accounts/password/change">Change Password</a></li>
+                                        <li><a href="/accounts/logout">Logout</a></li>
+                                        {% else %}
+                                        <li><a href="/accounts/login">Login</a></li>
+                                        <li><a href="/accounts/signup">Signup</a></li>
+                                        {% endif %}
                                     </ul>
                                 </nav>
                             </div>
@@ -62,6 +76,30 @@
     </header>
     <!-- Header End -->
 
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">all-auth demo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Login/Registration
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/accounts/login">Login</a>
+                <a class="dropdown-item" href="/accounts/signup">Register</a>
+            </li>
+          </ul>
+        </div>
+      </nav> -->
+
+    {% block heroarea %}
     <!-- Hero Area Begin -->
     <div class="hero-area set-bg" data-setbg="{% block bgimage %}{% endblock %}">
         <div class="container">
@@ -75,8 +113,19 @@
         </div>
     </div>
     <!-- Hero Area End -->
+    {% endblock %}
 
     {% block content %}
+    
+	    {% block messages %}
+        {% endblock %}
+    
+    {% endblock %}
+    
+    {% block content_extra %}
+    {% endblock %}
+    
+    {% block extra_body %}
     {% endblock %}
 
     <!-- Footer Begin -->
