@@ -40,4 +40,4 @@ media/
 # virtualenv
 .venv
 venv/
-ENV/
+ENV/"sendgrid.env" 
