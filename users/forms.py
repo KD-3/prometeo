@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser
-from allauth.account.forms import SignupForm
+from allauth.account.forms import SignupForm, LoginForm
 
 class CustomUserCreationForm(UserCreationForm):
 
@@ -25,3 +25,10 @@ class CustomSignupForm(SignupForm):
         user.username = self.cleaned_data['username']
         user.save()
         return user
+
+class CustomLoginForm(LoginForm):
+
+    def __init__(self, *args, **kwargs):
+        super(CustomLoginForm, self).__init__(*args, **kwargs)
+
+        self.fields['login'].label = 'Email or Username'

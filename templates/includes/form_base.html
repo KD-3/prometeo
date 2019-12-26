@@ -1,5 +1,6 @@
 {% load widget_tweaks %}
 
+
 {% for field in form %}
 <!-- <p> {{field.name}} </p> -->
 <div class="input-group form-group">
@@ -27,7 +28,7 @@
       {% endfor %}
 
     {% else %}
-      {% if field.name == 'password1' or field.name == 'password2' or field.name == 'password ' %}
+      {% if field.name == 'password1' or field.name == 'password2' or field.name == 'password' %}
         {% render_field field class="form-control" placeholder=field.label %}
       {% else %}
         {% render_field field class="form-control is-valid" placeholder=field.label %}
@@ -55,3 +56,13 @@
               <p style="color: white;">{{ field.help_text }}</p> -->
 </div>
 {% endfor %}
+
+{% if form.non_field_errors %}
+  <div class="form-group">
+  {% for error in form.non_field_errors %} 
+    <div class="invalid-feedback" style="color:#fcbbbf">
+      {{ error }}
+    </div>
+  {% endfor %}
+  </div>
+{% endif %}
