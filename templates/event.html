@@ -57,6 +57,26 @@
                             </div>
                         </div>
                     </div>
+                    <div class="table-features">
+                        <div class="row">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for participant in participants %}
+                                        <tr>
+                                            <td>{{ participant.username }}</td>
+                                            <td>{{ participant.email }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                          </div>
+                    </div>
                 </div>
             </div>
         </div>

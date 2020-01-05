@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %} Participants for {{ event.name }} {% endblock %}
+
+{% block heading %} Participants for {{ event.name }} {% endblock %}
+
+{% block content %} 
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for participant in participants %}
+            <tr>
+                <td>{{ participant.username }}</td>
+                <td>{{ participant.email }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  {% endblock %}
