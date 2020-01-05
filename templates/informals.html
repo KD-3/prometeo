@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %} Events {% endblock %}
+{% block title %} Informals {% endblock %}
 {% block bgimage %} {% static "img/event.jpg" %} {% endblock %}
-{% block heading %} TECHNICAL EVENTS {% endblock %}
+{% block heading %} INFORMALS {% endblock %}
 
 {% block outer %}
 <!-- Blog Area Begin -->
@@ -12,7 +12,7 @@
         <div class="container">
             <div class="row">
                 {% for event in events %}
-                {% if event.type == 'event' %}
+                {% if event.type == 'informal' %}
                 <div class="col-lg-4 col-md-6">
                     <div class="single-blog">
                         <div class="blog-img">
