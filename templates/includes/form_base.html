@@ -1,5 +1,12 @@
 {% load widget_tweaks %}
 
+{% if form.non_field_errors %}
+  {% for error in form.non_field_errors %} 
+    <div style="color:#fcbbbf; margin-bottom: 20px;">
+      {{ error }}
+    </div>
+  {% endfor %}
+{% endif %}
 
 {% for field in form %}
 <!-- <p> {{field.name}} </p> -->
@@ -28,7 +35,7 @@
       {% endfor %}
 
     {% else %}
-      {% if field.name == 'password1' or field.name == 'password2' or field.name == 'password' %}
+      {% if field.name == 'password1' or field.name == 'password2' or field.name == 'password' or form.non_field_errors %}
         {% render_field field class="form-control" placeholder=field.label %}
       {% else %}
         {% render_field field class="form-control is-valid" placeholder=field.label %}
@@ -57,12 +64,3 @@
 </div>
 {% endfor %}
 
-{% if form.non_field_errors %}
-  <div class="form-group">
-  {% for error in form.non_field_errors %} 
-    <div class="invalid-feedback" style="color:#fcbbbf">
-      {{ error }}
-    </div>
-  {% endfor %}
-  </div>
-{% endif %}
