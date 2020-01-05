@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Sponsors {% endblock %}
+{% block bgimage %} {% static "img/event.jpg" %} {% endblock %}
+{% block heading %} Sponsors {% endblock %}
+{% block outer %}
+<!-- {% if user.is_authenticated %} -->
+        <section class="blog-section spad">
+            <div class="blog-items">
+                <div class="container">
+                    <div class="row">
+                        {% for sponsor in sponsors %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-blog">
+                                <div class="blog-img">
+                                    {% if sponsor.image %}
+                                        <img src="{{ sponsor.image.url }}" height="166" width="360" alt="">
+                                    {% else %}
+                                        <img src="{% static "img/logo.png" %}" height="166" width="360" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="blog-details">
+                                    <h4>{{ sponsor.name }}</h4>
+                                    <p>{{ sponsor.type }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- {% endif %} -->
+{% endblock %}
