@@ -10,8 +10,10 @@
         <section class="blog-section spad">
             <div class="blog-items">
                 <div class="container">
+                    <h2>Events:</h2><br>
                     <div class="row">
                         {% for event in events %}
+                        {% if event.type == 'event' %}
                         <div class="col-lg-4 col-md-6">
                             <div class="single-blog">
                                 <div class="blog-img">
@@ -31,6 +33,73 @@
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <br> -->
+        <section class="blog-section spad">
+            <div class="blog-items">
+                <div class="container">
+                    <h2>Workshops:</h2><br>
+                    <div class="row">
+                        {% for event in events %}
+                        {% if event.type == 'workshop' %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-blog">
+                                <div class="blog-img">
+                                    <a href="balsa.html" class="event-btn">
+                                    {% if event.image %}
+                                        <img src="{{ event.image.url }}" height="166" width="360" alt="">
+                                    {% else %}
+                                        <img src="{% static "img/logo.png" %}" height="166" width="360" alt="">
+                                    {% endif %}
+                                    </a>
+                                </div>
+                                <div class="blog-details">
+                                    <span>{{ event.date }}</span>
+                                    <h4><a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a></h4>
+                                    <p>{{ event.description }}</p>
+                                    <!-- <a href="{% url 'event' event.pk %}" class="read-btn">REGISTER</a> -->
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <br> -->
+        <section class="blog-section spad">
+            <div class="blog-items">
+                <div class="container">
+                    <h2>Informals:</h2><br>
+                    <div class="row">
+                        {% for event in events %}
+                        {% if event.type == 'informal' %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-blog">
+                                <div class="blog-img">
+                                    <a href="balsa.html" class="event-btn">
+                                    {% if event.image %}
+                                        <img src="{{ event.image.url }}" height="166" width="360" alt="">
+                                    {% else %}
+                                        <img src="{% static "img/logo.png" %}" height="166" width="360" alt="">
+                                    {% endif %}
+                                    </a>
+                                </div>
+                                <div class="blog-details">
+                                    <span>{{ event.date }}</span>
+                                    <h4><a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a></h4>
+                                    <p>{{ event.description }}</p>
+                                    <!-- <a href="{% url 'event' event.pk %}" class="read-btn">REGISTER</a> -->
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
                         {% endfor %}
                     </div>
                 </div>
