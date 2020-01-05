@@ -8,8 +8,9 @@ Website for the Technical fest of IIT Jodhpur.
 5. git fetch upstream master
 6. git pull upstream  master
 7. pip install -r requirements.txt
-8. python manage.py makemigrations users
-9. python manage.py makemigrations events
-10. python manage.py makemigrations home 
+8. python manage.py makemigrations events
+9. python manage.py makemigrations home 
+10. python manage.py makemigrations users
 11. python manage.py migrate
-12. python manage.py runserver
+12. python manage.py collectstatic
+13. python manage.py runserver
