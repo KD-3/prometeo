@@ -28,6 +28,10 @@ def event(request, eventid):
             break
     return render(request, 'event.html', {'event' : event, 'is_registered' : is_registered})
 
+def speakers(request):
+    events = Event.objects.all()
+    return render(request, 'speakers.html', {'events' : events})
+
 @login_required
 def registered(request):
     events = request.user.events.all()

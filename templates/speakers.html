@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Speakers {% endblock %}
+{% block bgimage %} {% static "img/event.jpg" %} {% endblock %}
+{% block heading %} SPEAKERS {% endblock %}
+
+{% block outer %}
+<!-- Blog Area Begin -->
+<section class="blog-section spad">
+    <div class="blog-items">
+        <div class="container">
+            <div class="row">
+                {% for event in events %}
+                {% if event.type == 'speaker' %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-blog">
+                        <div class="blog-img">
+                            <a href="{% url 'event' event.pk %}" class="event-btn">
+                            {% if event.image %}
+                                <img src="{{ event.image.url }}" height="166" width="360" alt="">
+                            {% else %}
+                                <img src="{% static "img/logo.png" %}" height="166" width="360" alt="">
+                            {% endif %}
+                            </a>
+                        </div>
+                        <div class="blog-details">
+                            <span>{{ event.date }}</span>
+                            <h4><a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a></h4>
+                            <p>{{ event.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Area End -->
+{% endblock %}
+

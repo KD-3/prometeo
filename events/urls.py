@@ -9,5 +9,6 @@ urlpatterns = [
     path('<int:eventid>/registered_users', registered_users, name='registered_users'),
     path('workshops',workshops,name='workshops'),
     path('informals',informals,name='informals'),
+    path('speakers',speakers,name='speakers'),
 ] 
 
