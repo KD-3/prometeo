@@ -53,7 +53,11 @@
                                 <!-- <form action="{% url 'events' %}" method="GET">
                                     <input type="submit" class="primary-btn buy-tickets" name="register"></input>
                                 </form> -->
+                                {% if is_registered %}
+                                <a href="#" class="primary-btn buy-tickets">ALREADY REGISTERED</a>
+                                {% else %}
                                 <a href="{% url 'register' event.pk %}" class="primary-btn buy-tickets">REGISTER</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

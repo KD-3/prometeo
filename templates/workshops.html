@@ -28,7 +28,11 @@
                             <span>{{ event.date }}</span>
                             <h4><a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a></h4>
                             <p>{{ event.description }}</p>
+                            {% if event in user.events.all %}
+                            <a href="#" class="read-btn">ALREADY REGISTERED</a>
+                            {% else %}
                             <a href="{% url 'event' event.pk %}" class="read-btn">REGISTER</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

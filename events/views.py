@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+# import os
 from .models import Event
 from users.models import CustomUser
 from django.shortcuts import get_object_or_404
@@ -13,7 +14,16 @@ def events(request):
 
 def event(request, eventid):
     event = get_object_or_404(Event, pk=eventid)
-    return render(request, 'event.html', {'event' : event})
+    # print(event.name)
+    is_registered = False
+    user_events = request.user.events.all()
+    for _event in user_events:
+        # print(_event.name)
+        if _event.pk == event.pk:
+            # print ('True')
+            is_registered = True
+            break
+    return render(request, 'event.html', {'event' : event, 'is_registered' : is_registered})
 
 @login_required
 def registered(request):
