@@ -10,4 +10,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('events/', include('events.urls')),
     path('accounts/', include('allauth.urls')),
+    path('sponsors/', include('sponsors.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

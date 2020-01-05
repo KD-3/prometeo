@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'events',
     'home',
+    'sponsors',
     'crispy_forms',
     'widget_tweaks',
     'django_inlinecss',
