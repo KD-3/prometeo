@@ -26,10 +26,13 @@
                         </div>
                         <div class="blog-details">
                             <span>{{ event.date }}</span>
-                            <h4><a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a></h4>
+                
+                            <h4>
+                                <a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a>
+                            </h4>
                             <p>{{ event.description }}</p>
                             {% if user.is_superuser %}
-                            <a href="{% url 'registered_users' event.pk %}" class="read-btn">REGISTERED USERS</a>
+                            <a href="{% url 'event' event.pk %}" class="read-btn">REGISTERED USERS</a>
                             {% else %}
                             <a href="{% url 'event' event.pk %}" class="read-btn">REGISTER</a>
                             {% endif %}

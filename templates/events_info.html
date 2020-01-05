@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %} Users Info {% endblock %}
+{% block title %} Events Info - {{ query_user.username }} {% endblock %}
 
 {% block style %} <link rel="stylesheet" href="{% static 'css/search-table-style.css' %}" type="text/css">{% endblock %}
-{% block heading %} Users Info {% endblock %}
+{% block heading %} Events Info - {{ query_user.username }} {% endblock %}
 
 {% block content %}
 <div class="container search-table">
@@ -19,23 +19,25 @@
         </div>
     </div>
     <div class="search-list">
-        <h3>{{ users.count }} Records Found</h3>
+        <h3>{{ query_user.events.count }} Records Found</h3>
         <div style="overflow: scroll;">
         <table class="table" id="myTable">
             <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Events Registered</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Participants</th>
                 </tr>
             </thead>
             <tbody>
                 
-            {% for user in users.all %}
+            {% for event in query_user.events.all %}
             <tr>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.events.count }} <a href="{% url 'events_info' user.pk %}" style="float: right;">View</a></td>
+                <td>{{ event.name }}</td>
+                <td>{{ event.type }}</td>
+                <td>{{ event.date }}</td>
+                <td>{{ event.participants.count }} <a href="{% url 'event' event.pk %}" style="float: right;">View</a></td>
             </tr>
             {% endfor %}
             </tbody>

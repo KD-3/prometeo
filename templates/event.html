@@ -23,7 +23,10 @@
             <div class="col-lg-10 col-md-12">
                 <div class="tickets-table">
                     <div class="table-price text-center">
-                        <span>Programming Club</span>
+                        {% if event.host %}
+                        <span>event.host</span>
+                        {% endif %}
+                        <span>{{ event.type }}</span>
                         <h2 class="table-title">{{ event.name }}</h2>
                     </div>
                     <div class="table-features">
@@ -41,10 +44,14 @@
                                     {% endif %}
                                 </ul>
                             </div>
+                            
                             <div class="col-lg-6 col-md-6 col-xs-6" align="center">
                                 <ul>
                                     {% if event.rulebook %}
                                     <li><a href="{{ event.rulebook.url }}" download="{{ event.name }}"><img src="{% static "img/download.png" %}" height="15" width="18" alt="">Download Rulebook</a></li>
+                                    {% endif %}
+                                    {% if user.is_superuser %}
+                                    <li><a href="{% get_media_prefix %}workbooks/{{ wbname }}" download="{{ wbname }}"><img src="{% static "img/download.png" %}" height="15" width="18" alt="">Download Participants Excel Sheet</a></li>
                                     {% endif %}
                                     {% if event.prize %}
                                     <li><h3><img src="{% static "img/prize.png" %}" alt="" height="30" width="30"> Prizes worth Rs. {{ event.prize }}</h3></li>
@@ -53,29 +60,12 @@
                                 <!-- <form action="{% url 'events' %}" method="GET">
                                     <input type="submit" class="primary-btn buy-tickets" name="register"></input>
                                 </form> -->
+                                
+                                {% if not user.is_superuser %}
                                 <a href="{% url 'register' event.pk %}" class="primary-btn buy-tickets">REGISTER</a>
+                                {% endif %}
                             </div>
                         </div>
-                    </div>
-                    <div class="table-features">
-                        <div class="row">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    {% for participant in participants %}
-                                        <tr>
-                                            <td>{{ participant.username }}</td>
-                                            <td>{{ participant.email }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                          </div>
                     </div>
                 </div>
             </div>
