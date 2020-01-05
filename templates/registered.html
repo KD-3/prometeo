@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Registered Events {% endblock %}
+{% block bgimage %} {% static "img/event.jpg" %} {% endblock %}
+{% block heading %} Registered Events {% endblock %}
+{% block outer %}
+{% if user.is_authenticated %}
+	    {% block messages %}
+        {% endblock %}
+        <section class="blog-section spad">
+            <div class="blog-items">
+                <div class="container">
+                    <div class="row">
+                        {% for event in events %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-blog">
+                                <div class="blog-img">
+                                    <a href="balsa.html" class="event-btn">
+                                    {% if event.image %}
+                                        <img src="{{ event.image.url }}" height="166" width="360" alt="">
+                                    {% else %}
+                                        <img src="{% static "img/logo.png" %}" height="166" width="360" alt="">
+                                    {% endif %}
+                                    </a>
+                                </div>
+                                <div class="blog-details">
+                                    <span>{{ event.date }}</span>
+                                    <h4><a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a></h4>
+                                    <p>{{ event.description }}</p>
+                                    <!-- <a href="{% url 'event' event.pk %}" class="read-btn">REGISTER</a> -->
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endif %}
+{% endblock %}

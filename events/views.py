@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Event
 from users.models import CustomUser
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def events(request):
@@ -12,6 +14,10 @@ def events(request):
 def event(request, eventid):
     event = get_object_or_404(Event, pk=eventid)
     return render(request, 'event.html', {'event' : event})
+
+def registered(request):
+    events = request.user.events.all()
+    return render(request, 'registered.html', {'events' : events})
 
 @login_required
 def register_for_event(request, eventid):
