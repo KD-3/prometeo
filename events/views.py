@@ -1,5 +1,6 @@
 import os
 from django.shortcuts import render, redirect
+# import os
 from django.conf import settings
 from .models import Event
 from users.models import CustomUser
@@ -49,7 +50,21 @@ def event(request, eventid):
         workbook.close()
         return render(request, 'event.html', {'participants' : participants, 'event' : event, 'wbname' : wbname})
     else:
-        return render(request, 'event.html', {'event' : event})
+        # print(event.name)
+        is_registered = False
+        user_events = request.user.events.all()
+        for _event in user_events:
+            # print(_event.name)
+            if _event.pk == event.pk:
+                # print ('True')
+                is_registered = True
+                break
+        return render(request, 'event.html', {'event' : event, 'is_registered' : is_registered})
+    
+
+def speakers(request):
+    events = Event.objects.all()
+    return render(request, 'speakers.html', {'events' : events})
 
 @login_required
 def registered(request):

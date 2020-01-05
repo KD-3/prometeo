@@ -62,7 +62,11 @@
                                 </form> -->
                                 
                                 {% if not user.is_superuser %}
-                                <a href="{% url 'register' event.pk %}" class="primary-btn buy-tickets">REGISTER</a>
+                                    {% if is_registered %}
+                                    <a href="#" class="primary-btn buy-tickets">ALREADY REGISTERED</a>
+                                    {% else %}
+                                    <a href="{% url 'register' event.pk %}" class="primary-btn buy-tickets">REGISTER</a>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>

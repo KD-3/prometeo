@@ -4,7 +4,8 @@ from django.db import models
 EVENT_CHOICES = (
     ('event','EVENT'),
     ('workshop','WORKSHOP'),
-    ('informal','INFORMAL')
+    ('informal','INFORMAL'),
+    ('speaker', 'SPEAKER')
 )
 class Event(models.Model):
     name = models.CharField(max_length=50, verbose_name="Event Name", unique=True)

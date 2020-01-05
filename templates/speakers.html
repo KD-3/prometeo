@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %} Events {% endblock %}
+{% block title %} Speakers {% endblock %}
 {% block bgimage %} {% static "img/event.jpg" %} {% endblock %}
-{% block heading %} TECHNICAL EVENTS {% endblock %}
+{% block heading %} SPEAKERS {% endblock %}
 
 {% block outer %}
 <!-- Blog Area Begin -->
@@ -12,7 +12,7 @@
         <div class="container">
             <div class="row">
                 {% for event in events %}
-                {% if event.type == 'event' %}
+                {% if event.type == 'speaker' %}
                 <div class="col-lg-4 col-md-6">
                     <div class="single-blog">
                         <div class="blog-img">
@@ -26,21 +26,8 @@
                         </div>
                         <div class="blog-details">
                             <span>{{ event.date }}</span>
-                
-                            <h4>
-                                <a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a>
-                            </h4>
+                            <h4><a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a></h4>
                             <p>{{ event.description }}</p>
-                            
-                            {% if user.is_superuser %}
-                            <a href="{% url 'event' event.pk %}" class="read-btn">REGISTERED USERS</a>
-                            {% else %}
-                            {% if event in user.events.all %}
-                            <a href="#" class="read-btn">ALREADY REGISTERED</a>
-                            {% else %}
-                            <a href="{% url 'event' event.pk %}" class="read-btn">REGISTER</a>
-                            {% endif %}
-                            {% endif %}
                         </div>
                     </div>
                 </div>
