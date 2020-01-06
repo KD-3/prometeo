@@ -4,6 +4,7 @@
 
 {% block style %} <link rel="stylesheet" href="{% static 'css/search-table-style.css' %}" type="text/css">{% endblock %}
 {% block heading %} Users Info {% endblock %}
+{% block bgimage %} {% static 'img/users.jpg' %} {% endblock %}
 
 {% block content %}
 <div class="container search-table">
@@ -20,7 +21,7 @@
     </div>
     <div class="search-list">
         <h3>{{ users.count }} Records Found</h3>
-        <div style="overflow: scroll;">
+        <div style="overflow: scroll; max-height:500px;">
         <table class="table" id="myTable">
             <thead>
                 <tr>
@@ -33,9 +34,9 @@
                 
             {% for user in users.all %}
             <tr>
-                <td>{{ user.username }}</td>
+                <td><a href="{% url 'user_info' user.pk %}">{{ user.username }}</a></td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.events.count }} <a href="{% url 'events_info' user.pk %}" style="float: right;">View</a></td>
+                <td style="text-align: center;">{{ user.events.count }}</td>
             </tr>
             {% endfor %}
             </tbody>

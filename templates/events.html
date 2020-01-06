@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %} Events {% endblock %}
+
+{% block title %} hfhfh {% endblock %}
+{% block heading %} hfhfh {% endblock %}
+
 {% block bgimage %} {% static "img/event.jpg" %} {% endblock %}
-{% block heading %} TECHNICAL EVENTS {% endblock %}
 
 {% block outer %}
 <!-- Blog Area Begin -->
@@ -12,11 +14,11 @@
         <div class="container">
             <div class="row">
                 {% for event in events %}
-                {% if event.type == 'event' %}
+                {% if event.type == type %}
                 <div class="col-lg-4 col-md-6">
                     <div class="single-blog">
                         <div class="blog-img">
-                            <a href="{% url 'event' event.pk %}" class="event-btn">
+                            <a href="{% url 'event' event.type event.pk %}" class="event-btn">
                             {% if event.image %}
                                 <img src="{{ event.image.url }}" height="166" width="360" alt="">
                             {% else %}
@@ -28,18 +30,18 @@
                             <span>{{ event.date }}</span>
                 
                             <h4>
-                                <a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a>
+                                <a href="{% url 'event' event.type event.pk %}" class="event-btn">{{ event.name }}</a>
                             </h4>
                             <p>{{ event.description }}</p>
                             
                             {% if user.is_superuser %}
-                            <a href="{% url 'event' event.pk %}" class="read-btn">REGISTERED USERS</a>
+                            <a href="{% url 'event' event.type event.pk %}" class="read-btn">REGISTERED USERS</a>
                             {% else %}
                             {% if event in user.events.all %}
-                            <a href="#" class="read-btn">ALREADY REGISTERED</a>
-                            {% else %}
-                            <a href="{% url 'event' event.pk %}" class="read-btn">REGISTER</a>
-                            {% endif %}
+                                <a href="#" class="read-btn">ALREADY REGISTERED</a>
+                                {% else %}
+                                <a href="{% url 'event' event.type event.pk %}" class="read-btn">REGISTER</a>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>

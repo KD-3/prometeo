@@ -11,11 +11,12 @@ import xlsxwriter
 
 
 # Create your views here.
-def events(request):
+def events(request, type):
+    # print(type)
     events = Event.objects.all()
-    return render(request, 'events.html', {'events' : events})
+    return render(request, 'events.html', {'events' : events, 'type' : type})
 
-def event(request, eventid):
+def event(request, type, eventid):
     event = get_object_or_404(Event, pk=eventid)
     if (request.user.is_superuser):
         participants = event.participants.all()
@@ -50,16 +51,7 @@ def event(request, eventid):
         workbook.close()
         return render(request, 'event.html', {'participants' : participants, 'event' : event, 'wbname' : wbname})
     else:
-        # print(event.name)
-        is_registered = False
-        user_events = request.user.events.all()
-        for _event in user_events:
-            # print(_event.name)
-            if _event.pk == event.pk:
-                # print ('True')
-                is_registered = True
-                break
-        return render(request, 'event.html', {'event' : event, 'is_registered' : is_registered})
+        return render(request, 'event.html', {'event' : event})
     
 
 def speakers(request):
@@ -70,14 +62,6 @@ def speakers(request):
 def registered(request):
     events = request.user.events.all()
     return render(request, 'registered.html', {'events' : events})
-
-def workshops(request):
-    events = Event.objects.all()
-    return render(request, 'workshops.html', {'events' : events})
-
-def informals(request):
-    events = Event.objects.all()
-    return render(request, 'informals.html', {'events' : events})
 
 @login_required
 def register_for_event(request, eventid):

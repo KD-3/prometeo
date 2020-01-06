@@ -152,9 +152,9 @@
     <div class="col-lg-12" style="text-align: center;">
       {% if user.is_authenticated %}
         <h2 style="margin: 20px; ">Hi, {{ user.username }}!</h2> 
-        <a href="{% url 'events' %}" class="primary-btn green" style="margin:10px">Explore Events</a>
-        <a href="{% url 'events' %}" class="primary-btn blue" style="margin:10px">Explore Informals</a>
-        <a href="{% url 'events' %}" class="primary-btn yellow" style="margin:10px">Explore Workshops</a>
+        <a href="{% url 'events' 'technical' %}" class="primary-btn green" style="margin:10px">Explore Technical Events</a>
+        <a href="{% url 'events' 'informal' %}" class="primary-btn blue" style="margin:10px">Explore Informals</a>
+        <a href="{% url 'events' 'workshop' %}" class="primary-btn yellow" style="margin:10px">Explore Workshops</a>
       {% else %}
         <h3>You are not logged in</h3>
         <a href="/accounts/login" class="primary-btn blue">Login</a>

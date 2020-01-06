@@ -17,6 +17,6 @@ def users_info(request):
     return render(request, 'users_info.html', {'users':users})
 
 @user_passes_test(lambda u: u.is_superuser)
-def events_info(request, userid):
+def user_info(request, userid):
     user = CustomUser.objects.get(pk=userid)
-    return render(request, 'events_info.html', {'query_user':user})
+    return render(request, 'user_info.html', {'query_user':user})

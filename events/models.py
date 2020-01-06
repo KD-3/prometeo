@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 EVENT_CHOICES = (
-    ('event','EVENT'),
+    ('technical','TECHNICAL'),
     ('workshop','WORKSHOP'),
     ('informal','INFORMAL'),
     ('speaker', 'SPEAKER')
@@ -19,3 +19,5 @@ class Event(models.Model):
     venue = models.CharField(max_length=50, null=True, blank=True, verbose_name="Event Venue")
     type = models.CharField(max_length=15,choices=EVENT_CHOICES,default='event')
     
+    def __str__(self):
+        return self.name
