@@ -41,3 +41,4 @@ media/
 venv/
 ENV/"sendgrid.env" 
 manul.xlsx
+.env

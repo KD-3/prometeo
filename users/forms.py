@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import CustomUser
+from .models import CustomUser, Team
 from allauth.account.forms import SignupForm, LoginForm
 
 class CustomUserCreationForm(UserCreationForm):
@@ -32,3 +32,11 @@ class CustomLoginForm(LoginForm):
         super(CustomLoginForm, self).__init__(*args, **kwargs)
 
         self.fields['login'].label = 'Email or Username'
+
+class TeamCreationForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = ['name']
+
+class TeamJoiningForm(forms.Form):
+    teamId = forms.CharField(label="Team ID", max_length=9, min_length=9)

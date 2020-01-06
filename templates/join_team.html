@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load socialaccount %}
+{% load widget_tweaks %}
+
+
+{% block style %} 	
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login_style.css' %}">
+{% endblock %}
+{% block head_links %} 
+
+<title>Join Team</title>
+
+{% endblock %}
+
+
+{% block head_title %}{% trans "Join Team" %} {% endblock %}
+
+{% block content %}
+
+
+<div class="d-flex justify-content-center h-100">
+	<div class="card">
+		<div class="card-header">
+			<h3>Join Team</h3>
+		</div>
+		<div class="card-body">
+			<form class="container-fluid text-center" id="login_form" method="POST" action="{% url 'join_team' %}">
+				{% csrf_token %}
+				{% include 'includes/form_base.html' %}
+				<div class="form-group">
+					<input type="submit" value="Join" class="btn float-right login_btn">
+				</div>
+			</form>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-center" style="text-align:center; color:white;">
+				Enter the team ID shared by the team leader to join the team.
+			</div>
+            <div class="d-flex justify-content-center links">
+				Don't have a team ID?<a href="{% url 'create_team' %}">Create a team</a>
+			</div>
+            
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}
