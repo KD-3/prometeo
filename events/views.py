@@ -50,8 +50,12 @@ def event(request, type, eventid):
             row = row + 1
         workbook.close()
         return render(request, 'event.html', {'participants' : participants, 'event' : event, 'wbname' : wbname})
-    else:
-        return render(request, 'event.html', {'event' : event})
+    if(request.user.is_authenticated):
+        if(event.participation_type == 'team'):
+            if(request.user.teams.filter(event=event).exists()):
+                team = request.user.teams.get(event=event)
+                return render(request, 'event.html', {'event':event, 'team':team})
+    return render(request, 'event.html', {'event' : event})
     
 
 def speakers(request):

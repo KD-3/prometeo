@@ -35,6 +35,14 @@
                                 <ul>
                                     <li><img src="{% static "img/check.png" %}" alt=""> PROBLEM STATEMENT/DESCRIPTION
                                     <p>{{ event.description }}</p></li>
+                                    <li><img src="{% static "img/check.png" %}" alt=""> EVENT TYPE:                             
+                                        {% if event.participation_type == 'team' %}
+                                        Team Event (Team Size: {{ event.min_team_size }}-{{ event.max_team_size }})
+                                        {% else %}
+                                        Individual Event 
+                                        {% endif %}                      
+                                    </li>
+                                    
                                     <li><img src="{% static "img/check.png" %}" alt="">DATE: {{ event.date }}</li>
                                     {% if event.time %}
                                     <li><img src="{% static "img/check.png" %}" alt="">TIME: {{ event.time }}</li>
@@ -56,14 +64,24 @@
                                     {% if event.prize %}
                                     <li><h3><img src="{% static "img/prize.png" %}" alt="" height="30" width="30"> Prizes worth Rs. {{ event.prize }}</h3></li>
                                     {% endif %}
+                                
                                 </ul>
                                 
                                 {% if user.is_authenticated %}
                                     {% if not user.is_superuser %}
-                                        {% if event in user.events.all %}
-                                        <a href="#" class="primary-btn buy-tickets">ALREADY REGISTERED</a>
+                                        {% if event.participation_type == 'individual' %}
+                                            {% if event in user.events.all %}
+                                            <a href="{% url 'registered' %}" class="primary-btn buy-tickets">ALREADY REGISTERED</a>
+                                            {% else %}
+                                            <a href="{% url 'register' event.pk %}" class="primary-btn buy-tickets">REGISTER</a>
+                                            {% endif %}
                                         {% else %}
-                                        <a href="{% url 'register' event.pk %}" class="primary-btn buy-tickets">REGISTER</a>
+                                            {% if team %}
+                                            <a href="{% url 'registered' %}" class="primary-btn buy-tickets">ALREADY REGISTERED</a>
+                                            {% else %}
+                                            <a href="{% url 'create_team' event.pk %}" class="primary-btn buy-tickets">REGISTER</a>
+                                            <br><br><a href="{% url 'join_team' %}" class="primary-btn buy-tickets">JOIN A TEAM</a>
+                                            {% endif %}
                                         {% endif %}
                                     {% endif %}
                                 {% else %}

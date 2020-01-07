@@ -38,7 +38,7 @@
                             <a href="{% url 'event' event.type event.pk %}" class="read-btn">REGISTERED USERS</a>
                             {% else %}
                             {% if event in user.events.all %}
-                                <a href="#" class="read-btn">ALREADY REGISTERED</a>
+                                <a href="{% url 'event' event.type event.pk %}" class="read-btn">ALREADY REGISTERED</a>
                                 {% else %}
                                 <a href="{% url 'event' event.type event.pk %}" class="read-btn">REGISTER</a>
                                 {% endif %}

@@ -13,6 +13,6 @@ class Team(models.Model):
     name = models.CharField(max_length=50, verbose_name="Team Name", unique=True)
     leader = models.ForeignKey(CustomUser, blank=True, related_name="teams_created", on_delete=models.CASCADE)
     members = models.ManyToManyField(CustomUser, related_name="teams")
-    events = models.ManyToManyField(Event, blank=True, related_name="participating_teams")
+    event = models.ForeignKey(Event, blank=True, related_name="participating_teams", on_delete=models.CASCADE)
     def __str__(self):
         return self.name

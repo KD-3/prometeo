@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block style %} 	
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login_style.css' %}">
+{% endblock %}
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block content %}
+
+
+
+<div class="d-flex justify-content-center h-100">
+  <div class="card">
+      <div class="card-header">
+          <h3 style="margin-bottom: 10px;">Sign Out</h3>
+          <p class="forgot_password_info" style="color: white;">Are you sure you want to join team '{{ team.name }}' for participating in {{ team.event.name }}?</p>
+      </div>
+      <div class="card-body">
+          <form class="container-fluid text-center" id="logout_form" method="post" action="{% url 'join_team_confirm' %}?id={{ team.pk }}">
+              {% csrf_token %}
+              
+
+              <div class="form-group">
+                  <input type="submit" value="Join Team" class="btn login_btn" style="width:auto; margin-right:20px">
+                  <a class="btn login_btn" href="{% url 'join_team' %}">{% trans 'No' %}</a>
+                  
+                </div>
+        
+              {% if redirect_field_value %}
+
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+
+              {% endif %}
+          </form>
+      </div>
+      <div class="card-footer">
+          <div class="d-flex justify-content-center links" style="text-align: center;">
+            
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+<!-- <button  class="btn btn-outline-success" type="submit">{% trans 'Sign Out' %}</button> -->
+  
+
+
+{% endblock %}

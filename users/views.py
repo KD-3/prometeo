@@ -4,7 +4,10 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from django.shortcuts import render, redirect
 from .models import CustomUser, Team
 import uuid
+import requests
 from .forms import CustomUserCreationForm, TeamCreationForm, TeamJoiningForm
+from events.models import Event
+from django.shortcuts import get_object_or_404
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
@@ -22,21 +25,25 @@ def user_info(request, userid):
     return render(request, 'user_info.html', {'query_user':user})
 
 @login_required
-def create_team(request):
+def create_team(request, eventid):
+    event = get_object_or_404(Event, pk=eventid)
+    if(request.user.teams.filter(event=event).exists()):
+        return redirect('event', event.type, event.pk)
     if request.method == 'POST':
         form = TeamCreationForm(request.POST)
         if form.is_valid():
             team = form.save(commit=False)
             team.id = 'PRO' + str(uuid.uuid4().int)[:6]
             team.leader = request.user
+            team.event = event
             team.save()
             team.members.add(request.user)
             team.save()
             # form.save_m2m()
-            return redirect('team_created', team=team)
+            return redirect('team_created')
     else:
         form = TeamCreationForm()
-    return render(request, 'create_team.html', {'form': form})
+    return render(request, 'create_team.html', {'form': form, 'event':event})
 
 @login_required
 def join_team(request):
@@ -48,10 +55,13 @@ def join_team(request):
                 team = Team.objects.get(pk=teamId)
                 if request.user in team.members.all():
                     form.add_error(None, 'You are already a member of this team')
+                elif (team.members.all().count() >= team.event.max_team_size):
+                    form.add_error(None, 'Team is already full')
                 else:
-                    team.members.add(request.user)
-                    team.save()
-                    return redirect('home')
+                    response = redirect('join_team_confirm')
+                    response['Location'] += '?id=' + teamId
+                    return response
+                    
             else:
                 form.add_error('teamId', 'No team with the given team ID exists')
             # form.save_m2m()
@@ -62,3 +72,13 @@ def join_team(request):
 
 def team_created(request):
     return render(request, 'team_created.html')
+
+def join_team_confirm(request):
+    teamId = request.GET['id']
+    team = Team.objects.get(pk=teamId)
+    if request.method == 'POST':
+        team.members.add(request.user)
+        team.save()
+        return redirect('home')
+    else:
+        return render(request, 'join_team_confirm.html', {'team':team})
