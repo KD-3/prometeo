@@ -14,7 +14,12 @@ import xlsxwriter
 def events(request, type):
     # print(type)
     events = Event.objects.all()
-    return render(request, 'events.html', {'events' : events, 'type' : type})
+    teams = {}
+    if(request.user.is_authenticated):
+        for event in events:
+            if(event.participation_type == 'team' and request.user.teams.filter(event=event).exists()):
+                teams[event.pk] = request.user.teams.get(event=event)
+    return render(request, 'events.html', {'events' : events, 'type' : type, 'teams':teams})
 
 def event(request, type, eventid):
     event = get_object_or_404(Event, pk=eventid)
