@@ -63,7 +63,7 @@
                                             {% if user.is_superuser %}
                                                 <li><a href="{% url 'users_info' %}">Users Info</a></li>
                                             {% else %}
-                                                <li><a href="/events/registered">Registered Events</a></li>
+                                                <li><a href="{% url 'registered' %}">Registered Events</a></li>
                                             {% endif %}
                                             <li><a href="/accounts/password/change">Change Password</a></li>
                                             <li><a href="/accounts/logout">Logout</a></li>

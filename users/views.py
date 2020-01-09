@@ -39,6 +39,7 @@ def create_team(request, eventid):
             team.save()
             team.members.add(request.user)
             team.save()
+            request.user.events.add(event)
             # form.save_m2m()
             return redirect('team_created')
     else:
@@ -79,6 +80,7 @@ def join_team_confirm(request):
     if request.method == 'POST':
         team.members.add(request.user)
         team.save()
+        request.user.events.add(team.event)
         return redirect('home')
     else:
         return render(request, 'join_team_confirm.html', {'team':team})

@@ -70,7 +70,12 @@ def speakers(request):
 @login_required
 def registered(request):
     events = request.user.events.all()
-    return render(request, 'registered.html', {'events' : events})
+    types = ['technical', 'informal', 'workshop']
+    categories = [] 
+    for type in types:
+        if(request.user.events.filter(type=type).exists()):
+            categories.append(type)
+    return render(request, 'registered.html', {'events' : events, 'categories':categories})
 
 @login_required
 def register_for_event(request, eventid):

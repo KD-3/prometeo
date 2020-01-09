@@ -3,107 +3,39 @@
 {% block title %} Registered Events {% endblock %}
 {% block bgimage %} {% static "img/event.jpg" %} {% endblock %}
 {% block heading %} Registered Events {% endblock %}
-{% block outer %}
+{% block content %}
 {% if user.is_authenticated %}
-	    {% block messages %}
-        {% endblock %}
-        <section class="blog-section spad">
-            <div class="blog-items">
-                <div class="container">
-                    <h2>Events:</h2><br>
-                    <div class="row">
-                        {% for event in events %}
-                        {% if event.type == 'event' %}
-                        <div class="col-lg-4 col-md-6">
-                            <div class="single-blog">
-                                <div class="blog-img">
-                                    <a href="balsa.html" class="event-btn">
-                                    {% if event.image %}
-                                        <img src="{{ event.image.url }}" height="166" width="360" alt="">
-                                    {% else %}
-                                        <img src="{% static "img/logo.png" %}" height="166" width="360" alt="">
-                                    {% endif %}
-                                    </a>
-                                </div>
-                                <div class="blog-details">
-                                    <span>{{ event.date }}</span>
-                                    <h4><a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a></h4>
-                                    <p>{{ event.description }}</p>
-                                    <!-- <a href="{% url 'event' event.pk %}" class="read-btn">REGISTER</a> -->
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
+{% for category in categories %}
+    <div class="container">
+        <h3 class="pb-3 mb-4 font-italic border-bottom" style="text-transform:capitalize;">
+            {{ category }}
+         </h3>
+        <div class="row">
+            {% for event in events %}
+                {% if event.type == category %}
+                <div class="col-md-6">
+                    <div class="card border-primary flex-md-row mb-4 shadow-sm h-md-250">
+                    <div class="card-body d-flex flex-column align-items-start">
+                        <strong class="d-inline-block mb-2 text-primary" style="text-transform: capitalize">{{ event.type }}</strong>
+                        <h6 class="mb-0">
+                            <a class="text-dark" href="{% url 'event' event.type event.pk %}">{{ event.name }}</a>
+                        </h6>
+                        <div class="mb-1 text-muted small">{{ event.date }}</div>
+                        <p class="card-text mb-auto">{{ event.description }}</p>
+                        <a class="btn btn-outline-primary btn-sm" role="button" href="{% url 'event' event.type event.pk %}">More Info</a>
+                    </div>
+                    {% if event.image %}
+                        <img class="card-img-right flex-auto d-none d-lg-block" alt="{{ event.name }}" src="{{ event.image.url }}" style="width: 200px; height: 250px;">
+                    {% else %}
+                        <img class="card-img-right flex-auto d-none d-lg-block" alt="{{ event.name }}" src="{% static 'img/logo.png' %}" style="width: 200px; height: 250px;">
+                    {% endif %}
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- <br> -->
-        <section class="blog-section spad">
-            <div class="blog-items">
-                <div class="container">
-                    <h2>Workshops:</h2><br>
-                    <div class="row">
-                        {% for event in events %}
-                        {% if event.type == 'workshop' %}
-                        <div class="col-lg-4 col-md-6">
-                            <div class="single-blog">
-                                <div class="blog-img">
-                                    <a href="balsa.html" class="event-btn">
-                                    {% if event.image %}
-                                        <img src="{{ event.image.url }}" height="166" width="360" alt="">
-                                    {% else %}
-                                        <img src="{% static "img/logo.png" %}" height="166" width="360" alt="">
-                                    {% endif %}
-                                    </a>
-                                </div>
-                                <div class="blog-details">
-                                    <span>{{ event.date }}</span>
-                                    <h4><a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a></h4>
-                                    <p>{{ event.description }}</p>
-                                    <!-- <a href="{% url 'event' event.pk %}" class="read-btn">REGISTER</a> -->
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- <br> -->
-        <section class="blog-section spad">
-            <div class="blog-items">
-                <div class="container">
-                    <h2>Informals:</h2><br>
-                    <div class="row">
-                        {% for event in events %}
-                        {% if event.type == 'informal' %}
-                        <div class="col-lg-4 col-md-6">
-                            <div class="single-blog">
-                                <div class="blog-img">
-                                    <a href="balsa.html" class="event-btn">
-                                    {% if event.image %}
-                                        <img src="{{ event.image.url }}" height="166" width="360" alt="">
-                                    {% else %}
-                                        <img src="{% static "img/logo.png" %}" height="166" width="360" alt="">
-                                    {% endif %}
-                                    </a>
-                                </div>
-                                <div class="blog-details">
-                                    <span>{{ event.date }}</span>
-                                    <h4><a href="{% url 'event' event.pk %}" class="event-btn">{{ event.name }}</a></h4>
-                                    <p>{{ event.description }}</p>
-                                    <!-- <a href="{% url 'event' event.pk %}" class="read-btn">REGISTER</a> -->
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </section>
+                {% endif %}
+            {% endfor %}
+            
+        </div>
+    </div>
+{% endfor %}
 {% endif %}
 {% endblock %}
