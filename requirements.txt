@@ -15,6 +15,7 @@ future==0.18.2
 idna==2.8
 oauthlib==3.1.0
 Pillow==6.2.1
+psycopg2-binary==2.8.4
 pynliner==0.8.0
 python-http-client==3.2.1
 python3-openid==3.1.0
