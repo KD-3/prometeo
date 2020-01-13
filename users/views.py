@@ -91,7 +91,7 @@ def join_team_confirm(request):
         team.members.add(request.user)
         team.save()
         request.user.events.add(team.event)
-        messages.success(request, 'Successfully joined team.')
+        messages.success(request, f"Successfully joined team '{team.name}'.")
         return redirect('event', team.event.type, team.event.pk)
     else:
         return render(request, 'join_team_confirm.html', {'team':team})
