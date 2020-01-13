@@ -1,0 +1,5 @@
+@media only screen and (max-width: 530px) {
+    .index-page .brand h1 {
+        font-size:12vw;
+    }
+}
