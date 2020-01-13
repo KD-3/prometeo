@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Our Team {% endblock %}
+
+{% block heading %} 
+<h1 style="font-family: 'Calistoga', cursive; letter-spacing:2px;">Our Team</h1>
+{% endblock %}
+{% block bgimage %} {% static 'img/users.jpg' %} {% endblock %}
+
+{% block content %}
+<div class="section text-center">
+    
+    <div class="team">
+      {% for role, display in roles.items %}
+      <h2 class="title">{{ display }}</h2>
+      <div class="row">
+        
+        
+        {% for member in members %}
+        {% if member.role == role %}
+        <div class="col-md-4">
+          <div class="team-player">
+            <div class="card card-plain">
+              <div class="col-md-6 ml-auto mr-auto">
+                {% if member.image %}
+                  <img src="{{ member.image.url }}" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
+                {% else %}
+                  <img src="{% static 'img/avatar.jfif' %}" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
+                {% endif %}
+              </div>
+              <h4 class="card-title">{{ member.name }}
+                <br>
+                <small class="card-description text-muted">{{ member.designation }}</small>
+              </h4>
+              <div class="card-body">
+                <p class="card-description">{{ member.description }}</p>
+              </div> 
+              <div class="card-footer justify-content-center">
+                {% if member.instagram %}
+                <a href="{{ member.instagram }}" class="btn btn-link btn-just-icon"><i class="fa fa-instagram"></i></a>
+                {% endif %}
+                {% if member.facebook %}
+                <a href="{{ member.facebook }}" class="btn btn-link btn-just-icon"><i class="fa fa-facebook-square"></i></a>
+                {% endif %}
+                {% if member.linkedin %}
+                <a href="{{ member.linkedin }}" class="btn btn-link btn-just-icon"><i class="fa fa-linkedin"></i></a>
+                {% endif %}
+                {% if member.github %}
+                <a href="{{ member.github }}" class="btn btn-link btn-just-icon"><i class="fa fa-github"></i></a>
+                {% endif %}
+                {% if member.email %}
+                <a href="mailto:{{ member.email }}" class="btn btn-link btn-just-icon"><i class="fa fa-envelope"></i></a>
+                {% endif %}
+          
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}
+

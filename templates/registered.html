@@ -9,10 +9,12 @@
 {% if user.is_authenticated %}
 {% for category in categories %}
     <div class="container">
-        <h3 class="pb-3 mb-4 border-bottom" style="text-transform:capitalize; font-weight:bold;font-family: 'Roboto', sans-serif;">
+        <a href="javascript:void(0);" onclick="showType('{{ category }}')">
+        <h3 class="pb-3 mb-4 border-bottom" style="color:black;text-transform:capitalize; font-weight:bold;font-family: 'Roboto', sans-serif;">
             {{ category }}
-            <a href="javascript:void(0);" style="float:right" onclick="showType('{{ category }}')"><i class="material-icons">keyboard_arrow_down</i></a>
+            <i class="material-icons" style="font-size:24px; float:right">keyboard_arrow_down</i>
          </h3>
+        </a>
         <div class="row category" id="{{ category }}" style="display:none;">
             {% for event in events %}
                 {% if event.type == category %}

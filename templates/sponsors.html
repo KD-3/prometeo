@@ -1,32 +1,41 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %} Sponsors {% endblock %}
-{% block bgimage %} {% static "img/event.jpg" %} {% endblock %}
-{% block heading %} Sponsors {% endblock %}
-{% block outer %}
-        <section class="blog-section spad">
-            <div class="blog-items">
-                <div class="container">
-                    <div class="row">
-                        {% for sponsor in sponsors %}
-                        <div class="col-lg-4 col-md-6">
-                            <div class="single-blog">
-                                <div class="blog-img">
-                                    {% if sponsor.image %}
-                                        <img src="{{ sponsor.image.url }}" height="166" width="360" alt="">
-                                    {% else %}
-                                        <img src="{% static "img/logo.png" %}" height="166" width="360" alt="">
-                                    {% endif %}
-                                </div>
-                                <div class="blog-details">
-                                    <h4>{{ sponsor.name }}</h4>
-                                    <p>{{ sponsor.type }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </section>
+
+{% block heading %} 
+<h1 style="font-family: 'Calistoga', cursive; letter-spacing:2px;">Sponsors</h1>
 {% endblock %}
+{% block bgimage %} {% static 'img/users.jpg' %} {% endblock %}
+
+{% block content %}
+<div class="section text-center">
+    <div class="team">
+      <div class="row">
+  
+        {% for sponsor in sponsors %}
+        <div class="col-md-4">
+          <div class="team-player">
+            <div class="card card-plain">
+              <div class="col-md-6 ml-auto mr-auto">
+                {% if sponsor.image %}
+                  <img src="{{ sponsor.image.url }}" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
+                {% else %}
+                  <img src="{% static 'img/avatar.jfif' %}" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
+                {% endif %}
+              </div>
+              <h4 class="card-title">{{ sponsor.name }}
+                <br>
+                <small class="card-description text-muted">{{ sponsor.type }}</small>
+              </h4>
+              
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+

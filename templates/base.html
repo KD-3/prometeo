@@ -92,8 +92,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'webd_team' %}" onclick="scrollToDownload()">
-              About
+            <a class="nav-link" href="{% url 'industry_day' %}" onclick="scrollToDownload()">
+              Industry Day
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'team' %}" onclick="scrollToDownload()">
+              Our Team
             </a>
           </li>
           {% if user.is_authenticated %}
@@ -200,7 +205,7 @@
             </a>
           </li>
           <li>
-            <a href="{% url 'webd_team' %}">
+            <a href="{% url 'team' %}">
               About Us
             </a>
           </li>
@@ -221,7 +226,7 @@
             </a>
           </li>
           <li>
-            <a href="https://github.com/KD-3/prometeo">
+            <a href="https://github.com/KD-3/prometeo/tree/frontend-redesign2/">
               <i class="fa fa-github" style="vertical-align:middle;font-size:20px;"></i>
             </a>
           </li>
@@ -237,7 +242,7 @@
         <script>
           document.write(new Date().getFullYear())
         </script>, made with <i class="material-icons">favorite</i> by
-        <a href="{% url 'webd_team' %}" target="_blank">Prometeo WebD Team</a> for Prometeo 2k20.
+        <a href="{% url 'team' %}" target="_blank">Prometeo WebD Team</a> for Prometeo 2k20.
       </div>
     </div>
   </footer>
