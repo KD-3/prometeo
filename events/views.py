@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 import xlsxwriter
-
+from django.contrib import messages
 
 # Create your views here.
 def events(request, type):
@@ -147,5 +147,7 @@ def registered(request):
 
 @login_required
 def register_for_event(request, eventid):
-    request.user.events.add(Event.objects.get(pk=eventid))
+    event = Event.objects.get(pk=eventid)
+    request.user.events.add(event)
+    messages.success(request, f"Successfully registered for '{event.name}'.")
     return redirect(registered)

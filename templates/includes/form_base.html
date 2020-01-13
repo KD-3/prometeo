@@ -33,18 +33,22 @@
   {% elif form.is_bound %}
     <div class="input-group-prepend">
       {% if field.name == 'email' %}
-        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-      {% elif field.name == 'username'  or field.name == 'login' %}
-        <span class="input-group-text"><i class="fas fa-user"></i></span>
+        <span class="input-group-text"><i class="material-icons">email</i></span>
+      {% elif field.name == 'username' or field.name == 'login' %}
+        <span class="input-group-text"><i class="material-icons">account_circle</i></span>
+      {% elif field.name == 'name' %}
+        <span class="input-group-text"><i class="material-icons">group</i></span>
+      {% elif field.name == 'teamId' %}
+        <span class="input-group-text"><i class="material-icons">group_add</i></span>
       {% else %}
-        <span class="input-group-text"><i class="fas fa-key"></i></span>
+        <span class="input-group-text"><i class="material-icons">lock_outline</i></span>
       {% endif %}
     </div>
     {% if field.errors %}
 
       {% render_field field class="form-control is-invalid" placeholder=field.label %}
       {% for error in field.errors %}
-        <div class="invalid-feedback" style="text-align:left;margin-left:46px;">
+        <div class="invalid-feedback" style="text-align:left;margin-left:56px;">
           {{ error }}
         </div>
       {% endfor %}
@@ -59,11 +63,15 @@
   {% else %}
     <div class="input-group-prepend">
       {% if field.name == 'email' %}
-        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+        <span class="input-group-text"><i class="material-icons">email</i></span>
       {% elif field.name == 'username' or field.name == 'login' %}
-        <span class="input-group-text"><i class="fas fa-user"></i></span>
+        <span class="input-group-text"><i class="material-icons">account_circle</i></span>
+      {% elif field.name == 'name' %}
+        <span class="input-group-text"><i class="material-icons">group</i></span>
+      {% elif field.name == 'teamId' %}
+        <span class="input-group-text"><i class="material-icons">group_add</i></span>
       {% else %}
-        <span class="input-group-text"><i class="fas fa-key"></i></span>
+        <span class="input-group-text"><i class="material-icons">lock_outline</i></span>
       {% endif %}
     </div>
     {% render_field field class="form-control" placeholder=field.label %}

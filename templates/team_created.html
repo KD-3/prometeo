@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "account/info_base.html" %}
 
 {% load i18n %}
 {% load static %}
@@ -6,11 +6,9 @@
 {% block bgimage %} {% static 'img/iitj.jfif' %} {% endblock %}
 {% block head_title %}{% trans "Your team has been created" %}{% endblock %}
 
-{% block content %}
-    <div class="row">
-        <div class="col-lg-12" style="text-align: center;">
-            <h3 class="h3" id="head_banner">{% trans "Your team has been created" %}</h3>
-            <p id="verification_sent_info">{% blocktrans %}An email has been sent to your registered email id containing the Team ID and other details. If you don't receive it within a few minutes, please contact us. Remember to check your SPAM FOLDER.{% endblocktrans %}</p>
-        </div>
-    </div>
+
+{% block pageheader %} {% endblock %}
+{% block infocontent %}
+    <h3 class="h3" id="head_banner">{% trans "Your team has been created" %}</h3>
+    <p id="verification_sent_info">{% blocktrans %}An email has been sent to your registered email id containing the Team ID and other details. If you don't receive it within a few minutes, please contact us. Remember to check your SPAM FOLDER.{% endblocktrans %}</p>
 {% endblock %}

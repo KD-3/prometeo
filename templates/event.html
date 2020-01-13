@@ -7,17 +7,15 @@
 {% load widget_tweaks %}
 
 
-{% block style %} 	
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-{% endblock %}
+
 {% block head_links %} 
 
-<title>Sign In</title>
+<title>{{ event.name }} - {{ event.type }} Event</title>
 
 {% endblock %}
 
 
-{% block head_title %}{% trans "Sign In" %} {% endblock %}
+{% block head_title %}{{ event.name }} - {{ event.type }} Event{% endblock %}
 
 {% block bodyclass %} login {% endblock %}
 
@@ -64,9 +62,17 @@
                     {% endif %}
                     
                   <ul class="nav nav-tabs">
+                    {% if event.problem_statement %}
                     <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0)" onclick="openTab(event, 'description')">Description</a>
+                      <a class="nav-link active" href="javascript:void(0)" onclick="openTab(event, 'prob_stat')">Problem Statement</a>
                     </li>
+                    {% endif %}
+                    {% if event.description %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="javascript:void(0)" onclick="openTab(event, 'description')">Description</a>
+                    </li>
+                    {% endif %}
+                    
                     <li class="nav-item">
                       <a class="nav-link" href="javascript:void(0)" onclick="openTab(event, 'details')">Details</a>
                     </li>
@@ -77,10 +83,14 @@
                     {% endif %}
                     {% if user.is_authenticated %}
                         {% if not user.is_superuser %}
-                            {% if event.participation_type == 'team' %}
+                            {% if event.external_link %}
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ event.external_link }}">Register</a>
+                            </li>
+                            {% elif event.participation_type == 'team' %}
                                 <li class="nav-item">
                                     {% if event in user.events.all %}
-                                    <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                                    <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#registeredModal">
                                         Already Registered
                                     </a>
                                     <!-- <a class="nav-link" href="javascript:void(0)">Already Registered</a> -->
@@ -91,12 +101,14 @@
                             {% else %}
                                 <li class="nav-item">
                                     {% if event in user.events.all %}
-                                    <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                                    <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#registeredModal">
                                         Already Registered
                                     </a>
                                     <!-- <a class="nav-link" href="javascript:void(0)">Already Registered</a> -->
                                     {% else %}
-                                    <a class="nav-link" href="{% url 'register' event.pk %}">Register</a>
+                                    <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#confirmModal">
+                                      Register
+                                  </a>
                                     {% endif %}
                                 </li>
                             {% endif %}
@@ -115,9 +127,14 @@
 
                 
 
-                <div class="card-body" id="description" style="display:block; text-align:left">
+                <div class="card-body" id="description" style="display:none; text-align:left">
                   <h4 class="card-title">Description</h4>
                   <p class="card-text">{{ event.description }}</p>
+                  
+                </div>
+                <div class="card-body" id="prob_stat" style="display:block; text-align:left">
+                  <h4 class="card-title">Problem Statement</h4>
+                  <p class="card-text">{{ event.problem_statement }}</p>
                   
                 </div>
                 <div class="card-body" id="details" style="display:none; text-align:left">
@@ -213,7 +230,7 @@
 </div>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="registeredModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -226,6 +243,24 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <a href="{% url 'registered' %}" class="btn btn-primary">View Registered Events</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to register for {{ event.type }} event '{{ event.name }}'?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <a href="{% url 'register' event.pk %}" class="btn btn-primary">Register</a>
         </div>
       </div>
     </div>

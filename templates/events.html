@@ -26,22 +26,35 @@
                 </a>
                 <div class="card-body">
                     <p class="card-text"><small class="text-muted">{{ event.date }}</small></p>
-                    <a href="{% url 'event' event.type event.pk %}"><h4 class="card-title">{{ event.name }}</h4></a>
+                    <a href="{% url 'event' event.type event.pk %}"><h4 class="card-title">{{ event.name }}
+                        {% if user.is_authenticated and not user.is_superuser %}
+                            {% if event in user.events.all %}
+                            <span class="badge badge-pill badge-success" style="vertical-align:middle">Registered</span>
+                            {% endif %}
+                        {% endif %}
+                    </h4></a>
                     <div style="overflow-y: scroll; height:150px; margin-top:10px; margin-bottom:10px;">
                         <p class="card-text">
+                            {% if event.problem_statement %}
+                            <h5>Problem Statement</h5>
+                            {{ event.problem_statement }}
+                            {% endif %}
+                            {% if event.description %}
+                            <h5>Description</h5>
                             {{ event.description }}
+                            {% endif %}
                         </p>
                     </div>
                     {% if user.is_superuser %}
-                    <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">VIEW INFO</a>
+                    <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">VIEW MORE</a>
                     {% elif user.is_authenticated %}
                             {% if event in user.events.all %}
-                                <a href="{% url 'event' event.type event.pk %}" class="btn btn-success btn-round">ALREADY REGISTERED</a>
+                                <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">VIEW MORE</a>
                             {% else %}
-                                <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">REGISTER</a>
+                                <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">VIEW MORE</a>
                             {% endif %}
                     {% else %}
-                        <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">REGISTER</a>
+                        <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">VIEW MORE</a>
                     {% endif %}
                 </div>
             </div>

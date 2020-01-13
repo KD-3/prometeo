@@ -66,6 +66,8 @@ def join_team(request):
                 team = Team.objects.get(pk=teamId)
                 if request.user in team.members.all():
                     form.add_error(None, 'You are already a member of this team')
+                elif team.event in request.user.events.all():
+                    form.add_error(None, 'You have already registered for the event ' + team.event.name + ' from a different team')
                 elif (team.members.all().count() >= team.event.max_team_size):
                     form.add_error(None, 'Team is already full')
                 else:
@@ -91,7 +93,7 @@ def join_team_confirm(request):
         team.members.add(request.user)
         team.save()
         request.user.events.add(team.event)
-        messages.success(request, 'Successfully joined team.')
+        messages.success(request, f"Successfully joined team '{team.name}'.")
         return redirect('event', team.event.type, team.event.pk)
     else:
         return render(request, 'join_team_confirm.html', {'team':team})
