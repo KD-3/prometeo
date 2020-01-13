@@ -23,7 +23,7 @@ wheels/
 *.egg
 *.sqlite3
 migrations/
-staticfiles/
+static/
 ads/
 media/
 .idea/

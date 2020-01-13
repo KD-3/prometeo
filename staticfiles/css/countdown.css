@@ -1,0 +1,96 @@
+.event-counter .countdown-timer {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.event-counter .countdown-timer .cd-item {
+	display: inline-block;
+	margin-right: 60px;
+}
+
+.event-counter .countdown-timer .cd-item:last-child {
+	margin-right: 0;
+}
+
+.event-counter .countdown-timer .cd-item span {
+	display: block;
+	color: #000;
+	font-size: 50px;
+	font-weight: 900;
+    margin-bottom: 20px;
+    color: #3C4858;
+    font-family: "Roboto Slab";
+}
+
+.event-counter .countdown-timer .cd-item p {
+	color: #000;
+	font-size: 18px;
+    font-weight: 400;
+    color: #3C4858;
+    font-family: "Roboto Slab";
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+	.event-counter .countdown-timer .cd-item {
+		margin-right: 20px;
+	}
+
+	.hurry-up .countdown-timer .cd-time {
+		margin-right: 80px;
+	}
+}
+
+/* Tablet : 768px. */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	
+	.event-counter .countdown-timer {
+		text-align: center;
+	}
+	
+	.hurry-up .countdown-timer .cd-time {
+		margin-right: 50px;
+	}
+	.hurry-up .countdown-timer .cd-time span {
+		font-size: 70px;
+	}
+}
+
+/* Large Mobile : 480px. */
+
+@media only screen and (max-width: 767px) {
+
+	.event-counter .countdown-timer .cd-item {
+		margin-right: 20px;
+	}
+	
+	.event-counter .event-name {
+		margin-bottom: 30px;
+	}
+
+	.hurry-up .countdown-timer .cd-time {
+		float: none;
+		margin-right: 0;
+		text-align: center;
+	}
+
+	.milestone-counter {
+		margin-bottom: 48px;
+	}
+	.single-milestone-counter {
+		margin-bottom: 50px;
+	}
+
+}
+
+/* Small Mobile: 320px */
+
+@media only screen and (max-width: 479px) {	
+	.event-counter .event-name h2 {
+		font-size: 55px;
+	}
+	.event-counter .event-name span {
+		margin-left: 0;
+	}
+}
+
