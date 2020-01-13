@@ -1,12 +1,13 @@
 from django.db import models
 
 ROLES = (
-    ('pr_team_member', 'PR Team Member'),
     ('coordinator', 'Coordinator'),
-    ('workshop_coordinator', 'Workshop Coordinator'),
-    ('technical_coordinator', 'Technical Event Coordinator'),
-    ('informal_coordinator', 'Informal Event Coordinator'),
-    ('webd_team_member', 'WebD Team Member'),
+    ('webd_team_member', 'WebD Team'),
+    ('pr_team_member', 'PM & PR Team'),
+    ('technical_coordinator', 'Technical Event Team'),
+    ('workshop_coordinator', 'Workshop Team'),
+    ('informal_coordinator', 'Informal Event Team'),
+    ('creativity_team_member', 'Creativity Team'),
     
 )
 

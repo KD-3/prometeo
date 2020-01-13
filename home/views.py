@@ -12,12 +12,13 @@ def home_redirect(request):
 def team(request):
     members = Coordinator.objects.all()
     _roles = {
-        'pr_team_member': 'PR Team Members',
         'coordinator': 'Coordinator',
-        'workshop_coordinator': 'Workshop Coordinators',
-        'technical_coordinator': 'Technical Event Coordinators',
-        'informal_coordinator': 'Informal Event Coordinators',
-        'webd_team_member': 'WebD Team Members', 
+        'webd_team_member': 'WebD Team', 
+        'pr_team_member': 'PM & PR Team',
+        'technical_coordinator': 'Technical Event Team',
+        'creativity_team_member': 'Creativity Team', 
+        'informal_coordinator': 'Informal Event Team',
+        'workshop_coordinator': 'Workshop Team',
     }
     roles = {}
     for role, display in _roles.items():

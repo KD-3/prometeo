@@ -14,22 +14,15 @@
   
         {% for sponsor in sponsors %}
         <div class="col-md-4">
-          <div class="team-player">
-            <div class="card card-plain">
-              <div class="col-md-6 ml-auto mr-auto">
-                {% if sponsor.image %}
-                  <img src="{{ sponsor.image.url }}" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
-                {% else %}
-                  <img src="{% static 'img/avatar.jfif' %}" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
-                {% endif %}
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="{{ sponsor.image.url }}" alt="Card image cap">
+                <div class="card-body text-center">
+                  <h3 class="title">{{ sponsor.name }}</h3>
+                  {% if sponsor.type %}
+                  <p>{{ sponsor.type }}</p>
+                  {% endif %}
+                </div>
               </div>
-              <h4 class="card-title">{{ sponsor.name }}
-                <br>
-                <small class="card-description text-muted">{{ sponsor.type }}</small>
-              </h4>
-              
-            </div>
-          </div>
         </div>
         {% endfor %}
 

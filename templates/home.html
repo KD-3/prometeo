@@ -91,6 +91,19 @@
            </div> -->
          </div>
        </div>
+<!-- 
+      <div class="text-center">
+          {% if user.is_authenticated %}
+          <h2 class="title">EXPLORE EVENTS</h2> 
+            <a href="{% url 'events' 'technical' %}" class="btn btn-primary btn-round" style="font-size:large">Technical Events</a>
+            <a href="{% url 'events' 'informal' %}" class="btn btn-primary btn-round" style="font-size:large">Informals</a>
+            <a href="{% url 'events' 'workshop' %}" class="btn btn-primary btn-round" style="font-size:large">Workshops</a>
+          {% else %}
+          <h2 class="title">LOGIN OR SIGNUP</h2> 
+          <a href="/accounts/login" class="btn btn-primary btn-round" style="font-size:large">Login</a>
+          <a href="/accounts/signup" class="btn btn-primary btn-round" style="font-size:large">Signup</a>
+          {% endif %}
+        </div> -->
 
        <div class="section" id="carousel">
         <div class="container">
