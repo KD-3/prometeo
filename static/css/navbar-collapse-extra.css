@@ -1,0 +1,9 @@
+@media (max-width: 991px) {
+    .navbar-collapse {
+        overflow-y:scroll;
+    }
+    .navbar-collapse .navbar-nav.ml-auto {
+        background: #fff;
+    }
+}
+

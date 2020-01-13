@@ -46,11 +46,12 @@
 
     <div class="container">
        <div class="navbar-translate">
-           
-        <img src="{% static "img/logo.png" %}" width="40" height="48"
-        align="top" alt=""> 
+        
+        <a href="{% url 'home' %}"><img src="{% static "img/logo.png" %}" width="40" height="48"
+          align="top" alt=""> </a>
          <a class="navbar-brand" href="{% url 'home' %}" style="font-family: 'Orbitron', sans-serif;" >
             Prometeo </a>
+            
          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
            <span class="sr-only">Toggle navigation</span>
            <span class="navbar-toggler-icon"></span>
@@ -136,7 +137,7 @@
                 </a>
             </li>
           {% endif %}
-   
+            
          </ul>
        </div>
      </div>
@@ -201,7 +202,7 @@
         <ul>
           <li>
             <a href="http://iitj.ac.in/">
-              IIT Jodhpur
+              <img src="{% static 'img/iitj_logo.png' %}" height="30" width="27" style="margin-right:8px">IIT Jodhpur
             </a>
           </li>
           <li>
