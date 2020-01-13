@@ -3,46 +3,54 @@
 {% block title %} Users Info {% endblock %}
 
 {% block style %} <link rel="stylesheet" href="{% static 'css/search-table-style.css' %}" type="text/css">{% endblock %}
-{% block heading %} Users Info {% endblock %}
+{% block heading %} 
+<h1 style="font-family: 'Calistoga', cursive; letter-spacing:2px;">Users Info</h1>
+{% endblock %}
 {% block bgimage %} {% static 'img/users.jpg' %} {% endblock %}
 
 {% block content %}
-<div class="container search-table">
-    <div class="search-box">
-        <div class="row">
-            <div class="col-md-3">
-                <h5>Search All Fields</h5>
+<div class="section">
+    <div class="row">
+        <div class="container search-table">
+            <div class="search-box">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>Search All Fields</h5>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search all fields e.g. HTML">
+                        
+                    </div> 
+                </div>
             </div>
-            <div class="col-md-9">
-                <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search all fields e.g. HTML">
-                
-            </div> 
-        </div>
-    </div>
-    <div class="search-list">
-        <h3>{{ users.count }} Records Found</h3>
-        <div style="overflow: scroll; max-height:500px;">
-        <table class="table" id="myTable">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Events Registered</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-            {% for user in users.all %}
-            <tr>
-                <td><a href="{% url 'user_info' user.pk %}">{{ user.username }}</a></td>
-                <td>{{ user.email }}</td>
-                <td style="text-align: center;">{{ user.events.count }}</td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        </div>
+            <div class="search-list">
+                <h3>{{ users.count }} Records Found</h3>
+                <div style="overflow: scroll; max-height:500px;">
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Events Registered</th>
+                            <th>Teams</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    {% for user in users.all %}
+                    <tr>
+                        <td><a href="{% url 'user_info' user.pk %}">{{ user.username }}</a></td>
+                        <td>{{ user.email }}</td>
+                        <td style="text-align: center;">{{ user.events.count }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
 
+            </div>
+        </div>
+        
     </div>
 </div>
 {% endblock %}

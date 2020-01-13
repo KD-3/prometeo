@@ -8,3 +8,6 @@ def home(request):
 
 def home_redirect(request):
     return redirect(home)
+
+def webd_team(request):
+    return render(request, 'webd_team.html')

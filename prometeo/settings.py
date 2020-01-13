@@ -25,7 +25,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 SECRET_KEY = 'zf0o(fvf3=d-ohx9dmybcw@7i7n#d7xb$nl*&wa66fuw92gb99'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.43.110', '127.0.0.1', '142.93.216.166', ]
 
@@ -146,6 +146,10 @@ AUTH_USER_MODEL = 'users.CustomUser'
 # LOGOUT_REDIRECT_URL = 'home'
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'staticfiles'),
+]
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",

@@ -7,5 +7,6 @@ urlpatterns = [
     path('create_team/<int:eventid>/', create_team, name='create_team'),
     path('join_team/', join_team, name='join_team'),
     path('team_created/', team_created, name='team_created'),
-    path('join_team/confirm/', join_team_confirm, name='join_team_confirm')
+    path('join_team/confirm/', join_team_confirm, name='join_team_confirm'),
+    
 ]

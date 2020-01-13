@@ -1,11 +1,13 @@
-{% extends "base.html" %}
+{% extends "account/info_base.html" %}
 
 {% load i18n %}
 {% load account %}
 {% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
 
+{% block heading %} PROMETEO {% endblock %}
 
-{% block content %}
+{% block pageheader %} {% endblock %}
+{% block infocontent %}
 
 <h3 class="h3" id="head_banner">{% trans "Confirm E-mail Address" %}</h3>
 

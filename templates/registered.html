@@ -2,33 +2,41 @@
 {% load static %}
 {% block title %} Registered Events {% endblock %}
 {% block bgimage %} {% static "img/event.jpg" %} {% endblock %}
-{% block heading %} Registered Events {% endblock %}
+{% block heading %} <h1 style="font-family: 'Calistoga', cursive; letter-spacing:2px;">Registered Events</h1> {% endblock %}
 {% block content %}
+<div class="section">
+    <div class="row">
 {% if user.is_authenticated %}
 {% for category in categories %}
     <div class="container">
-        <h3 class="pb-3 mb-4 font-italic border-bottom" style="text-transform:capitalize;">
+        <h3 class="pb-3 mb-4 border-bottom" style="text-transform:capitalize; font-weight:bold;font-family: 'Roboto', sans-serif;">
             {{ category }}
+            <a href="javascript:void(0);" style="float:right" onclick="showType('{{ category }}')"><i class="material-icons">keyboard_arrow_down</i></a>
          </h3>
-        <div class="row">
+        <div class="row category" id="{{ category }}" style="display:none;">
             {% for event in events %}
                 {% if event.type == category %}
-                <div class="col-md-6">
-                    <div class="card border-primary flex-md-row mb-4 shadow-sm h-md-250">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary" style="text-transform: capitalize">{{ event.type }}</strong>
-                        <h6 class="mb-0">
-                            <a class="text-dark" href="{% url 'event' event.type event.pk %}">{{ event.name }}</a>
-                        </h6>
-                        <div class="mb-1 text-muted small">{{ event.date }}</div>
-                        <p class="card-text mb-auto">{{ event.description }}</p>
-                        <a class="btn btn-outline-primary btn-sm" role="button" href="{% url 'event' event.type event.pk %}">More Info</a>
-                    </div>
-                    {% if event.image %}
-                        <img class="card-img-right flex-auto d-none d-lg-block" alt="{{ event.name }}" src="{{ event.image.url }}" style="width: 200px; height: 250px;">
-                    {% else %}
-                        <img class="card-img-right flex-auto d-none d-lg-block" alt="{{ event.name }}" src="{% static 'img/logo.png' %}" style="width: 200px; height: 250px;">
-                    {% endif %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="card mb-3">
+                        <a href="{% url 'event' event.type event.pk %}">
+                        {% if event.image %}
+                            <img src="{{ event.image.url }}" height="166" width="360" alt="" class="card-img-top">
+                        {% else %}
+                            <img src="{% static "img/event.jpg" %}" height="166" width="360" alt="" class="card-img-top">
+                        {% endif %}
+                        </a>
+                        <div class="card-body">
+                            <p class="card-text"><small class="text-muted">{{ event.date }}</small></p>
+                            <a href="{% url 'event' event.type event.pk %}"><h4 class="card-title">{{ event.name }}</h4></a>
+                            <div style="overflow-y: scroll; height:150px; margin-top:10px; margin-bottom:10px;">
+                                <p class="card-text">
+                                    {{ event.description }}
+                                </p>
+                            </div>
+                         
+                            <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">VIEW INFO</a>
+                            
+                        </div>
                     </div>
                 </div>
                 {% endif %}
@@ -38,4 +46,8 @@
     </div>
 {% endfor %}
 {% endif %}
+</div>
+</div>
+
 {% endblock %}
+{% block scripts %} <script src="{% static 'js/collapse-section.js' %}"></script>" {% endblock %}

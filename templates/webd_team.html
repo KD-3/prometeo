@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} WebD Team {% endblock %}
+
+{% block style %} <link rel="stylesheet" href="{% static 'css/search-table-style.css' %}" type="text/css">{% endblock %}
+{% block heading %} 
+<h1 style="font-family: 'Calistoga', cursive; letter-spacing:2px;">WebD Team</h1>
+{% endblock %}
+{% block bgimage %} {% static 'img/users.jpg' %} {% endblock %}
+
+{% block content %}
+<div class="section text-center">
+    <h2 class="title">Here is our team</h2>
+    <div class="team">
+      <div class="row">
+        <!-- <div class="col-md-4">
+          <div class="team-player">
+            <div class="card card-plain">
+              <div class="col-md-6 ml-auto mr-auto">
+                <img src="../assets/img/faces/avatar.jpg" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
+              </div>
+              <h4 class="card-title">Gigi Hadid
+                <br>
+                <small class="card-description text-muted">Model</small>
+              </h4>
+              <div class="card-body">
+                <p class="card-description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
+                  <a href="#">links</a> for people to be able to follow them outside the site.</p>
+              </div>
+              <div class="card-footer justify-content-center">
+                <a href="#pablo" class="btn btn-link btn-just-icon"><i class="fa fa-twitter"></i></a>
+                <a href="#pablo" class="btn btn-link btn-just-icon"><i class="fa fa-instagram"></i></a>
+                <a href="#pablo" class="btn btn-link btn-just-icon"><i class="fa fa-facebook-square"></i></a>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-md-4">
+          <div class="team-player">
+            <div class="card card-plain">
+              <div class="col-md-6 ml-auto mr-auto">
+                <img src="{% static 'img/ManulGoyal.jpg' %}" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
+              </div>
+              <h4 class="card-title">Manul Goyal
+                <br>
+                <small class="card-description text-muted">Backend and Frontend Designer</small>
+              </h4>
+              <!-- <div class="card-body">
+                <p class="card-description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
+                  <a href="#">links</a> for people to be able to follow them outside the site.</p>
+              </div> -->
+              <div class="card-footer justify-content-center">
+                <a href="https://www.instagram.com/manul_goyal/" class="btn btn-link btn-just-icon"><i class="fa fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/manul-goyal/" class="btn btn-link btn-just-icon"><i class="fa fa-linkedin"></i></a>
+                <a href="https://www.facebook.com/manul.goyal.33" class="btn btn-link btn-just-icon"><i class="fa fa-facebook-square"></i></a>
+                <a href="https://github.com/ManulGoyal" class="btn btn-link btn-just-icon"><i class="fa fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-4">
+          <div class="team-player">
+            <div class="card card-plain">
+              <div class="col-md-6 ml-auto mr-auto">
+                <img src="../assets/img/faces/kendall.jpg" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
+              </div>
+              <h4 class="card-title">Kendall Jenner
+                <br>
+                <small class="card-description text-muted">Model</small>
+              </h4>
+              <div class="card-body">
+                <p class="card-description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
+                  <a href="#">links</a> for people to be able to follow them outside the site.</p>
+              </div>
+              <div class="card-footer justify-content-center">
+                <a href="#pablo" class="btn btn-link btn-just-icon"><i class="fa fa-twitter"></i></a>
+                <a href="#pablo" class="btn btn-link btn-just-icon"><i class="fa fa-instagram"></i></a>
+                <a href="#pablo" class="btn btn-link btn-just-icon"><i class="fa fa-facebook-square"></i></a>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+

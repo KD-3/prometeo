@@ -1,20 +1,35 @@
 {% load widget_tweaks %}
 
-{% if form.non_field_errors %}
-  {% for error in form.non_field_errors %} 
-    <div style="color:#fcbbbf; margin-bottom: 20px;">
-      {{ error }}
-    </div>
-  {% endfor %}
-{% endif %}
+
 
 {% for field in form %}
+
 <!-- <p> {{field.name}} </p> -->
-<div class="input-group form-group">
+<!-- 
+<div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text">
+      <i class="material-icons">face</i>
+    </span>
+  </div>
+  <input type="text" class="form-control" placeholder="First Name...">
+</div> -->
+
+
+<div class="input-group">
   {% if field.name == 'remember' %}
-    <div class="row align-items-center remember">
+  <div class="form-check" style="padding-top:0px;">
+    <label class="form-check-label">
+      <!-- <input class="form-check-input" type="checkbox" value=""> Unchecked -->
+      {% render_field field class="form-check-input" %} Remember Me
+      <span class="form-check-sign">
+        <span class="check"></span>
+      </span>
+    </label>
+  </div>
+    <!-- <div class="row align-items-center remember">
         {% render_field field %} Remember Me
-    </div>
+    </div> -->
   {% elif form.is_bound %}
     <div class="input-group-prepend">
       {% if field.name == 'email' %}
@@ -29,7 +44,7 @@
 
       {% render_field field class="form-control is-invalid" placeholder=field.label %}
       {% for error in field.errors %}
-        <div class="invalid-feedback" style="color:#fcbbbf">
+        <div class="invalid-feedback" style="text-align:left;margin-left:46px;">
           {{ error }}
         </div>
       {% endfor %}
@@ -45,7 +60,7 @@
     <div class="input-group-prepend">
       {% if field.name == 'email' %}
         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-      {% elif field.name == 'username'  or field.name == 'login' %}
+      {% elif field.name == 'username' or field.name == 'login' %}
         <span class="input-group-text"><i class="fas fa-user"></i></span>
       {% else %}
         <span class="input-group-text"><i class="fas fa-key"></i></span>
@@ -54,11 +69,6 @@
     {% render_field field class="form-control" placeholder=field.label %}
   {% endif %}
 
-  {% if field.help_text %}
-    <small class="form-text text-muted" style="color:wheat">
-      {{ field.help_text }}
-    </small>
-  {% endif %}
   <!-- <p style="color:white" >{{ field.errors }}</p>
               <p style="color: white;">{{ field.help_text }}</p> -->
 </div>

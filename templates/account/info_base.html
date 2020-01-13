@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block pageheader %} {% endblock %}
+{% block outer %}
+
+
+<div class="page-header header-filter" style="background-image: url('{% static 'img/bg7.jpg' %}'); background-size: cover; background-position: top center; height:auto;">
+    <div class="container" style="margin-top:200px;margin-bottom:100px;"> 
+      {% if messages %}
+      <div style="margin-bottom: 30px;">
+        {% for message in messages %}
+          <div class="row" >
+            
+            <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                  <div class="alert alert-info">
+                      <div class="container">
+                      <div class="alert-icon">
+                          <i class="material-icons">info_outline</i>
+                      </div>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                      </button>
+                      <b>{{ message }}</b>
+                      </div>
+                  </div>
+            </div>
+                  
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="row">
+        <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+          <div class="card card-login">   
+              <div class="card-body">
+                  <div class="section text-center">
+                      <div class="row">
+                        <div class="col-lg-10 col-md-6 ml-auto mr-auto">
+                        {% block infocontent %}{% endblock %}
+                        </div>
+                      </div>
+                  </div>
+               
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

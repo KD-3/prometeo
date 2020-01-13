@@ -4,4 +4,5 @@ from .views import *
 
 urlpatterns = [
     path('', home, name='home'),
+    path('webd_team', webd_team, name='webd_team'),
 ] 

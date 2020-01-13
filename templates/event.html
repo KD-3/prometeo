@@ -1,130 +1,236 @@
 {% extends "base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
 {% load static %}
+{% load socialaccount %}
+{% load widget_tweaks %}
 
-{% block title %} {{ event.name }} - Register {% endblock %}
 
-{% block bgimage %}
-{% if event.image %}
-    {{ event.image.url }} 
-{% else %}
-    {% static "img/event.jpg" %}
-{% endif %}
+{% block style %} 	
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+{% endblock %}
+{% block head_links %} 
+
+<title>Sign In</title>
+
 {% endblock %}
 
-{% block heading %} {{ event.name }} {% endblock %}
+
+{% block head_title %}{% trans "Sign In" %} {% endblock %}
+
+{% block bodyclass %} login {% endblock %}
+
+{% block pageheader %}
+{% endblock %}
 
 {% block outer %}
 
-<!-- Tickets Price Area Begin -->
-<section class="tickets-table-price spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-10 col-md-12">
-                <div class="tickets-table">
-                    <div class="table-price text-center">
-                        {% if event.host %}
-                        <span>event.host</span>
+<div class="page-header header-filter" style="background-image: url('{% static 'img/bg7.jpg' %}'); background-size: cover; background-position: top center; height:auto;">
+    <div class="container" style="margin-top:200px;margin-bottom:100px;"> 
+      {% if messages %}
+      <div style="margin-bottom: 30px;">
+        {% for message in messages %}
+          <div class="row" >
+            
+            <div class="col-lg-8 col-md-8 ml-auto mr-auto">
+                  <div class="alert alert-info">
+                      <div class="container">
+                      <div class="alert-icon">
+                          <i class="material-icons">info_outline</i>
+                      </div>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                      </button>
+                      <b>{{ message }}</b>
+                      </div>
+                  </div>
+            </div>
+                  
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="row">
+        <div class="col-lg-8 col-md-8 ml-auto mr-auto">
+            <div class="card text-center">
+                <div class="card-header card-header-rose">
+                    <h2 class="title">{{ event.name }}</h2>
+                    {% if event.host %}
+                    <h4 style="text-transform: capitalize; margin-bottom:20px">{{ event.type }} conducted by {{ event.host }}</h4>
+                    {% else %}
+                    <h4 style="text-transform: capitalize; margin-bottom:20px">{{ event.type }}</h4>
+                    {% endif %}
+                    
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="javascript:void(0)" onclick="openTab(event, 'description')">Description</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="javascript:void(0)" onclick="openTab(event, 'details')">Details</a>
+                    </li>
+                    {% if event.rulebook %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ event.rulebook.url }}" download="{{ event.name }}">Rulebook</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        {% if not user.is_superuser %}
+                            {% if event.participation_type == 'team' %}
+                                <li class="nav-item">
+                                    {% if event in user.events.all %}
+                                    <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                                        Already Registered
+                                    </a>
+                                    <!-- <a class="nav-link" href="javascript:void(0)">Already Registered</a> -->
+                                    {% else %}
+                                    <a class="nav-link" href="javascript:void(0)" onclick="openTab(event, 'register')">Register</a>
+                                    {% endif %}
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    {% if event in user.events.all %}
+                                    <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                                        Already Registered
+                                    </a>
+                                    <!-- <a class="nav-link" href="javascript:void(0)">Already Registered</a> -->
+                                    {% else %}
+                                    <a class="nav-link" href="{% url 'register' event.pk %}">Register</a>
+                                    {% endif %}
+                                </li>
+                            {% endif %}
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% get_media_prefix %}workbooks/{{ wbname }}" download="{{ wbname }}">Registered Users</a>
+                        </li>
                         {% endif %}
-                        <span>{{ event.type }}</span>
-                        <h2 class="table-title">{{ event.name }}</h2>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/accounts/login?next={% url 'event' event.type event.pk %}">Login To Register</a>
+                        </li>
+                    {% endif %}
+                  </ul>
+                </div>
+
+                
+
+                <div class="card-body" id="description" style="display:block; text-align:left">
+                  <h4 class="card-title">Description</h4>
+                  <p class="card-text">{{ event.description }}</p>
+                  
+                </div>
+                <div class="card-body" id="details" style="display:none; text-align:left">
+                    
+                    {% if event.prize %}
+                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                        <div class="icon icon-rose">
+                            <i class="material-icons">attach_money</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Prizes worth Rs. {{ event.prize }}</h4>
+                        </div>
+                     
                     </div>
-                    <div class="table-features">
-                        <div class ="row">
-                            <div class="col-lg-6 col-md-6 col-xs-6" align="center">
-                                <ul>
-                                    <li><img src="{% static "img/check.png" %}" alt=""> PROBLEM STATEMENT/DESCRIPTION
-                                    <p>{{ event.description }}</p></li>
-                                    <li><img src="{% static "img/check.png" %}" alt=""> EVENT TYPE:                             
-                                        {% if event.participation_type == 'team' %}
-                                        Team Event (Team Size: {{ event.min_team_size }}-{{ event.max_team_size }})
-                                        {% else %}
-                                        Individual Event 
-                                        {% endif %}                      
-                                    </li>
-                                    
-                                    <li><img src="{% static "img/check.png" %}" alt="">DATE: {{ event.date }}</li>
-                                    {% if event.time %}
-                                    <li><img src="{% static "img/check.png" %}" alt="">TIME: {{ event.time }}</li>
-                                    {% endif %}
-                                    {% if event.venue %}
-                                    <li><img src="{% static "img/check.png" %}" alt=""> VENUE: {{ event.venue }}</li>
-                                    {% endif %}
-                                </ul>
-                            </div>
+                    {% endif %}
+                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                        <div class="icon icon-rose">
+                            {% if event.participation_type == 'team' %}
+                            <i class="material-icons">account_circle</i>
+                            {% else %}
+                            <i class="material-icons">group_work</i>
+                            {% endif %} 
                             
-                            <div class="col-lg-6 col-md-6 col-xs-6" align="center">
-                                <ul>
-                                    {% if event.rulebook %}
-                                    <li><a href="{{ event.rulebook.url }}" download="{{ event.name }}"><img src="{% static "img/download.png" %}" height="15" width="18" alt="">Download Rulebook</a></li>
-                                    {% endif %}
-                                    {% if user.is_superuser %}
-                                    <li><a href="{% get_media_prefix %}workbooks/{{ wbname }}" download="{{ wbname }}"><img src="{% static "img/download.png" %}" height="15" width="18" alt="">Download Participants Excel Sheet</a></li>
-                                    {% endif %}
-                                    {% if event.prize %}
-                                    <li><h3><img src="{% static "img/prize.png" %}" alt="" height="30" width="30"> Prizes worth Rs. {{ event.prize }}</h3></li>
-                                    {% endif %}
-                                
-                                </ul>
-                                
-                                {% if user.is_authenticated %}
-                                    {% if not user.is_superuser %}
-                                        {% if event.participation_type == 'individual' %}
-                                            {% if event in user.events.all %}
-                                            <a href="{% url 'registered' %}" class="primary-btn buy-tickets">ALREADY REGISTERED</a>
-                                            {% else %}
-                                            <a href="{% url 'register' event.pk %}" class="primary-btn buy-tickets">REGISTER</a>
-                                            {% endif %}
-                                        {% else %}
-                                            {% if team %}
-                                            <a href="{% url 'registered' %}" class="primary-btn buy-tickets">ALREADY REGISTERED</a>
-                                            {% else %}
-                                            <a href="{% url 'create_team' event.pk %}" class="primary-btn buy-tickets">REGISTER</a>
-                                            <br><br><a href="{% url 'join_team' %}" class="primary-btn buy-tickets">JOIN A TEAM</a>
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endif %}
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Event Type</h4>
+                            <p>
+                                {% if event.participation_type == 'team' %}
+                                Team Event (Team Size: {{ event.min_team_size }}-{{ event.max_team_size }})
                                 {% else %}
-                                    <a href="/accounts/login?next={% url 'event' event.type event.pk %}" class="primary-btn buy-tickets">LOGIN TO REGISTER</a>
-                                {% endif %}
-                            </div>
+                                Individual Event 
+                                {% endif %} 
+                            </p>
+                            
                         </div>
                     </div>
-                </div>
-            </div>
+                    <!-- <h4 class="card-title">Event Type</h4>
+                    <p class="card-text">
+                        {% if event.participation_type == 'team' %}
+                        Team Event (Team Size: {{ event.min_team_size }}-{{ event.max_team_size }})
+                        {% else %}
+                        Individual Event 
+                        {% endif %} 
+                    </p> -->
+                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                        <div class="icon icon-rose">
+                            <i class="material-icons">date_range</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Date</h4>
+                            <p>{{ event.date }}</p>
+                     
+                        </div>
+                    </div>
+                    <!-- <h4 class="card-title">Date</h4>
+                    <p class="card-text">{{ event.date }}</p> -->
+                    {% if event.time %}
+                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                        <div class="icon icon-rose">
+                            <i class="material-icons">access_time</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Time</h4>
+                            <p>{{ event.time }}</p>
+ 
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if event.venue %}
+                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                        <div class="icon icon-rose">
+                            <i class="material-icons">my_location</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Venue</h4>
+                            <p>{{ event.venue }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                  </div>
+                  <div class="card-body" id="register" style="display:none;">
+                    <p class="card-text">This is a team event ({{ event.min_team_size }} to {{ event.max_team_size }} members). Create or join a team:</p>
+                    <a href="{% url 'create_team' event.pk %}" class="btn btn-primary">Create Team</a>
+                    <a href="{% url 'join_team' %}" class="btn btn-primary">Join a Team</a>
+                  </div>
+                 
+              </div>
         </div>
+      </div>
     </div>
-</section>
-<!-- Tickets Price Area End -->
 
-<!-- Hurry Up Begin -->
-<section class="hurry-up set-bg spad" data-setbg="{% static "img/hurry-up-bg.jpg" %}">
-    <div class="container" >
-        <div class="row">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-10">
-                <h2>Hurry up, save your spot!</h2>
-                <div class="countdown-timer" id="countdown-2">
-                    <div class="cd-time">
-                        <span>00</span>
-                        <p>Days</p>
-                    </div>
-                    <div class="cd-time">
-                        <span>00</span>
-                        <p>Hours</p>
-                    </div>
-                    <div class="cd-time">
-                        <span>00</span>
-                        <p>Minutes</p>
-                    </div>
-                    <div class="cd-time">
-                        <span>00</span>
-                        <p>Seconds</p>
-                    </div>
-                </div>
-            </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">You are already registered for this event.</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+       
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a href="{% url 'registered' %}" class="btn btn-primary">View Registered Events</a>
+        </div>
+      </div>
     </div>
-</section>
-<!-- Hurry Up End -->
+  </div>
+
 {% endblock %}
+
+{% block scripts %} <script src="{% static 'js/tabs.js' %}"></script> {% endblock %}

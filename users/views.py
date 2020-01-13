@@ -8,6 +8,8 @@ import requests
 from .forms import CustomUserCreationForm, TeamCreationForm, TeamJoiningForm
 from events.models import Event
 from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
+from django.contrib import messages
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
@@ -40,6 +42,14 @@ def create_team(request, eventid):
             team.members.add(request.user)
             team.save()
             request.user.events.add(event)
+            message = f'You have just created team "{team.name}" for the {event.type} event {event.name}. The team ID is {team.id}. Share this ID with your friends who can join your team using this ID.'
+            send_mail(
+                'Team Details',
+                message,
+                'info.noreply@prometeo.com',
+                [request.user.email],
+                fail_silently=False,
+            )
             # form.save_m2m()
             return redirect('team_created')
     else:
@@ -81,6 +91,7 @@ def join_team_confirm(request):
         team.members.add(request.user)
         team.save()
         request.user.events.add(team.event)
-        return redirect('home')
+        messages.success(request, 'Successfully joined team.')
+        return redirect('event', team.event.type, team.event.pk)
     else:
         return render(request, 'join_team_confirm.html', {'team':team})
