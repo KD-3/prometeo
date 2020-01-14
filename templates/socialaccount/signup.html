@@ -6,20 +6,17 @@
 {% load socialaccount %}
 {% load widget_tweaks %}
 
+{% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block head_links %} 
 
-<title>Sign In</title>
+<title>Sign Up</title>
 
 {% endblock %}
-
-
-{% block head_title %}{% trans "Sign In" %} {% endblock %}
-
-{% block bodyclass %} login {% endblock %}
 
 {% block pageheader %}
 {% endblock %}
+
 
 {% block outer %}
 
@@ -53,15 +50,11 @@
         <div class="col-lg-4 col-md-6 ml-auto mr-auto">
           <div class="card card-login">
               <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Login</h4>
-                <div class="social-line">
-                  <a href="{% provider_login_url 'google' %}" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-google-plus-square" style="font-size:30px;"></i>
-                  </a>
-   
-                </div>
+                <h4 class="card-title">Sign Up</h4>
+              
               </div>
-        <p class="description text-center">Or Be Classical</p>
+        <p class="description text-center">{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}You are about to use your {{provider_name}} account to login to
+            {{site_name}}. As a final step, please complete the following form:{% endblocktrans %}</p>
         {% if form.non_field_errors %}
           {% for error in form.non_field_errors %} 
           <p class="description text-center" style="color:red;">
@@ -69,7 +62,7 @@
           </p>
           {% endfor %}
         {% endif %}
-			<form class="container-fluid text-center" id="login_form" method="POST" action="{% url 'account_login' %}">
+            <form class="container-fluid text-center" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
 			  
               <div class="card-body">
 					{% csrf_token %}
@@ -82,10 +75,9 @@
               </div>
               <div class="footer text-center" style="margin-top:20px;">
                 <div class="form-group">
-					<input type="submit" value="Login" class="btn btn-primary btn-round">
+					<input type="submit" value="Sign Up" class="btn btn-primary btn-round">
 				</div>
-				<p style="margin-bottom:20px;">Don't have an account? <a href="{{ signup_url }}">Signup</a><br>
-				<a href="{% url 'account_reset_password' %}">Forgot your password?</a></p>
+				
               </div>
             </form>
           </div>
@@ -99,3 +91,4 @@
 
 
 {% endblock %}
+

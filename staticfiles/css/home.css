@@ -1,0 +1,37 @@
+#particle-div canvas {
+    position:absolute;
+}
+
+.event-name {
+    margin:0px;
+}
+
+.countdown-timer {
+    padding:0px 40px 0px 40px; 
+    margin-top:0px;
+}
+
+.col-timer {
+    padding:0px 4px 0px 4px;
+}
+
+.col-timer .card .card-body {
+    padding: 3px;
+}
+
+@media only screen and (max-width: 530px) {
+    .index-page .brand h1 {
+        font-size:12vw;
+    }
+    .countdown-timer {
+        padding:0px 15px 0px 15px; 
+        margin-top:0px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .countdown-timer {
+        padding:0px 120px 0px 120px; 
+        margin-top:0px;
+    }
+}

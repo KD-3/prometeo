@@ -9,13 +9,15 @@
 
 {% block content %}
 <div class="section text-center">
+    {% if sponsors.count == 0 %}
     <h1 class="title">Coming Soon!</h1>
+    {% endif %}
     <div class="team">
       <div class="row">
   
         {% for sponsor in sponsors %}
         <div class="col-md-4">
-            <div class="card" style="width: 20rem;">
+            <div class="card">
                 <img class="card-img-top" src="{{ sponsor.image.url }}" alt="Card image cap">
                 <div class="card-body text-center">
                   <h3 class="title">{{ sponsor.name }}</h3>

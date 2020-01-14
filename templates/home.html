@@ -2,10 +2,12 @@
 {% load static %}
 
 {% block bodyclass %} index-page {% endblock %}
-{% block style %} <link href="{% static 'css/title-size.css' %}" rel="stylesheet" /> {% endblock %}
+{% block style %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet" /> 
+{% endblock %}
 
 {% block pageheader %}
-   <div class="page-header header-filter" data-parallax="true" style="background-image: url('{% static 'img/techno.jfif' %}')">
+   <div id="particle-div" class="page-header header-filter" data-parallax="true" style="background-image: url('{% static 'img/techno2.jfif' %}')">
      <div class="container">
        <div class="row">
         <div class="col-md-8 ml-auto mr-auto">
@@ -20,7 +22,29 @@
    </div>
 {% endblock %}
    
-{% block content %}
+{% block outer %}
+    <div class="main main-raised">
+       
+        <div class="container">
+          
+                {% if messages %}
+                    <div class="section" style="padding:50px 0px 0px 0px;">
+                        {% for message in messages %}
+                            <div class="alert alert-info">
+                                <div class="container">
+                                <div class="alert-icon">
+                                    <i class="material-icons">info_outline</i>
+                                </div>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                </button>
+                                <b>{{ message }}</b>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            
         <div class="section text-center">
         <div class="row">
         <div class="event-counter">
@@ -29,31 +53,61 @@
                     <div class="col-lg-6">
                         <div class="event-name">
                             <h2 class="title">Coming Soon</h2>
-                            <h4>January 23, 2020 <span class="badge badge-pill badge-rose" style="vertical-align:middle">Starting @ 10:00 AM</span></h4><br>
+                            <h4>January 23, 2020 <span class="badge badge-pill badge-primary" style="vertical-align:middle">Starting @ 10:00 AM</span></h4><br>
 
                         </div>
                         <div class="countdown-timer" id="countdown">
-                            <div class="cd-item">
-                                <span style="color:black">24</span style="color:black">
-                                <p>Days</p>
+                          <div class="row">
+                          <div class="col-lg-3 col-md-3 col-sm-3 col-3 col-timer">
+                            <div class="card card-pricing bg-primary"><div class="card-body ">
+                            
+                              <h2 class="card-title">56</h2>
+                              <p class="card-description">
+                                  Days
+                              </p>
+                           
+                              </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-3 col-timer">
+                          <div class="card card-pricing bg-primary"><div class="card-body ">
+                            
+                            <h2 class="card-title">56</h2>
+                            <p class="card-description">
+                                Hours
+                            </p>
+                         
                             </div>
-                            <div class="cd-item">
-                                <span>12</span>
-                                <p>Hours</p>
+                        </div>
+                          </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-3 col-timer">
+                              <div class="card card-pricing bg-primary"><div class="card-body ">
+                            
+                                <h2 class="card-title">56</h2>
+                                <p class="card-description">
+                                    Minutes
+                                </p>
+                             
+                                </div>
                             </div>
-                            <div class="cd-item">
-                                <span>40</span>
-                                <p>Minutes</p>
                             </div>
-                            <div class="cd-item">
-                                <span>52</span>
-                                <p>Seconds</p>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-3 col-timer">
+                              <div class="card card-pricing bg-primary"><div class="card-body ">
+                            
+                                <h2 class="card-title">56</h2>
+                                <p class="card-description">
+                                    Seconds
+                                </p>
+                             
+                                </div>
+                            </div>
+                            </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" style="padding-top:30px;">
                         <video src="{% static 'img/video1.mp4' %}" width="100%" height="auto" controls
-                            poster="{% static 'img/videothumbnail.png' %}"></video>
+                            poster="{% static 'img/videothumbnail.png' %}" style="vertical-align: middle;"></video>
                     </div>
                 </div>
             </div>
@@ -61,36 +115,24 @@
     </div>
     </div>
        
-   
-       <div class="section section-contacts" >
+    </div>
+
+       <div class="section section-contacts" style="background: #00032d; padding-top:35px;" >
          <div class="row">
             <div class="col-md-8 ml-auto mr-auto">
-                <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h2 class="card-title">THEME</h2>
-                        
-                    </div>
-                    <div class="card-body">
-                        <p class="category" style="font-size:x-large; font-weight:bold">Emerging Technologies for Sustainable Development</p>
-                        <p style="font-size: large;">
-                        The 2030 Agenda for Sustainable Development, adopted by all United
-                        Nations Member States
-                        in 2015, provides a shared blueprint for peace and prosperity for people and the planet, now
-                        and into the future.
-                        </p>
-                    </div>
-                </div>
-              </div>
-           <!-- <div class="col-md-8 ml-auto mr-auto">
-             <h2 class="title">THEME</h2>
-             <h3 class="title">Emerging Technologies for Sustainable Development</h3>
-             <h4 class="description" style="color:#000">The 2030 Agenda for Sustainable Development, adopted by all United
+                <h2 class="title" style="color:white">THEME</h2>
+                <p class="category" style="font-size:x-large; font-weight:bold; color:white">Emerging Technologies for Sustainable Development</p>
+                <p style="font-size: large;color:white;">
+                The 2030 Agenda for Sustainable Development, adopted by all United
                 Nations Member States
                 in 2015, provides a shared blueprint for peace and prosperity for people and the planet, now
-                and into the future.</h4>
-           </div> -->
+                and into the future.
+                </p>
+              </div>
          </div>
+         
        </div>
+   
 <!-- 
       <div class="text-center">
           {% if user.is_authenticated %}
@@ -165,6 +207,15 @@
           </div>
         </div>
       </div>
+      </div>
  {% endblock %}
 
+{% block scripts %}
+<script src="{% static 'js/particles.js' %}"></script>
+<script>
+  $(document).ready(function() {
+    particlesJS.load('particle-div', '{% static "js/particles.json" %}');
     
+  })
+</script>
+{% endblock %}

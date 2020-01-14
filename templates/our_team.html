@@ -13,7 +13,7 @@
     <div class="team">
       {% for role, display in roles.items %}
       <h2 class="title">{{ display }}</h2>
-      <div class="row">
+      <div class="row text-center">
         
         
         {% for member in members %}
@@ -21,7 +21,7 @@
         <div class="col-md-4">
           <div class="team-player">
             <div class="card card-plain">
-              <div class="col-md-6 ml-auto mr-auto">
+              <div class="col-lg-7 col-md-10 ml-auto mr-auto">
                 {% if member.image %}
                   <img src="{{ member.image.url }}" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
                 {% else %}

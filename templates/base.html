@@ -32,7 +32,7 @@
    <link href="{% static 'css/material-kit.css' %}?v=2.0.6" rel="stylesheet" />
    <!-- CSS Just for demo purpose, don't include it in your project -->
    <link href="{% static 'demo/demo.css' %}" rel="stylesheet" />
-   <link href="{% static 'css/countdown.css' %}" rel="stylesheet" />
+   <!-- <link href="{% static 'css/countdown.css' %}" rel="stylesheet" /> -->
    <link href="https://fonts.googleapis.com/css?family=Orbitron|Calistoga|Comfortaa&display=swap" rel="stylesheet">
    <link href="{% static 'css/navbar-collapse-extra.css' %}" rel="stylesheet" />
 
@@ -103,7 +103,7 @@
             </a>
           </li>
           {% if user.is_authenticated %}
-            <li class="dropdown nav-item">
+            <li class="dropdown nav-item" id="login-dropdown">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                 <i class="fa fa-user"></i> {{ user.username }}
                 </a>
@@ -131,7 +131,7 @@
                 Signup
                 </a>
             </li>
-            <li class="nav-item" style="margin-bottom:100px;">
+            <li class="nav-item" id="login-link">
                 <a class="nav-link" href="/accounts/login" onclick="scrollToDownload()">
                 Login
                 </a>
@@ -144,7 +144,7 @@
    </nav>
 
    {% block pageheader %}
-   <div class="page-header header-filter" data-parallax="true" style="background-image: url('{% block bgimage %} {% static 'img/techno.jfif' %} {% endblock %}')">
+   <div class="page-header header-filter" data-parallax="true" style="background-image:{% block back %} url('{% block bgimage %} {% static 'img/techno.jfif' %} {% endblock %}'){% endblock %}">
     <div class="container">
       <div class="row">
         <div class="col-md-8 ml-auto mr-auto">
@@ -262,6 +262,7 @@
   <script src="{% static 'js/material-kit.js' %}?v=2.0.6" type="text/javascript"></script>
   <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
+
   {% block scripts %}
   {% endblock %}
 </body>

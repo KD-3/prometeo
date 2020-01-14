@@ -1,9 +1,16 @@
 @media (max-width: 991px) {
     .navbar-collapse {
+   
         overflow-y:scroll;
     }
     .navbar-collapse .navbar-nav.ml-auto {
         background: #fff;
+    }
+    #login-link {
+        margin-bottom:70px;
+    }
+    #login-dropdown {
+        margin-bottom:70px;
     }
 }
 

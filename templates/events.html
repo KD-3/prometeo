@@ -8,7 +8,15 @@
 <h2 style="text-transform: capitalize; font-family: 'Comfortaa', cursive;">{{ type }}</h2>
 {% endblock %}
 
-{% block bgimage %} {% static "img/event.jpg" %} {% endblock %}
+{% block back %} 
+    {% if type == 'technical' %}
+        url('{% static "img/gears.jfif" %}')
+    {% elif type == 'informal' %}
+        url('{% static "img/techno3.jfif" %}')
+    {% else %}
+        url('{% static "img/event.jpg" %}')
+    {% endif %}
+{% endblock %}
 {% block bodyclass %} index-page {% endblock %}
 {% block content %}
 
@@ -17,7 +25,7 @@
     <a href="{% get_media_prefix %}workbooks/{{ wbname }}" download="{{ wbname }}" class="btn btn-primary">Download Participants Excel Sheet for {{ type }} events</a>
     {% endif %}
     <div class="row">
-        {% if type == 'informal' %}
+        {% if events.count == 0 %}
         <h1 class="title">Coming Soon!</h1>
         {% endif %}
         {% for event in events %}
