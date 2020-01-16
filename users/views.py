@@ -10,6 +10,9 @@ from events.models import Event
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
 from django.contrib import messages
+from allauth.account.signals import user_signed_up
+from django.dispatch.dispatcher import receiver
+
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
@@ -97,3 +100,15 @@ def join_team_confirm(request):
         return redirect('event', team.event.type, team.event.pk)
     else:
         return render(request, 'join_team_confirm.html', {'team':team})
+
+@receiver(user_signed_up) 
+def user_signed_up_(request, user, **kwargs):
+    if user.ambassador:
+        send_mail(
+            'Campus Ambassador Invite Referral Code',
+            f'You have just registered as Campus Ambassador. Your invite referral code is {user.invite_referral}. You can share this code with your friends and invite them to the fest to get exciting benefits.',
+            'info.noreply@prometeo.com',
+            [user.email],
+            fail_silently=False,
+        )
+        messages.success(request, 'Your Campus Ambassador invite referral code has been mailed to your registered email ID.')

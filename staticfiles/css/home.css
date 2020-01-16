@@ -19,6 +19,19 @@
     padding: 3px;
 }
 
+.section-contacts {
+    background: #00032d;
+    padding:35px 0px 50px 0px;
+}
+
+@media only screen and (max-width: 768px) {
+    .section-contacts {
+        background: #00032d;
+        padding:35px 30px 50px 30px;
+    }
+}
+
+
 @media only screen and (max-width: 530px) {
     .index-page .brand h1 {
         font-size:12vw;

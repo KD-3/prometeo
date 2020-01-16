@@ -2,18 +2,6 @@
     position:absolute;
 }
 
-#particles2 {
-    background: #00032d; 
-    position:relative;
-}
-
-#particles2 canvas {
-    position:absolute;
-   
-}
-
-
-
 .event-name {
     margin:0px;
 }
@@ -30,6 +18,18 @@
 .col-timer .card .card-body {
     padding: 3px;
 }
+
+.section-contacts {
+    background: #00032d;
+    padding:35px 0px 40px 0px;
+}
+
+@media only screen and (max-width: 768px) {
+    .section-contacts {
+        padding:35px 30px 40px 30px;
+    }
+}
+
 
 @media only screen and (max-width: 530px) {
     .index-page .brand h1 {

@@ -27,7 +27,7 @@ SECRET_KEY = 'zf0o(fvf3=d-ohx9dmybcw@7i7n#d7xb$nl*&wa66fuw92gb99'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.43.110', '127.0.0.1', '142.93.216.166', ]
+ALLOWED_HOSTS = ['192.168.43.110', '127.0.0.1', '142.93.216.166', '206.189.133.128', 'prometeo.in', 'www.prometeo.in']
 
 # Application definition
 
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'widget_tweaks',
     'django_inlinecss',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -161,6 +162,7 @@ SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+SOCIALACCOUNT_AUTO_SIGNUP = False
 
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
@@ -187,3 +189,5 @@ ACCOUNT_FORMS = {
     'signup': 'users.forms.CustomSignupForm',
     'login': 'users.forms.CustomLoginForm'
 }
+
+SOCIALACCOUNT_FORMS = {'signup': 'users.forms.CustomSocialSignupForm'}

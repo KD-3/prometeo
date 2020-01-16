@@ -30,11 +30,15 @@
               </div>
               <h4 class="card-title">{{ member.name }}
                 <br>
+                {% if member.designation %}
                 <small class="card-description text-muted">{{ member.designation }}</small>
+                {% endif %}
               </h4>
+              {% if member.description %}
               <div class="card-body">
                 <p class="card-description">{{ member.description }}</p>
               </div> 
+              {% endif %}
               <div class="card-footer justify-content-center">
                 {% if member.instagram %}
                 <a href="{{ member.instagram }}" class="btn btn-link btn-just-icon"><i class="fa fa-instagram"></i></a>

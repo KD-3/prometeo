@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %} Events Info - {{ query_user.username }} {% endblock %}
+{% block title %} User Info - {{ query_user.username }} {% endblock %}
 
 {% block style %} <link rel="stylesheet" href="{% static 'css/search-table-style.css' %}" type="text/css">{% endblock %}
-{% block heading %} Events Info - {{ query_user.username }} {% endblock %}
+{% block heading %} 
+<h1 style="font-family: 'Calistoga', cursive; letter-spacing:2px;">User Info - {{ query_user.username }}</h1>
+{% endblock %}
 
 {% block content %}
+<div class="section">
+    <h2 class="title">Events Registered</h2>
+    <div class="row">
 <div class="container search-table">
     <div class="search-box">
         <div class="row">
@@ -27,7 +32,7 @@
                     <th>Name</th>
                     <th>Type</th>
                     <th>Date</th>
-                    <th>Participants</th>
+                    <th>Team</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +42,7 @@
                 <td>{{ event.name }}</td>
                 <td>{{ event.type }}</td>
                 <td>{{ event.date }}</td>
-                <td>{{ event.participants.count }} <a href="{% url 'event' event.pk %}" style="float: right;">View</a></td>
+                <td>{{ event.participants.count }} <a href="{% url 'event' event.type event.pk %}" style="float: right;">View</a></td>
             </tr>
             {% endfor %}
             </tbody>
@@ -45,6 +50,8 @@
         </div>
 
     </div>
+</div>
+</div>
 </div>
 {% endblock %}
 
