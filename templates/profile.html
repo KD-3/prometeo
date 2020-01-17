@@ -1,0 +1,400 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load socialaccount %}
+{% load widget_tweaks %}
+{% load get_dict_item %}
+
+
+{% block head_links %} 
+
+<title>{{ user.username }} - Profile</title>
+
+{% endblock %}
+
+
+{% block head_title %}{{ user.username }} - Profile{% endblock %}
+
+   
+{% block style %} <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}" />{% endblock %}
+
+{% block bodyclass %} login {% endblock %}
+
+{% block pageheader %}
+{% endblock %}
+
+{% block outer %}
+
+<div class="page-header header-filter" style="background-image: url('{% static 'img/bg7.jpg' %}'); background-size: cover; background-position: top center; height:auto;">
+    <div class="container" style="margin-top:200px;margin-bottom:100px;"> 
+      {% if messages %}
+      <div style="margin-bottom: 30px;">
+        {% for message in messages %}
+          <div class="row" >
+            
+            <div class="col-lg-10 col-md-10 ml-auto mr-auto">
+                  <div class="alert alert-info">
+                      <div class="container">
+                      <div class="alert-icon">
+                          <i class="material-icons">info_outline</i>
+                      </div>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                      </button>
+                      <b>{{ message }}</b>
+                      </div>
+                  </div>
+            </div>
+                  
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="row">
+        <div class="col-lg-10 col-md-10 ml-auto mr-auto">
+            <div class="card text-center">
+                <div class="card-header card-header-rose">
+                    <h2 class="title">{{ user.first_name }} {{ user.last_name }}</h2>
+                    <h4 style="text-transform: capitalize; margin-bottom:20px">Profile</h4>
+                    
+                  <ul class="nav nav-tabs justify-content-center">
+                     
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#details" data-toggle="tab">Details</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#reg-events" data-toggle="tab">Registered Events</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#teams" data-toggle="tab">Teams</a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown" id="profile-menu">Actions</a>
+                        <div class="dropdown-menu dropdown-with-icons">
+                            <a class="dropdown-item" href="{% url 'update_profile' %}">Update Profile</a>
+                            <a class="dropdown-item" href="/accounts/password/change">Change Password</a>
+                            {% if not user.ambassador %}
+                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#ambassador">Become Ambassador</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                    <!-- <li class="nav-item">
+                      <a class="nav-link" href="{% url 'update_profile' %}">Update Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/accounts/password/change">Change Password</a>
+                    </li>
+                    {% if not user.ambassador %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ambassador" data-toggle="tab">Become Ambassador</a>
+                    </li>
+                    {% endif %} -->
+                  </ul>
+                </div>
+
+                
+                <div class="tab-content">
+                    <div class="tab-pane fade" id="reg-events">
+                        <div class="card-body">
+                            {% if user.events.all.count == 0 %}
+                            <h3>You haven't registered for any events yet.</h3>
+                            {% endif %}
+                            <ul class="nav nav-pills nav-pills-success justify-content-center" role="tablist">
+                                {% for category in categories %}
+                             
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if forloop.counter == 1 %} active {% endif %}" data-toggle="tab" href="#{{ category }}" role="tablist" aria-expanded="{% if forloop.counter == 1 %} expanded {% else %} false {% endif %}">
+                                            {% if category == 'technical' %} Technical Events
+                                            {% elif category == 'informal' %} Informals
+                                            {% else %} Workshops
+                                            {% endif %}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                                
+                            </ul>
+                            
+                            <div class="tab-content tab-space" style="text-align: left; padding-bottom:20px;">
+                                {% for category in categories %}
+                                <div class="tab-pane fade {% if forloop.counter == 1 %} in active show {% endif %}" id="{{ category }}" aria-expanded="{% if forloop.counter == 1 %} true {% else %} false {% endif %}">
+                                    <div class="row">
+
+                                    {% for event in user.events.all %}
+                                    {% if event.type == category %}
+                                    <div class="col-lg-6 col-md-12" style="padding:0 7px 0 7px;">
+                                    <div class="card {% if forloop.counter|divisibleby:2 %}bg-danger{% else %}bg-primary{% endif %}" style="margin-bottom:0px;">
+                                        <div class="card-body">
+                                            {% if event.participation_type == 'team' %}
+                                            <span class="badge badge-pill badge-success" style="float: right; margin-top:13px;">Team: {{ events|get_item:event.pk }}</span>
+                                            {% endif %}
+                                            <h5 class="card-category card-category-social" style="text-transform: capitalize;">
+                                                 {{ event.participation_type }} Event
+                                            </h5>
+                                            
+                                            <h4 class="card-title">
+                                                <a href="{% url 'event' event.type event.pk %}">{{ event.name }}</a>
+                                            </h4>
+                                    
+                                            <div class="card-stats">
+                                                <div class="author" style="display: block;">
+                                                    <div><i class="material-icons" style="font-size:20px;">date_range</i><span style="vertical-align: top;">  {{ event.date|date:'N j' }}</span></div>
+                                                    {% if event.time %}<div><i class="material-icons"style="font-size:20px;">access_time</i><span style="vertical-align: top;">  {{ event.time }}</span></div>{% endif %}
+                                                </div>
+                                            <div class="stats ml-auto">
+                                                <a href="{% url 'event' event.type event.pk %}" class="btn btn-outline-primary btn-round" style="border-color: white; color:white">
+                                                    <!-- <span>Download Rulebook</span> -->View More
+                                                    </a>
+                                                    
+                                                    <!-- {% if event.time %}<i class="material-icons">share</i> {{ event.time }}{% endif %}; 
+                                                    {% if event.venue %}<i class="material-icons">share</i> {{ event.venue }}{% endif %} -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                </div>
+                                {% endfor %}
+                                
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <!-- <div class="tab-pane fade" id="ambassador">
+                        <div class="card-body">
+                            <h4 class="card-title">Become a Campus Ambassador to get exciting benefits!</h4>
+                            <p class="card-text">Click on the following button to become a Campus Ambassador. You will receive an invite referral code which you can share with your friends and invite them to our fest. Your friends should signup using the shared referral code.</p>
+                            <a href="#" class="btn btn-primary btn-round">Become an Ambassador</a>
+                        </div>
+                    </div> -->
+                    <div class="tab-pane fade in active show" id="details">
+                        <div class="card-body" style="text-align:left">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">email</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">Email:</h4><span>{{ user.email }}</span>
+                                        </div>
+                               
+                                    </div>
+                                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">account_circle</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">Username:</h4> <span>{{ user.username }}</span>
+                                        </div>
+                               
+                                    </div>
+                                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">face</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">First Name:</h4> <span>{{ user.first_name }}</span>
+                                        </div>
+                               
+                                    </div>
+                                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">face</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">Last Name:</h4> <span>{{ user.last_name }}</span>
+                                        </div>
+                               
+                                    </div>
+                                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">contact_phone</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">Contact:</h4> <span>{{ user.contact }}</span>
+                                        </div>
+                               
+                                    </div>
+                                    {% if user.ambassador %}
+                                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">code</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">Invite Referral Code:</h4> <span>{{ user.invite_referral }}</span>
+                                        </div>
+                               
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">location_city</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">College:</h4> <span>{{ user.college }}</span>
+                                        </div>
+                               
+                                    </div>
+                                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">my_location</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">City:</h4> <span>{{ user.city }}</span>
+                                        </div>
+                               
+                                    </div>
+                                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">wc</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">Gender:</h4> <span style="text-transform: capitalize;">{{ user.gender }}</span>
+                                        </div>
+                               
+                                    </div>
+                                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">school</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">Current Year:</h4> <span>
+                                                {% if user.current_year == 'first_year' %}
+                                                First Year
+                                                {% elif user.current_year == 'second_year' %}
+                                                Second Year
+                                                {% elif user.current_year == 'third_year' %}
+                                                Third Year
+                                                {% elif user.current_year == 'fourth_year' %}
+                                                Fourth Year
+                                                {% elif user.current_year == 'fifth_year' %}
+                                                Fifth Year
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                               
+                                    </div>
+                                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">group_work</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">Campus Ambassador:</h4> <span>
+                                                {% if user.ambassador %}Yes{% else %}No{% endif %}                                                
+                                            </span>
+                                        </div>
+                               
+                                    </div>
+                                    
+                                    
+                                </div>
+                                
+                            </div>
+                   
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="teams" style="text-align: left;padding-bottom:20px;">
+                        <div class="card-body">
+                            {% if user.teams.all.count == 0 %}
+                            <h3>You haven't created or joined any teams yet.</h3>
+                            {% endif %}
+                                {% for team in user.teams.all %}
+                                    <div class="card {% if forloop.counter|divisibleby:2 %}bg-danger{% else %}bg-primary{% endif %}" style="margin-bottom:0px;">
+                                        <div class="card-body">
+                                            <h5 class="card-category card-category-social" style="text-transform: capitalize;">
+                                                Registered for {{ team.event.name }} ({{ team.event.type }} Event)
+                                            </h5>
+                                            <span class="badge badge-pill badge-success" style="float: right; margin-top:3px;">Team ID: {{ team.id }}</span>
+
+                                            <h4 class="card-title">
+                                                Team Name: {{ team.name }}
+                                            </h4>
+                                            
+                                            
+                                            
+                                            <div class="row">
+                                                <div class="col-lg-7 col-md-7 col-sm-8">
+                                                    <div class="card-stats">
+                                                        <div class="author" style="display: block;">
+                                                            <h5>Team Members</h5>
+                                                            {% for member in team.members.all %}
+                                                            <div><i class="material-icons" style="font-size:22px;">group</i><span style="vertical-align: top;">  {{ member.first_name }} {{ member.last_name }}</span>
+                                                                {% if member == team.leader %}<span class="badge badge-pill badge-success" style="position:relative; top:-7px; margin-left:5px;">Leader</span>{% endif %}
+                                                            </div>
+                                                            
+                                                            {% endfor %}
+                                                            
+                                                        </div>
+                                                        <!-- <div class="stats ml-auto" style="display:block">
+                                                            <span>Team ineligible ncsdicunisuncundciun</span>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5 col-md-5 col-sm-4">
+                                                    <h5 id="eligibility">
+                                                        {% if team.members.all.count >= team.event.min_team_size and team.members.all.count <= team.event.max_team_size %}
+                                                        Eligible
+                                                        {% else %}
+                                                        Ineligible
+                                                        {% endif %}
+                                                    </h5>
+                                                    <div>
+                                                        {% if team.members.all.count >= team.event.min_team_size and team.members.all.count <= team.event.max_team_size %}
+                                                            <i class="material-icons" style="font-size:20px;">check_circle</i>
+                                                            <span style="vertical-align:top">  Team is eligible</span>
+                                                        {% else %}
+                                                            <i class="material-icons" style="font-size:20px;">warning</i>
+                                                            <span style="vertical-align:top">  Team must contain {{ team.event.min_team_size }} to {{ team.event.max_team_size }} members</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                
+                                            
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                        </div>
+                  
+                    </div>
+               
+                  </div>
+                 
+              </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="ambassador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Become a Campus Ambassador to get exciting benefits!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       <div class="modal-body">
+            Click on the following button to become a Campus Ambassador. You will receive an invite referral code which you can share with your friends and invite them to our fest. Your friends should signup using the shared referral code.
+       </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <a href="{% url 'make_ambassador' %}" class="btn btn-primary">Become an Ambassador</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+<!-- {% block scripts %} <script src="{% static 'js/tabs.js' %}"></script> {% endblock %} -->

@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from .models import CustomUser, Team
 import uuid
 import requests
-from .forms import CustomUserCreationForm, TeamCreationForm, TeamJoiningForm
+from .forms import *
 from events.models import Event
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
@@ -28,6 +28,30 @@ def users_info(request):
 def user_info(request, userid):
     user = CustomUser.objects.get(pk=userid)
     return render(request, 'user_info.html', {'query_user':user})
+
+@login_required
+def user_profile(request):
+    types = ['technical', 'informal', 'workshop']
+    categories = [] 
+    for type in types:
+        if(request.user.events.filter(type=type).exists()):
+            categories.append(type)
+    events = {}
+    for event in request.user.events.all():
+        if (event.participation_type == 'team'):
+            events[event.pk] = request.user.teams.get(event=event).name
+    return render(request, 'profile.html', {'categories':categories, 'events' : events})
+
+@login_required
+def make_ambassador(request):
+    if(request.user.ambassador):
+        return redirect('user_profile')
+    else:
+        request.user.ambassador = True
+        request.user.invite_referral = 'CA' + str(uuid.uuid4().int)[:6]
+        request.user.save()
+        messages.success(request, 'You have successfully become a Campus Ambassador. Your invite referral code has been sent to your registered email ID.')
+        return redirect('user_profile')
 
 @login_required
 def create_team(request, eventid):
@@ -112,3 +136,27 @@ def user_signed_up_(request, user, **kwargs):
             fail_silently=False,
         )
         messages.success(request, 'Your Campus Ambassador invite referral code has been mailed to your registered email ID.')
+
+    
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            # current_user = form.save(commit=False)
+            # if (current_user.ambassador):
+            #     current_user.invite_referral = 'CA' + str(uuid.uuid4().int)[:6]
+            #     send_mail(
+            #         'Campus Ambassador Invite Referral Code',
+            #         f'You have just registered as Campus Ambassador. Your invite referral code is {user.invite_referral}. You can share this code with your friends and invite them to the fest to get exciting benefits.',
+            #         'info.noreply@prometeo.com',
+            #         [request.user.email],
+            #         fail_silently=False,
+            #     )
+            #     messages.success(request, 'Your Campus Ambassador invite referral code has been mailed to your registered email ID.')
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('home')
+    else:
+        form = UpdateProfileForm(instance=request.user)
+    return render(request, 'update_profile.html', {'form': form})

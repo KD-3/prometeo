@@ -7,14 +7,15 @@
 {% load widget_tweaks %}
 
 
+
 {% block head_links %} 
 
-<title>Sign In</title>
+<title>Update Profile</title>
 
 {% endblock %}
 
 
-{% block head_title %}{% trans "Sign In" %} {% endblock %}
+{% block head_title %}{% trans "Update Profile" %} {% endblock %}
 
 {% block bodyclass %} login {% endblock %}
 
@@ -22,7 +23,6 @@
 {% endblock %}
 
 {% block outer %}
-
 <div class="page-header header-filter" style="background-image: url('{% static 'img/bg7.jpg' %}'); background-size: cover; background-position: top center; height:auto;">
     <div class="container" style="margin-top:200px;margin-bottom:100px;"> 
       {% if messages %}
@@ -53,15 +53,10 @@
         <div class="col-lg-4 col-md-6 ml-auto mr-auto">
           <div class="card card-login">
               <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Login</h4>
-                <div class="social-line">
-                  <a href="{% provider_login_url 'google' %}" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-google-plus-square" style="font-size:30px;"></i>
-                  </a>
-   
-                </div>
+                <h4 class="card-title">Update Profile</h4>
+              
               </div>
-        <p class="description text-center" style="padding-left:20px; padding-right:20px">Or Be Classical</p>
+        <!-- <p class="description text-center" style="padding-left:20px; padding-right:20px">Enter the team ID shared by the team leader to join the team.</p> -->
         {% if form.non_field_errors %}
           {% for error in form.non_field_errors %} 
           <p class="description text-center" style="color:red;padding-left:20px; padding-right:20px">
@@ -69,7 +64,7 @@
           </p>
           {% endfor %}
         {% endif %}
-			<form class="container-fluid text-center" id="login_form" method="POST" action="{% url 'account_login' %}">
+			<form class="container-fluid" id="update_form" method="POST" action="{% url 'update_profile' %}">
 			  
               <div class="card-body">
 					{% csrf_token %}
@@ -82,10 +77,9 @@
               </div>
               <div class="footer text-center" style="margin-top:20px;">
                 <div class="form-group">
-					<input type="submit" value="Login" class="btn btn-primary btn-round">
+					<input type="submit" value="Update" class="btn btn-primary btn-round">
 				</div>
-				<p style="margin-bottom:20px;">Don't have an account? <a href="{{ signup_url }}">Signup</a><br>
-				<a href="{% url 'account_reset_password' %}">Forgot your password?</a></p>
+		
               </div>
             </form>
           </div>
@@ -94,8 +88,6 @@
     </div>
 
 </div>
-
-
 
 
 {% endblock %}

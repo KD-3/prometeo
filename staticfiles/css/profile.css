@@ -1,0 +1,32 @@
+.description h4 {
+    display: inline-block;
+}
+
+.description h4 + span {
+    padding-left: 10px;
+    font-size: larger;
+    color: black;
+}
+
+#profile-menu, #profile-menu:hover, #profile-menu:focus {
+    background-color: transparent;
+}
+
+#eligibility {
+    text-align:right;
+    margin-bottom:10px;
+}
+
+#eligibility + div{
+    text-align:right;
+}
+
+@media only screen and (max-width:575px) {
+    #eligibility {
+        text-align:left;
+    }
+    
+    #eligibility + div{
+        text-align:left;
+    }
+}

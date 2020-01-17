@@ -57,10 +57,10 @@
                 <h4 class="card-title">Create Team for {{ event.name }}</h4>
               
               </div>
-        <p class="description text-center" style="margin-left:15px; margin-right:15px;">You will get a team ID after submitting the form. Share the team ID ONLY with your friends to invite them to your team (Team Size: {{ event.min_team_size }}-{{ event.max_team_size }})</p>
+        <p class="description text-center" style="padding-left:20px; padding-right:20px">You will get a team ID after submitting the form. Share the team ID ONLY with your friends to invite them to your team (Team Size: {{ event.min_team_size }}-{{ event.max_team_size }})</p>
         {% if form.non_field_errors %}
           {% for error in form.non_field_errors %} 
-          <p class="description text-center" style="color:red;">
+          <p class="description text-center" style="color:red;padding-left:20px; padding-right:20px">
               {{ error }}
           </p>
           {% endfor %}

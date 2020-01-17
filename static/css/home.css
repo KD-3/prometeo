@@ -21,12 +21,13 @@
 
 .section-contacts {
     background: #00032d;
-    padding:35px 0px 40px 0px;
+    padding:35px 0px 50px 0px;
 }
 
 @media only screen and (max-width: 768px) {
     .section-contacts {
-        padding:35px 30px 40px 30px;
+        background: #00032d;
+        padding:35px 30px 50px 30px;
     }
 }
 

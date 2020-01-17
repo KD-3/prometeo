@@ -42,6 +42,9 @@ class CustomSignupForm(NormalSignupForm):
     city = forms.CharField(max_length=40, label='City')
     join_referral = forms.CharField(max_length=8, min_length=8, required=False, label="Referral Code (optional)")
     ambassador = forms.BooleanField(label='Do you want to be a campus ambassador?', required=False, initial=False)
+    
+    field_order = ['username', 'email', 'first_name', 'last_name', 'contact', 'college', 'city', 'gender', 'current_year', 'password1', 'password2', 'join_referral', 'ambassador']
+    
     def clean(self):
         cleaned_data = super(CustomSignupForm, self).clean()
         referral = cleaned_data['join_referral']
@@ -79,6 +82,8 @@ class CustomSocialSignupForm(SocialSignupForm):
     city = forms.CharField(max_length=40, label='City')
     join_referral = forms.CharField(max_length=8, min_length=8, required=False, label="Referral Code (optional)")
     ambassador = forms.BooleanField(label='Do you want to be a campus ambassador?', required=False)
+
+    field_order = ['email', 'username', 'contact', 'college', 'city', 'gender', 'current_year', 'join_referral', 'ambassador']
 
     def clean(self):
         cleaned_data = super(CustomSocialSignupForm, self).clean()
@@ -125,3 +130,10 @@ class TeamCreationForm(forms.ModelForm):
 
 class TeamJoiningForm(forms.Form):
     teamId = forms.CharField(label="Team ID", max_length=9, min_length=9)
+
+class UpdateProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'first_name', 'last_name', 'contact', 'college', 'city', 'gender', 'current_year']
+  
