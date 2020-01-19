@@ -47,8 +47,8 @@
     <div class="container">
        <div class="navbar-translate">
         
-        <a href="{% url 'home' %}"><img src="{% static "img/logo.png" %}" width="40" height="48"
-          align="top" alt=""> </a>
+        <a href="http://iitj.ac.in/"><img src="{% static "img/iitj_logo_white.png" %}" width="80" height="48"
+          align="top" alt="" id="logo-img"> </a>
          <a class="navbar-brand" href="{% url 'home' %}" style="font-family: 'Orbitron', sans-serif;" >
             Prometeo </a>
             
@@ -266,6 +266,16 @@
   <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
 
+  <script>
+    setInterval(function() {
+      img = document.getElementById("logo-img");
+      if(document.getElementsByClassName("navbar-transparent").length == 0) {
+        img.src = "{% static 'img/iitj_pro_black.png' %}";
+      } else {
+        img.src = "{% static 'img/iitj_pro_white.png' %}";
+      }
+    }, 1);
+  </script>
   {% block scripts %}
   {% endblock %}
 </body>
