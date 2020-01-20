@@ -6,7 +6,7 @@
 {% block heading %}
     <h1 style="font-family: 'Calistoga', cursive; letter-spacing:2px;">Industry Day</h1>
 {% endblock %}
-
+{% block style %}<link href="{% static 'css/industry_day.css' %}" rel="stylesheet" />{% endblock %}
 {% block bgimage %} {% static "img/earthtech.jfif" %} {% endblock %}
 {% block bodyclass %} index-page {% endblock %}
 {% block content %}
@@ -84,7 +84,7 @@
 
         <div class="row">
             <div class="col-md-10 ml-auto mr-auto">
-                <h3 class="title" style="font-family: 'Comfortaa', cursive;">Speakers</h3>
+                <h3 class="title" style="font-family: 'Comfortaa', cursive;">Keynote Speakers</h3>
             </div>
             <!-- <div class="col-md-4 ml-auto mr-auto">
                 <br><br><br><br><br>
@@ -134,33 +134,191 @@
                     At Thermax, Dr. Sonde is currently developing and nurturing the Research, Technology & Innovation
                     Center (RTIC).</p>
             </div> -->
-            <div class="row" style="margin-left:8%;">
+            <div class="col-md-10 ml-auto mr-auto">
+            <div class="row text-center">
                 <div class="col-lg-3 col-md-6">
-                    <img src="{% static 'img/sen.jpg' %}" width="200" height="auto">
+                    <img src="{% static 'img/sen.jpg' %}" width="180" height="auto">
                     <h5 class="title" style="margin-bottom:0px;">Dr. Shubhashis Sengupta
                     </h5>
-                    <h5>MD and Technology Reseach Executive, Accenture</h5>
+                    <h5 style="margin-top:0px;">MD and Technology Reseach Executive, Accenture</h5>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <img src="{% static 'img/sonde2.png' %}" width="200" height="auto">
+                    <img src="{% static 'img/sonde2.png' %}" width="180" height="auto">
                     <h5 class="title" style="margin-bottom:0px;">Dr. R. R. Sonde</h5>
-                    <h5>Executive Vice President (Research, Technology & Innovation Centre) & Member of Board of Executive Council, Thermax Ltd.</h5>
+                    <h5 style="margin-top:0px;">Executive Vice President (Research, Technology & Innovation Centre) & Member of Board of Executive Council, Thermax Ltd.</h5>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <img src="{% static 'img/manish.jpg' %}" width="200" height="auto">
+                    <img src="{% static 'img/manish.jpg' %}" width="180" height="auto">
                     <h5 class="title" style="margin-bottom:0px;">Dr. Manish Gupta</h5>
-                    <h5>Head, Google India AI</h5>
+                    <h5 style="margin-top:0px;">Head, Google India AI</h5>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <img src="{% static 'img/aloknath.png' %}" width="200" height="auto">
+                    <img src="{% static 'img/aloknath.png' %}" width="180" height="auto">
                     <h5 class="title" style="margin-bottom:0px;">Dr. Aloknath De
                     </h5>
-                    <h5>CTO, Samsung India
+                    <h5 style="margin-top:0px;">CTO, Samsung India
                     </h5>
                 </div>
             </div>
+            </div>
         </div>
+            <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                    <h4 class="title" style="font-family: 'Comfortaa', cursive;margin-bottom:5px;" >Dr. Shubhashis Sengupta</h4>
+                </div>
+            </div>
+            <div class="col-md-10 ml-auto mr-auto">
+            <p>Dr. Shubhashis Sengupta is the Managing Director and Fellow of Accenture Technology Labs and the Head of AI R&D at Accenture Technology Labs, Bangalore. He also leads Accenture Labs Co-Research program with marquee clients. His area of specialization is around large scale distributed systems, Software Engineering, and AI-based (NLP and Machine Learning) systems. Prior to joining Accenture, he was with Oracle Corp and Infosys Technologies. Dr. Sengupta has consulted extensively in multiple domains. Dr. Sengupta has over 50 journal and peer-reviewed conference papers, 25 granted patents and 35+ patent applications to his credit. He has a PhD in Systems, Algorithms, Strategic Management from Indian Institute of Management Calcutta specializing in applying AI algorithms on Combinatorial Optimization. He is a Senior member of ACM and Senior Member of IEEE Computer Society. He is a founding member of AAAI India Chapter. He has been in the program committee and review board of several conferences and journals including IEEE Spectrum and IEEE Transactions in Cloud Computing, Association of Computational Linguistics, etc. Dr. Sengupta can be reached at shubhashis.sengupta[at]accenture.com.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                    <h4 class="title" style="font-family: 'Comfortaa', cursive;margin-bottom:5px;"> Dr. R R Sonde</h4>
+                </div>
+            </div>
+            <div class="col-md-10 ml-auto mr-auto">
+            <p>Dr. Sonde started his early career working as a scientist in the country’s top research institution, Bhabha Atomic Research Center (BARC). He topped the entire batch of scientists and engineers and was awarded Dr. Homi Bhabha Gold Medal. He was awarded for his contribution to nuclear energy and science a Gold Medal during the Golden Jubilee Award by then Prime Minister. After 23 years of working in Atomic Energy, he was invited to join as Executive Director in the country’s premier power generator, National Thermal Power Corporation (NTPC). During his stint at NTPC, he created a new institution, “Energy Technologies,” which is now rechristened as NETRA to develop technologies in the thermal coal sector.
+                In his current assignment as Executive Vice President and a member of the Executive Council of Thermax, his main thrust of activities is bringing innovation and enhance knowledge in all the existing technologies within Thermax while also involved in the developing new technologies in the field of energy, environment and water. The current thrust of his developments is on Fuel Cell, Battery, Hydrogen in Energy and CDI (Capacitive Deionization) in Water. He has been awarded the Dr. M. Vishweswarayya Gold Medal for standing first in the University of Mysore, Dr. Homi Bhabha Gold Medal during the Golden Jubilee celebrations of BARC in the year 2006 by Hon’ble Prime Minister for his outstanding contribution in the nuclear field, Dr. Doraswami IIChE Medal and Gold Medal from the Indian Nuclear Society (INS).</p>
+            </div>
 
+            <div class="col-md-10 ml-auto mr-auto">
+                <div class="row text-center">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. Niyati Chayya</b><br>
+                            Adobe
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. Sameep Mehta</b><br>
+                        IBM IRL
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. Narayanan Unny</b><br>
+                        AMEX
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Vishal Dhupar</b><br>
+                        NVIDIA
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. Shivkumar K</b><br>
+                        GE
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Mohak Kumar Sukhwani</b><br>
+                        ABB Robotics
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Nitendra Rajput</b><br>
+                        MasterCARD
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Ms. Apurva Verma</b><br>
+                        ARM
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Puneet Rai</b><br>
+                        VP Operations & HR ATC Labs
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Mukul Gupta</b><br>
+                        Dynapt Solutions
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Hemraj Sharma</b><br>
+                        Reliance Power
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Nirod Ranjan Hazarika</b><br>
+                        Oil India
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. G V Raghunath Reddy</b><br>
+                        Department of Science & Technology
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. Praveen Kumar</b><br>
+                        CAZRI
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. Dilip Jain</b><br>
+                        CAZRI
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Ranjit Kumar Bhatia</b><br>
+                        Shree Cements
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Shailendra Chauhan</b><br>
+                        Shree Cements
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. Dhilsha Rajapan</b><br>
+                        Marine Sensors and Systems Groups
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. Suresh Singh</b><br>
+                        Enerzinx India Pvt. Ltd
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Arun Paul</b><br>
+                        Electron Devices
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. S. Srivastava</b><br>
+                        S S Innovation
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. S Johari</b><br>
+                        Johari Infotech
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. Anuradha Mukherjee</b><br>
+                            
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. P. M. Murali</b><br>
+                        Jananom
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. Arbind Gupta</b><br>
+                        CTO, HeARTHealth Tech. Pvt. Ltd.
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Sourabh Chudhuri</b><br>
+                        Phimetrics
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Naveen Kansara</b><br>
+                        Kansara Industries
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Mr. Vikram Parekh</b><br>
+                        YES Bank
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="padding-top:15px; padding-bottom:15px;">
+                        <b>Dr. B K Yogendraa</b><br>
+                        BrahmaKumaris
+
+                    </div>
+
+                </div>
+
+
+                <!-- <table style="border:none">
+                    <tr>
+                        <td><b>Dr. Niyati Chayya</b><br>
+                            Adobe</td>
+                    </tr>
+                </table> -->
+            </div>
 <!-- 
         <div class="row">
             <div class="col-md-10 ml-auto mr-auto">
@@ -187,7 +345,7 @@
         </div>
         <div class="col-md-10 ml-auto mr-auto">
             <p>Poster Symposium (to be held during Industry Day) is an excellent opportunity to network with industry and to present your 
-                work to a large audience and receive valuable feedback. Please note these instructions carefully: </p>
+                work to a large audience and receive valuable feedback. Please submit the softcopy of your Poster in the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfJypcUJg7POyAET5qD94Cja7HQ2M-2zGZX-6HQqxq5gViCCg/viewform">Poster Registration</a> form by <b>Tuesday, 21 January 2020</b>. Please note these instructions carefully: </p>
             <!-- <h5 class="title" style="font-family: 'Comfortaa', cursive;">Poster Registration</h5>
             <p>The poster title, presenter and abstract (less than 200 words) must be submitted online at: <a
                     href="https://docs.google.com/forms/d/e/1FAIpQLSfJypcUJg7POyAET5qD94Cja7HQ2M-2zGZX-6HQqxq5gViCCg/viewform?usp=sf_link">Poster
@@ -201,8 +359,10 @@
         </div>
         <div class="col-md-10 ml-auto mr-auto">
             <p>The poster must be in Portrait Orientation (Vertical) and can have a maximum size A0 (33.11 x 46.81 inches). An example is shown below: </p>
-            <div class="row">
-                <img src="{% static 'img/poster.png' %}" alt="industry day" style="width:492px; height: 543px" style="text-align:center;">
+            <div class="row" style="margin-top:30px;">
+                <div class="col-lg-12 col-md-12 ml-auto mr-auto">
+                <img src="{% static 'img/poster.png' %}" alt="industry day" id="poster-img" class="mx-auto d-block">
+                </div>
             </div>
         </div>
         <div class="row">
