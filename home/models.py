@@ -7,7 +7,7 @@ ROLES = (
     ('technical_coordinator', 'Technical Event Team'),
     ('workshop_coordinator', 'Workshop Team'),
     ('informal_coordinator', 'Informal Event Team'),
-    ('creativity_team_member', 'Creativity Team'),
+    ('creativity_team_member', 'Branding Team'),
     
 )
 

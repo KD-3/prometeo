@@ -16,7 +16,7 @@ def team(request):
         'webd_team_member': 'WebD Team', 
         'pr_team_member': 'PM & PR Team',
         'technical_coordinator': 'Technical Event Team',
-        'creativity_team_member': 'Creativity Team', 
+        'creativity_team_member': 'Branding Team', 
         'informal_coordinator': 'Informal Event Team',
         'workshop_coordinator': 'Workshop Team',
     }

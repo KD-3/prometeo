@@ -267,12 +267,21 @@
   <script src="{% static 'js/main.js' %}"></script>
 
   <script>
+    var white = 0;
     setInterval(function() {
       img = document.getElementById("logo-img");
       if(document.getElementsByClassName("navbar-transparent").length == 0) {
-        img.src = "{% static 'img/iitj_pro_black.png' %}";
+        if(white == 1) {
+          img.src = "{% static 'img/iitj_pro_black.png' %}";
+          white = 0;
+        }
+        
       } else {
-        img.src = "{% static 'img/iitj_pro_white.png' %}";
+        if(white == 0) {
+          img.src = "{% static 'img/iitj_pro_white.png' %}";
+          white = 1;
+        }
+        
       }
     }, 1);
   </script>

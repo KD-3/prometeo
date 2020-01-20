@@ -19,16 +19,6 @@ class SignUpView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
 
-@user_passes_test(lambda u: u.is_superuser)
-def users_info(request):
-    users = CustomUser.objects
-    return render(request, 'users_info.html', {'users':users})
-
-@user_passes_test(lambda u: u.is_superuser)
-def user_info(request, userid):
-    user = CustomUser.objects.get(pk=userid)
-    return render(request, 'user_info.html', {'query_user':user})
-
 @login_required
 def user_profile(request):
     types = ['technical', 'informal', 'workshop']
@@ -50,7 +40,15 @@ def make_ambassador(request):
         request.user.ambassador = True
         request.user.invite_referral = 'CA' + str(uuid.uuid4().int)[:6]
         request.user.save()
+        send_mail(
+            'Campus Ambassador Invite Referral Code',
+            f'You have just registered as Campus Ambassador. Your invite referral code is {request.user.invite_referral}. You can share this code with your friends and invite them to the fest to get exciting benefits.',
+            'info.noreply@prometeo.com',
+            [request.user.email],
+            fail_silently=False,
+        )
         messages.success(request, 'You have successfully become a Campus Ambassador. Your invite referral code has been sent to your registered email ID.')
+
         return redirect('user_profile')
 
 @login_required
@@ -156,7 +154,7 @@ def update_profile(request):
             #     messages.success(request, 'Your Campus Ambassador invite referral code has been mailed to your registered email ID.')
             form.save()
             messages.success(request, 'Profile updated successfully.')
-            return redirect('home')
+            return redirect('user_profile')
     else:
         form = UpdateProfileForm(instance=request.user)
     return render(request, 'update_profile.html', {'form': form})

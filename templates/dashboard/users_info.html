@@ -1,0 +1,85 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block title %} Users Info {% endblock %}
+
+{% block content %}
+
+<h1>All Users</h1>
+<hr>
+<div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Users Table</div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Contact</th>
+                    <th>Referred By</th>
+                    <th>Ambassador</th>
+                    <th>Invite Referral Code</th>
+                    <th>Gender</th>
+                    <th>College</th>
+                    <th>Current Year</th>
+                    <th>City</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Contact</th>
+                        <th>Referred By</th>
+                        <th>Ambassador</th>
+                        <th>Invite Referral Code</th>
+                        <th>Gender</th>
+                        <th>College</th>
+                        <th>Current Year</th>
+                        <th>City</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for cur_user in users %}
+                    {% if not cur_user.is_superuser %}
+                        <tr>
+                            <td><a href="{% url 'user_info' cur_user.username %}">{{ cur_user.username }}</a></td>
+                            <td>{{ cur_user.email }}</td>
+                            <td>{{ cur_user.first_name }}</td>
+                            <td>{{ cur_user.last_name }}</td>
+                            <td>{{ cur_user.contact }}</td>
+                            <td>{% if cur_user.referred_by %}{{ cur_user.username }}{% else %}NA{% endif %}</td>
+                            <td>{% if cur_user.ambassador %}Yes{% else %}No{% endif %}</td>
+                            <td>{% if cur_user.ambassador %}{{ cur_user.invite_referral }}{% else %}NA{% endif %}</td>
+                            <td style="text-transform: capitalize;">{{ cur_user.gender }}</td>
+                            <td>{{ cur_user.college }}</td>
+                            <td>
+                                {% if cur_user.current_year == 'first_year' %}
+                                First Year
+                                {% elif cur_user.current_year == 'second_year' %}
+                                Second Year
+                                {% elif cur_user.current_year == 'third_year' %}
+                                Third Year
+                                {% elif cur_user.current_year == 'fourth_year' %}
+                                Fourth Year
+                                {% elif cur_user.current_year == 'fifth_year' %}
+                                Fifth Year
+                                {% endif %}
+                            </td>
+                            <td>{{ cur_user.city }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

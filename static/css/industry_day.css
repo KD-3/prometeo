@@ -1,0 +1,11 @@
+#poster-img {
+    width:492px; 
+    height: 543px";
+}
+
+@media only screen and (max-width:675px) {
+    #poster-img {
+        width:80vw; 
+        height: auto";
+    }
+}

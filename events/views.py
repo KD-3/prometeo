@@ -131,10 +131,6 @@ def event(request, type, eventid):
     return render(request, 'event.html', {'event' : event})
     
 
-def speakers(request):
-    speakers = Event.objects.filter(type="speaker").all()
-    return render(request, 'speakers.html', {'speakers' : speakers})
-
 @login_required
 def registered(request):
     events = request.user.events.all()

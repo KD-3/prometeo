@@ -1,0 +1,176 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% load get_dict_item %}
+{% block title %} Users Info {% endblock %}
+
+{% block content %}
+<h1>User Info: {{ cur_user.username }}</h1>
+<hr>
+<h2>Profile</h2>
+<ul>
+    <li><b>Username: </b>{{ cur_user.username }}</li>
+    <li><b>Email: </b>{{ cur_user.email }}</li>
+    <li><b>First Name: </b>{{ cur_user.first_name }}</li>
+    <li><b>Last Name: </b>{{ cur_user.last_name }}</li>
+    <li><b>Contact: </b>{{ cur_user.contact }}</li>
+    <li><b>Referred By: </b>{% if cur_user.referred_by %}{{ cur_user.username }}{% else %}NA{% endif %}</li>
+    <li><b>Campus Ambassador: </b>{% if cur_user.ambassador %}Yes{% else %}No{% endif %}</li>
+    <li><b>Invite Referral Code: </b>{% if cur_user.ambassador %}{{ cur_user.invite_referral }}{% else %}NA{% endif %}</li>
+    <li style="text-transform: capitalize;"><b>Gender: </b>{{ cur_user.gender }}</li>
+    <li><b>College: </b>{{ cur_user.college }}</li>
+    <li><b>Current Year: </b>
+        {% if cur_user.current_year == 'first_year' %}
+        First Year
+        {% elif cur_user.current_year == 'second_year' %}
+        Second Year
+        {% elif cur_user.current_year == 'third_year' %}
+        Third Year
+        {% elif cur_user.current_year == 'fourth_year' %}
+        Fourth Year
+        {% elif cur_user.current_year == 'fifth_year' %}
+        Fifth Year
+        {% endif %}
+    </li>
+    <li><b>City: </b>{{ cur_user.city }}</li>
+
+</ul>
+
+<h2>Events Registered</h2>
+<hr>
+<div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Events Registered by {{ cur_user.username }}</div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <th>Event Name</th>
+                    <th>Event Type</th>
+                    <th>Participation Type</th>
+                    <th>Date</th>
+                    <th>Team Registered</th>
+                </thead>
+                <tbody>
+                    {% for event in cur_user.events.all %}
+                    {% for team in cur_user.teams.all %}
+                        {% if team.event == event %}
+                            {% if team.members.all.count > event.max_team_size or team.members.all.count < event.min_team_size %}
+                            <tr style="background: #ff7f7f;">
+                            {% else %}
+                            <tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                        <td>{{ event.name }}</td>
+                        <td style="text-transform: capitalize;">{{ event.type }}</td>
+                        <td style="text-transform: capitalize;">{{ event.participation_type }}
+                            {% if event.participation_type == 'team' %}
+                            ({{ event.min_team_size }} to {{ event.max_team_size }} Members)
+                            {% endif %}
+                        </td>
+                        <td>{{ event.date }}</td>
+                        <td>
+                            {% if event.participation_type == 'team' %}
+                            <a href="#team{{ event.pk }}">
+                                {% for team in cur_user.teams.all %}
+                                    {% if team.event == event %}
+                                        {{ team.name }} ({{ team.members.all.count }} members)
+                                    {% endif %}
+                                {% endfor %}
+                            </a>
+                            {% else %}
+                            NA
+                            {% endif %}
+                        </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<h2>Teams</h2>
+<hr>
+<div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Teams Created and Joined by {{ cur_user.username }}</div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <th>Team ID</th>
+                    <th>Team Name</th>
+                    <th>Created By</th>
+                    <th>Event Registered</th>
+                    <th>Required Team Size</th>
+                    <th>Members</th>
+                </thead>
+                <tbody>
+                    {% for team in cur_user.teams.all %}
+                    {% if team.members.all.count < team.event.min_team_size or team.members.all.count > team.event.max_team_size %}
+                    <tr style="background: #ff7f7f;" id="team{{ team.event.pk }}">
+                    {% else %}
+                    <tr id="team{{ team.event.pk }}">
+                    {% endif %}
+                        <td>{{ team.id }}</td>
+                        <td>{{ team.name }}</td>
+                        <td>{{ team.leader.username }} ({{ team.leader.first_name }} {{ team.leader.last_name }})</td>
+                        <td>{{ team.event.name }} ({{ team.event.type }})</td>
+                        <td>{{ team.event.min_team_size }} to {{ team.event.max_team_size }} members</td>
+                 
+                        </td>
+                        <td>
+                            <ol>
+                                {% for member in team.members.all %}
+                                <li>{{ member.username }} ({{ member.first_name }} {{ member.last_name }})</li>
+                                {% endfor %}
+                            </ol>
+                        </td>
+                       
+                    </tr id="team{{ team.event.pk }}">
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% if cur_user.ambassador %}
+<h2>Users Referred by {{ cur_user.username }}</h2>
+<hr>
+<div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Users Referred by {{ cur_user.username }}</div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                </thead>
+                <tbody>
+                    {% for ref_user in cur_user.referred_users.all %}
+                    <tr>
+                        <td><a href="{% url 'user_info' ref_user.username %}">{{ ref_user.username }}</a></td>
+                        <td>{{ ref_user.first_name }}</td>
+                        <td>{{ ref_user.last_name }}</td>
+                        <td>{{ ref_user.email }}</td>
+                        <td>{{ ref_user.contact }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
