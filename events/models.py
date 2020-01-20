@@ -5,7 +5,6 @@ EVENT_CHOICES = (
     ('technical','Technical'),
     ('workshop','Workshop'),
     ('informal','Informal'),
-    ('speaker', 'Speaker')
 )
 
 EVENT_PARTICIPATION = (

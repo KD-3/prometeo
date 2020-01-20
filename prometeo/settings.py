@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'events',
     'home',
     'sponsors',
+    'speakers',
+    'dashboard',
     'crispy_forms',
     'widget_tweaks',
     'django_inlinecss',

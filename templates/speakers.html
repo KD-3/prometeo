@@ -19,21 +19,35 @@
         {% for speaker in speakers %}
         <div class="col-lg-4 col-md-6">
             <div class="card mb-3">
-                <a href="{% url 'event' speaker.type speaker.pk %}">
-                {% if speaker.image %}
-                    <img src="{{ speaker.image.url }}" height="166" width="360" alt="" class="card-img-top">
-                {% else %}
-                    <img src="{% static "img/event.jpg" %}" height="166" width="360" alt="" class="card-img-top">
+                {% if speaker.profile_link %}
+                <a href="{{ speaker.profile_link }}">
                 {% endif %}
+                {% if speaker.image %}
+                    <img src="{{ speaker.image.url }}" alt="" class="card-img-top">
+                {% else %}
+                    <img src="{% static "img/event.jpg" %}" alt="" class="card-img-top">
+                {% endif %}
+                {% if speaker.profile_link %}
                 </a>
+                {% endif %}
                 <div class="card-body">
+                    
+                    {% if speaker.profile_link %}
+                    <a href="{{ speaker.profile_link }}">
+                    {% endif %}
+                        <h4 class="card-title">{{ speaker.name }}</h4>
+                    {% if speaker.profile_link %}
+                    </a>
+                    {% endif %}
+                    <h5 class="card-title">{{ speaker.topic }}</h5>
                     <p class="card-text"><small class="text-muted">{{ speaker.date }}</small></p>
-                    <a href="{% url 'event' speaker.type speaker.pk %}"><h4 class="card-title">{{ speaker.name }}</h4></a>
+                    {% if speakers.description %}
                     <div style="overflow-y: scroll; height:150px; margin-top:10px; margin-bottom:10px;">
                         <p class="card-text">
                             {{ speaker.description }}
                         </p>
                     </div>
+                    {% endif %}
                     
                 </div>
             </div>
