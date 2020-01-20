@@ -66,7 +66,7 @@
                     <li class="nav-item">
                       <a class="nav-link active" href="javascript:void(0)" onclick="openTab(event, 'details')">Details</a>
                     </li>
-                    {% if event.problem_statement %}
+                    <!-- {% if event.problem_statement %}
                     <li class="nav-item">
                       <a class="nav-link" href="javascript:void(0)" onclick="openTab(event, 'prob_stat')">Problem Statement</a>
                     </li>
@@ -75,11 +75,11 @@
                     <li class="nav-item">
                       <a class="nav-link" href="javascript:void(0)" onclick="openTab(event, 'description')">Description</a>
                     </li>
-                    {% endif %}
+                    {% endif %} -->
                    
                     {% if event.rulebook %}
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ event.rulebook.url }}" download="{{ event.name }}">Rulebook</a>
+                      <a class="nav-link" href="{{ event.rulebook.url }}" target="_blank">Rulebook</a>
                     </li>
                     {% endif %}
                     {% if user.is_authenticated %}
@@ -128,7 +128,7 @@
 
                 
 
-                <div class="card-body" id="description" style="display:none; text-align:left">
+                <!-- <div class="card-body" id="description" style="display:none; text-align:left">
                   <h4 class="card-title">Description</h4>
                   <p class="card-text">{{ event.description }}</p>
                   
@@ -137,90 +137,104 @@
                   <h4 class="card-title">Problem Statement</h4>
                   <p class="card-text">{{ event.problem_statement }}</p>
                   
-                </div>
+                </div> -->
                 <div class="card-body" id="details" style="display:block; text-align:left">
-                    <div class="row" style="margin-left:5%;">
-                      <div class="col-lg-6 col-md-6">
-                    {% if event.prize %}
-                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
-                        <div class="icon icon-rose">
-                            <i class="material-icons">monetization_on</i>
-                        </div>
-                        <div class="description">
-                            <h4 class="info-title">Prizes worth Rs. {{ event.prize }}</h4>
-                        </div>
-                     
-                    </div>
-                    {% endif %}
-                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
-                        <div class="icon icon-rose">
-                            {% if event.participation_type == 'team' %}
-                            <i class="material-icons">account_circle</i>
-                            {% else %}
-                            <i class="material-icons">group_work</i>
-                            {% endif %} 
-                            
-                        </div>
-                        <div class="description">
-                            <h4 class="info-title">Event Type</h4>
-                            <p>
-                                {% if event.participation_type == 'team' %}
-                                Team Event (Team Size: {{ event.min_team_size }}-{{ event.max_team_size }})
-                                {% else %}
-                                Individual Event 
-                                {% endif %} 
-                            </p>
-                            
-                        </div>
-                    </div>
-                    <!-- <h4 class="card-title">Event Type</h4>
-                    <p class="card-text">
-                        {% if event.participation_type == 'team' %}
-                        Team Event (Team Size: {{ event.min_team_size }}-{{ event.max_team_size }})
-                        {% else %}
-                        Individual Event 
-                        {% endif %} 
-                    </p> -->
-                      
-                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
-                        <div class="icon icon-rose">
-                            <i class="material-icons">date_range</i>
-                        </div>
-                        <div class="description">
-                            <h4 class="info-title">Date</h4>
-                            <p>{{ event.date }}</p>
-                     
-                        </div>
-                    </div>
+                    
+                  
+                  <h4 class="card-title">Details</h4>
+                  <div class="row" style="margin-left:5%;">
+                    <div class="col-lg-6 col-md-6">
+                  {% if event.prize %}
+                  <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                      <div class="icon icon-rose">
+                          <i class="material-icons">monetization_on</i>
+                      </div>
+                      <div class="description">
+                          <h4 class="info-title">Prizes worth Rs. {{ event.prize }}</h4>
+                      </div>
+                   
                   </div>
-                  <div class="col-lg-6 col-md-6">
-                    <!-- <h4 class="card-title">Date</h4>
-                    <p class="card-text">{{ event.date }}</p> -->
-                    {% if event.time %}
-                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
-                        <div class="icon icon-rose">
-                            <i class="material-icons">access_time</i>
-                        </div>
-                        <div class="description">
-                            <h4 class="info-title">Time</h4>
-                            <p>{{ event.time }}</p>
- 
-                        </div>
+                  {% endif %}
+                  <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                      <div class="icon icon-rose">
+                          {% if event.participation_type == 'team' %}
+                          <i class="material-icons">account_circle</i>
+                          {% else %}
+                          <i class="material-icons">group_work</i>
+                          {% endif %} 
+                          
+                      </div>
+                      <div class="description">
+                          <h4 class="info-title">Event Type</h4>
+                          <p>
+                              {% if event.participation_type == 'team' %}
+                              Team Event (Team Size: {{ event.min_team_size }}-{{ event.max_team_size }})
+                              {% else %}
+                              Individual Event 
+                              {% endif %} 
+                          </p>
+                          
+                      </div>
+                  </div>
+                  <!-- <h4 class="card-title">Event Type</h4>
+                  <p class="card-text">
+                      {% if event.participation_type == 'team' %}
+                      Team Event (Team Size: {{ event.min_team_size }}-{{ event.max_team_size }})
+                      {% else %}
+                      Individual Event 
+                      {% endif %} 
+                  </p> -->
+                    
+                  <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                      <div class="icon icon-rose">
+                          <i class="material-icons">date_range</i>
+                      </div>
+                      <div class="description">
+                          <h4 class="info-title">Date</h4>
+                          <p>{{ event.date }}</p>
+                   
+                      </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                  <!-- <h4 class="card-title">Date</h4>
+                  <p class="card-text">{{ event.date }}</p> -->
+                  {% if event.time %}
+                  <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                      <div class="icon icon-rose">
+                          <i class="material-icons">access_time</i>
+                      </div>
+                      <div class="description">
+                          <h4 class="info-title">Time</h4>
+                          <p>{{ event.time }}</p>
+
+                      </div>
+                  </div>
+                  {% endif %}
+                  {% if event.venue %}
+                  <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
+                      <div class="icon icon-rose">
+                          <i class="material-icons">my_location</i>
+                      </div>
+                      <div class="description">
+                          <h4 class="info-title">Venue</h4>
+                          <p>{{ event.venue }}</p>
+                      </div>
+                  </div>
+                  {% endif %}
+                  </div>
+                  </div>
+
+                    {% if event.rulebook_text %}
+
+                    <div class="row">
+                      <div class="col-lg-12 ml-auto mr-auto">
+                        {{ event.rulebook_text|safe }}
+                      </div>
                     </div>
                     {% endif %}
-                    {% if event.venue %}
-                    <div class="info info-horizontal" style="padding-top:0px; padding-bottom:0px">
-                        <div class="icon icon-rose">
-                            <i class="material-icons">my_location</i>
-                        </div>
-                        <div class="description">
-                            <h4 class="info-title">Venue</h4>
-                            <p>{{ event.venue }}</p>
-                        </div>
-                    </div>
-                    {% endif %}
-                    </div>
-                    </div>
+                    
+                    
                     
                     
                   </div>

@@ -31,7 +31,8 @@
                 </a>
                 {% endif %}
                 <div class="card-body">
-                    
+                    <p class="card-text"><small class="text-muted">{{ speaker.date }}</small></p>
+                    <h5 class="card-title" style="font-style:italic">{{ speaker.topic }}</h5>
                     {% if speaker.profile_link %}
                     <a href="{{ speaker.profile_link }}">
                     {% endif %}
@@ -39,8 +40,10 @@
                     {% if speaker.profile_link %}
                     </a>
                     {% endif %}
-                    <h5 class="card-title">{{ speaker.topic }}</h5>
-                    <p class="card-text"><small class="text-muted">{{ speaker.date }}</small></p>
+                    {% if speaker.designation %}
+                    <p class="card-text">{{ speaker.designation }}</p>
+                    {% endif %}
+                    
                     {% if speakers.description %}
                     <div style="overflow-y: scroll; height:150px; margin-top:10px; margin-bottom:10px;">
                         <p class="card-text">
