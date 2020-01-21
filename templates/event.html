@@ -164,6 +164,7 @@
                           {% endif %} 
                           
                       </div>
+                      {% if not event.participation_type == 'none' %}
                       <div class="description">
                           <h4 class="info-title">Event Type</h4>
                           <p>
@@ -175,6 +176,7 @@
                           </p>
                           
                       </div>
+                      {% endif %}
                   </div>
                   <!-- <h4 class="card-title">Event Type</h4>
                   <p class="card-text">
@@ -232,7 +234,17 @@
                         {{ event.rulebook_text|safe }}
                       </div>
                     </div>
-                    {% endif %}
+                    {% elif event.description %}
+                    <div class="row" style="margin-bottom: 30px">
+                      <div class="col-lg-11 ml-auto mr-auto">
+                        <h4 class="card-title">
+                          Description
+                        </h4>
+                        <p class="card-text">
+                          {{ event.description }}
+                        </p>
+                      </div>
+                    </div>
                     
                     
                     

@@ -9,7 +9,8 @@ EVENT_CHOICES = (
 
 EVENT_PARTICIPATION = (
     ('individual', 'Individual Event'),
-    ('team', 'Team Event')
+    ('team', 'Team Event'),
+    ('none', 'None')
 )
 
 class Event(models.Model):
