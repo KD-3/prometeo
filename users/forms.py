@@ -16,7 +16,8 @@ YEAR_CHOICES = (
     ('first_year', 'First Year'),
     ('second_year', 'Second Year'),
     ('third_year', 'Third Year'),
-    ('fourth_year', 'Fourth Year')
+    ('fourth_year', 'Fourth Year'),
+    ('fifth_year', 'Fifth Year')
 )
 
 class CustomUserCreationForm(UserCreationForm):

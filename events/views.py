@@ -1,6 +1,5 @@
 import os
 from django.shortcuts import render, redirect
-# import os
 from django.conf import settings
 from .models import Event
 from users.models import CustomUser
