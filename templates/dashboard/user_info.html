@@ -159,7 +159,7 @@
                 <tbody>
                     {% for ref_user in cur_user.referred_users.all %}
                     <tr>
-                        <td><a href="{% url 'user_info' ref_user.username %}">{{ ref_user.username }}</a></td>
+                        <td><a href="{% url 'user_info' ref_user.pk %}">{{ ref_user.username }}</a></td>
                         <td>{{ ref_user.first_name }}</td>
                         <td>{{ ref_user.last_name }}</td>
                         <td>{{ ref_user.email }}</td>

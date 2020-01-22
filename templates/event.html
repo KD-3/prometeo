@@ -193,7 +193,13 @@
                       </div>
                       <div class="description">
                           <h4 class="info-title">Date</h4>
-                          <p>{{ event.date }}</p>
+                          <p>
+                            {% if event.date %}
+                            {{ event.date }}
+                            {% else %}
+                            COMING SOON
+                            {% endif %}
+                          </p>
                    
                       </div>
                   </div>
@@ -246,7 +252,7 @@
                       </div>
                     </div>
                     
-                    
+                    {% endif %}
                     
                     
                   </div>

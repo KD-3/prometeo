@@ -24,6 +24,31 @@
     padding:35px 0px 50px 0px;
 }
 
+.brand h3 {
+    font-family: 'Titillium Web', sans-serif;
+    margin-top: 20px;
+}
+
+.brand div h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    display:inline-block;
+    margin-top: 0px;
+}
+
+/* #un-btn {
+    margin-top:25px;
+    border-color: white;
+    color:white;
+    font-size:20px;
+}
+
+
+@media only screen and (max-width:430px)
+    #un-btn {
+        font-size: 30vw;
+    }
+} */
+
 @media only screen and (max-width: 768px) {
     .section-contacts {
         background: #00032d;

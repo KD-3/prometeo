@@ -48,7 +48,17 @@
                 {% endif %}
                 </a>
                 <div class="card-body">
-                    <p class="card-text"><small class="text-muted">{{ event.date }}</small></p>
+                    
+                    <p class="card-text">
+                        <small class="text-muted">
+                        {% if event.date %}
+                        {{ event.date }}
+                        {% else %}
+                        COMING SOON
+                        {% endif %}
+                        </small>
+                    </p>
+                    
                     <a href="{% url 'event' event.type event.pk %}" target="_blank"><h4 class="card-title">{{ event.name }}
                         {% if user.is_authenticated and not user.is_superuser %}
                             {% if event in user.events.all %}

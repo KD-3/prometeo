@@ -26,7 +26,7 @@ class Event(models.Model):
     rulebook_text = models.TextField(max_length=5000, null=True, blank=True, verbose_name="Rulebook Text (HTML Format)")
     host = models.CharField(max_length=50, null=True, blank=True, verbose_name="Event Host")
     external_link = models.URLField(max_length=500, null=True, blank=True, verbose_name="External Link for Registration")
-    date = models.DateField(verbose_name="Event Date")
+    date = models.DateField(verbose_name="Event Date", null=True, blank=True)
     time = models.TimeField(null=True, blank=True, verbose_name="Event Time")
     venue = models.CharField(max_length=50, null=True, blank=True, verbose_name="Event Venue")
     type = models.CharField(max_length=15,choices=EVENT_CHOICES,default='event', verbose_name='Event Type')

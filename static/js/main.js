@@ -4,7 +4,7 @@
     /*------------------
         CountDown
     --------------------*/
-    $("#countdown .row").countdown("2020/01/23", function(event) {
+    $("#countdown .row").countdown("2020/01/23 18:30:00", function(event) {
         $(this).html(event.strftime(' \
             <div class="col-lg-3 col-md-3 col-sm-3 col-3 col-timer"> \
                 <div class="card card-pricing bg-rose"><div class="card-body "> \
