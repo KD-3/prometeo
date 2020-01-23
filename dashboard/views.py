@@ -107,7 +107,7 @@ def event_type_info(request, type):
                 worksheet.write(row, 1, team.name)
                 i = 2
                 for member in team.members.all():
-                    worksheet.write(row, i, member.username + f' ({member.email})')
+                    worksheet.write(row, i, member.username + f' ({member.email}, {member.contact})')
                     i = i + 1
                 worksheet.write(row, event.max_team_size+2, team.leader.username + f' ({team.leader.email})')
                 if (team.members.all().count() < event.min_team_size or team.members.all().count() > event.max_team_size):
@@ -203,7 +203,7 @@ def event_info(request, type, eventid):
             worksheet.write(row, 1, team.name)
             i = 2
             for member in team.members.all():
-                worksheet.write(row, i, member.username + f' ({member.email})')
+                worksheet.write(row, i, member.username + f' ({member.email}, {member.contact})')
                 i = i + 1
             worksheet.write(row, event.max_team_size+2, team.leader.username + f' ({team.leader.email})')
             if (team.members.all().count() < event.min_team_size or team.members.all().count() > event.max_team_size):
