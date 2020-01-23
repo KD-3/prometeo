@@ -56,7 +56,7 @@
                 <div class="card-header card-header-rose">
                     <h2 class="title">{{ event.name }}</h2>
                     {% if event.host %}
-                    <h4 style="text-transform: capitalize; margin-bottom:20px">{{ event.type }} conducted by {{ event.host }}</h4>
+                    <h4 style="text-transform: capitalize; margin-bottom:20px">{{ event.type }} by {{ event.host }}</h4>
                     {% else %}
                     <h4 style="text-transform: capitalize; margin-bottom:20px">{{ event.type }}</h4>
                     {% endif %}
@@ -83,37 +83,37 @@
                     </li>
                     {% endif %}
                     {% if user.is_authenticated %}
-                        {% if not user.is_superuser %}
-                            {% if event.external_link %}
+                        
+                        {% if event.external_link %}
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{ event.external_link }}">Register</a>
+                        </li>
+                        {% elif event.participation_type == 'team' %}
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ event.external_link }}">Register</a>
+                                {% if event in user.events.all %}
+                                <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#registeredModal">
+                                    Already Registered
+                                </a>
+                                <!-- <a class="nav-link" href="javascript:void(0)">Already Registered</a> -->
+                                {% else %}
+                                <a class="nav-link" href="javascript:void(0)" onclick="openTab(event, 'register')">Register</a>
+                                {% endif %}
                             </li>
-                            {% elif event.participation_type == 'team' %}
-                                <li class="nav-item">
-                                    {% if event in user.events.all %}
-                                    <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#registeredModal">
-                                        Already Registered
-                                    </a>
-                                    <!-- <a class="nav-link" href="javascript:void(0)">Already Registered</a> -->
-                                    {% else %}
-                                    <a class="nav-link" href="javascript:void(0)" onclick="openTab(event, 'register')">Register</a>
-                                    {% endif %}
-                                </li>
-                            {% else %}
-                                <li class="nav-item">
-                                    {% if event in user.events.all %}
-                                    <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#registeredModal">
-                                        Already Registered
-                                    </a>
-                                    <!-- <a class="nav-link" href="javascript:void(0)">Already Registered</a> -->
-                                    {% else %}
-                                    <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#confirmModal">
-                                      Register
-                                  </a>
-                                    {% endif %}
-                                </li>
-                            {% endif %}
                         {% else %}
+                            <li class="nav-item">
+                                {% if event in user.events.all %}
+                                <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#registeredModal">
+                                    Already Registered
+                                </a>
+                                <!-- <a class="nav-link" href="javascript:void(0)">Already Registered</a> -->
+                                {% else %}
+                                <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#confirmModal">
+                                  Register
+                              </a>
+                                {% endif %}
+                            </li>
+                        {% endif %}
+                        {% if user.is_superuser %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'event_info' event.type event.pk %}">Registered Users</a>
                         </li>

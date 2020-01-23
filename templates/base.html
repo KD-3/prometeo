@@ -112,14 +112,13 @@
                     <a href="{% url 'users_info' %}" class="dropdown-item">
                         Dashboard
                     </a>
-                {% else %}
-                    <a href="{% url 'user_profile' %}" class="dropdown-item">
-                        Profile
-                    </a>
-                    <a href="{% url 'update_profile' %}" class="dropdown-item">
-                      Update Profile
-                    </a>
                 {% endif %}
+                <a href="{% url 'user_profile' %}" class="dropdown-item">
+                    Profile
+                </a>
+                <a href="{% url 'update_profile' %}" class="dropdown-item">
+                  Update Profile
+                </a>      
                 <a href="/accounts/password/change" class="dropdown-item">
                     Change Password
                 </a>
