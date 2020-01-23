@@ -159,3 +159,25 @@ def update_profile(request):
     else:
         form = UpdateProfileForm(instance=request.user)
     return render(request, 'update_profile.html', {'form': form})
+
+@login_required
+def edit_team(request, teamid):
+    team = get_object_or_404(Team, id=teamid)
+    if(request.user != team.leader):
+        messages.info(request, "Only the team leader (creator) can edit the team details.")
+        return redirect('user_profile')
+    elif(request.method == 'POST'):
+        form = EditTeamForm(team, request.POST, instance=team)
+        if(form.is_valid()):
+            
+            if(team.leader not in form.cleaned_data['members']):
+                form.add_error('members', 'You cannot remove the leader (creator) of the team from the team.')
+            else:
+                form.save()
+                for member in form.cleaned_data['members']:
+                    member.events.remove(team.event)
+                messages.success(request, f"The team details have been updated.")
+                return redirect('user_profile')
+    else:
+        form = EditTeamForm(team, instance=team)
+    return render(request, 'edit_team.html', {'form':form, 'team':team})

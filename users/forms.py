@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import CheckboxSelectMultiple
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser, Team
 from allauth.account.forms import SignupForm as NormalSignupForm, LoginForm
@@ -138,3 +139,14 @@ class UpdateProfileForm(forms.ModelForm):
         model = CustomUser
         fields = ['username', 'first_name', 'last_name', 'contact', 'college', 'city', 'gender', 'current_year']
   
+class EditTeamForm(forms.ModelForm):
+
+    # members = forms.ModelMultipleChoiceField(CustomUser.objects.all(), required=False)
+
+    class Meta:
+        model = Team
+        fields = ['name', 'members']
+
+    def __init__(self, team, *args, **kwargs):
+        super(EditTeamForm, self).__init__(*args, **kwargs)
+        self.fields['members'].queryset = team.members.all()

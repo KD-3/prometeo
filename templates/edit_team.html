@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load socialaccount %}
+{% load widget_tweaks %}
+
+
+
+{% block head_links %} 
+
+<title>Edit Team</title>
+
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/edit_team.css' %}">
+{% endblock %}
+
+
+{% block head_title %}{% trans "Edit Team" %} {% endblock %}
+
+{% block bodyclass %} login {% endblock %}
+
+{% block pageheader %}
+{% endblock %}
+
+{% block outer %}
+<div class="page-header header-filter" style="background-image: url('{% static 'img/bg7.jpg' %}'); background-size: cover; background-position: top center; height:auto;">
+    <div class="container" style="margin-top:200px;margin-bottom:100px;"> 
+      {% if messages %}
+      <div style="margin-bottom: 30px;">
+        {% for message in messages %}
+          <div class="row" >
+            
+            <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                  <div class="alert alert-info">
+                      <div class="container">
+                      <div class="alert-icon">
+                          <i class="material-icons">info_outline</i>
+                      </div>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                      </button>
+                      <b>{{ message }}</b>
+                      </div>
+                  </div>
+            </div>
+                  
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="row">
+        <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+          <div class="card card-login">
+              <div class="card-header card-header-primary text-center">
+                <h4 class="card-title">Edit Team</h4>
+              
+              </div>
+        <!-- <p class="description text-center" style="padding-left:20px; padding-right:20px">Enter the team ID shared by the team leader to join the team.</p> -->
+        {% if form.non_field_errors %}
+          {% for error in form.non_field_errors %} 
+          <p class="description text-center" style="color:red;padding-left:20px; padding-right:20px">
+              {{ error }}
+          </p>
+          {% endfor %}
+        {% endif %}
+			<form class="container-fluid" id="update_form" method="POST" action="{% url 'edit_team' team.id %}" novalidate>
+			  
+              <div class="card-body">
+					{% csrf_token %}
+					{% include 'includes/form_base.html' %}
+					{% if redirect_field_value %}
+						<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+					{% endif %}
+					
+				
+              </div>
+              <div class="footer text-center" style="margin-top:20px;">
+                <p style="margin-bottom:20px;">Deselect the members you want to remove from the team by holding down CTRL key (the leader/creator of the team can't be removed)</p>
+
+                <div class="form-group">
+                  <input type="submit" value="Update" class="btn btn-primary btn-round">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

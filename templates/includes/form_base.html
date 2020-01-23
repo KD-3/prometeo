@@ -14,7 +14,7 @@
   </div>
   <input type="text" class="form-control" placeholder="First Name...">
 </div> -->
-{% if field.name == 'gender' or field.name == 'current_year' %}
+{% if field.name == 'gender' or field.name == 'current_year' or field.name == 'members' %}
 <label for="{{ field.name }}" style="position:relative;top:20px;margin-bottom:0px;">{{ field.label }}</label>
 {% endif %}
 
@@ -74,6 +74,8 @@
       <span class="input-group-text"><i class="material-icons">contact_phone</i></span>
       {% elif field.name == 'current_year' %}
       <span class="input-group-text"><i class="material-icons">school</i></span>
+      {% elif field.name == 'members' %}
+      <span class="input-group-text"><i class="material-icons">group_work</i></span>
       {% else %}
         <span class="input-group-text"><i class="material-icons">lock_outline</i></span>
       {% endif %}
@@ -118,6 +120,8 @@
       <span class="input-group-text"><i class="material-icons">contact_phone</i></span>
       {% elif field.name == 'current_year' %}
       <span class="input-group-text"><i class="material-icons">school</i></span>
+      {% elif field.name == 'members' %}
+      <span class="input-group-text"><i class="material-icons">group_work</i></span>
       {% else %}
         <span class="input-group-text"><i class="material-icons">lock_outline</i></span>
       {% endif %}

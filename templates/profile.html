@@ -309,6 +309,9 @@
                                 {% for team in user.teams.all %}
                                     <div class="card {% if forloop.counter|divisibleby:2 %}bg-danger{% else %}bg-primary{% endif %}" style="margin-bottom:0px;">
                                         <div class="card-body">
+                                            {% if team.leader == user %}
+                                            <a href="{% url 'edit_team' team.id %}" style="color:white"><i class="material-icons" style="float:right; margin-top:10px;">edit</i></a>
+                                            {% endif %}
                                             <h5 class="card-category card-category-social" style="text-transform: capitalize;">
                                                 Registered for {{ team.event.name }} ({{ team.event.type }} Event)
                                             </h5>
@@ -326,7 +329,7 @@
                                                         <div class="author" style="display: block;">
                                                             <h5>Team Members</h5>
                                                             {% for member in team.members.all %}
-                                                            <div><i class="material-icons" style="font-size:22px;">group</i><span style="vertical-align: top;">  {{ member.first_name }} {{ member.last_name }}</span>
+                                                            <div><i class="material-icons" style="font-size:22px;">group</i><span style="vertical-align: top;">  {{ member.username }}</span>
                                                                 {% if member == team.leader %}<span class="badge badge-pill badge-success" style="position:relative; top:-7px; margin-left:5px;">Leader</span>{% endif %}
                                                             </div>
                                                             

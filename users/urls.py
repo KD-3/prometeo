@@ -8,5 +8,7 @@ urlpatterns = [
     path('join_team/confirm/', join_team_confirm, name='join_team_confirm'),
     path('profile/', user_profile, name='user_profile'),
     path('profile/update/', update_profile, name='update_profile'),
-    path('profile/ambassador/', make_ambassador, name="make_ambassador")
+    path('profile/ambassador/', make_ambassador, name="make_ambassador"),
+    path('profile/edit_team/<slug:teamid>/', edit_team, name='edit_team'),
+
 ]
