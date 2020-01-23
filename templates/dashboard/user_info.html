@@ -13,7 +13,13 @@
     <li><b>First Name: </b>{{ cur_user.first_name }}</li>
     <li><b>Last Name: </b>{{ cur_user.last_name }}</li>
     <li><b>Contact: </b>{{ cur_user.contact }}</li>
-    <li><b>Referred By: </b>{% if cur_user.referred_by %}{{ cur_user.username }}{% else %}NA{% endif %}</li>
+    <li><b>Referred By: </b>
+        {% if cur_user.referred_by %}
+        <a href="{% url 'user_info' cur_user.referred_by.pk %}">{{ cur_user.referred_by.username }} ({{ cur_user.referred_by.first_name }} {{ cur_user.referred_by.last_name }})</a>
+        {% else %}
+        NA
+        {% endif %}
+    </li>
     <li><b>Campus Ambassador: </b>{% if cur_user.ambassador %}Yes{% else %}No{% endif %}</li>
     <li><b>Invite Referral Code: </b>{% if cur_user.ambassador %}{{ cur_user.invite_referral }}{% else %}NA{% endif %}</li>
     <li style="text-transform: capitalize;"><b>Gender: </b>{{ cur_user.gender }}</li>
@@ -62,7 +68,7 @@
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                        <td>{{ event.name }}</td>
+                        <td><a href="{% url 'event_info' event.type event.pk %}">{{ event.name }}</a></td>
                         <td style="text-transform: capitalize;">{{ event.type }}</td>
                         <td style="text-transform: capitalize;">{{ event.participation_type }}
                             {% if event.participation_type == 'team' %}
@@ -118,20 +124,20 @@
                     {% endif %}
                         <td>{{ team.id }}</td>
                         <td>{{ team.name }}</td>
-                        <td>{{ team.leader.username }} ({{ team.leader.first_name }} {{ team.leader.last_name }})</td>
-                        <td>{{ team.event.name }} ({{ team.event.type }})</td>
+                        <td><a href="{% url 'user_info' team.leader.pk %}">{{ team.leader.username }} ({{ team.leader.first_name }} {{ team.leader.last_name }})</a></td>
+                        <td><a href="{% url 'event_info' team.event.type team.event.pk %}">{{ team.event.name }} ({{ team.event.type }})</a></td>
                         <td>{{ team.event.min_team_size }} to {{ team.event.max_team_size }} members</td>
                  
                         </td>
                         <td>
                             <ol>
                                 {% for member in team.members.all %}
-                                <li>{{ member.username }} ({{ member.first_name }} {{ member.last_name }})</li>
+                                <li><a href="{% url 'user_info' member.pk %}">{{ member.username }} ({{ member.first_name }} {{ member.last_name }})</a></li>
                                 {% endfor %}
                             </ol>
                         </td>
                        
-                    </tr id="team{{ team.event.pk }}">
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>

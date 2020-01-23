@@ -30,9 +30,7 @@
 {% block content %}
 
 <div class="section">
-    {% if user.is_superuser %}
-    <a href="{% get_media_prefix %}workbooks/{{ wbname }}" download="{{ wbname }}" class="btn btn-primary">Download Participants Excel Sheet for {{ type }} events</a>
-    {% endif %}
+
     <div class="row">
         {% if events.count == 0 %}
         <h1 class="title">Coming Soon!</h1>
@@ -40,7 +38,7 @@
         {% for event in events %}
         <div class="col-lg-4 col-md-6">
             <div class="card mb-3">
-                <a href="{% url 'event' event.type event.pk %}" target="_blank">
+                <a href="{% url 'event' event.type event.pk %}">
                 {% if event.image %}
                     <img src="{{ event.image.url }}" height="166" width="360" alt="" class="card-img-top">
                 {% else %}
@@ -59,7 +57,7 @@
                         </small>
                     </p>
                     
-                    <a href="{% url 'event' event.type event.pk %}" target="_blank"><h4 class="card-title">{{ event.name }}
+                    <a href="{% url 'event' event.type event.pk %}"><h4 class="card-title">{{ event.name }}
                         {% if user.is_authenticated and not user.is_superuser %}
                             {% if event in user.events.all %}
                             <span class="badge badge-pill badge-success" style="vertical-align:middle">Registered</span>
@@ -74,15 +72,15 @@
                         </p>
                     </div>
                     {% if user.is_superuser %}
-                    <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round" target="_blank">VIEW MORE</a>
+                    <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">VIEW MORE</a>
                     {% elif user.is_authenticated %}
                             {% if event in user.events.all %}
-                                <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round" target="_blank">VIEW MORE</a>
+                                <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">VIEW MORE</a>
                             {% else %}
-                                <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round" target="_blank">VIEW MORE</a>
+                                <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">VIEW MORE</a>
                             {% endif %}
                     {% else %}
-                        <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round" target="_blank">VIEW MORE</a>
+                        <a href="{% url 'event' event.type event.pk %}" class="btn btn-primary btn-round">VIEW MORE</a>
                     {% endif %}
                 </div>
             </div>
@@ -91,55 +89,5 @@
     </div>
 </div>
 
-<!-- Blog Area Begin -->
-<!-- <div class="section">
-<div class="row">
-    {% if user.is_superuser %}
-    <a href="{% get_media_prefix %}workbooks/{{ wbname }}" download="{{ wbname }}"><img src="{% static "img/download.png" %}" height="15" width="18" alt="">Download Participants Excel Sheet</a>
-    {% endif %}
-
-    
-    
-
-    {% for event in events %}
-    
-    <div class="col-lg-4 col-md-6">
-        <div class="single-blog">
-            <div class="blog-img">
-                <a href="{% url 'event' event.type event.pk %}" class="event-btn">
-                {% if event.image %}
-                    <img src="{{ event.image.url }}" height="166" width="360" alt="">
-                {% else %}
-                    <img src="{% static "img/logo.png" %}" height="166" width="360" alt="">
-                {% endif %}
-                </a>
-            </div>
-            <div class="blog-details">
-                <span>{{ event.date }}</span>
-    
-                <h4>
-                    <a href="{% url 'event' event.type event.pk %}" class="event-btn">{{ event.name }}</a>
-                </h4>
-                <p>{{ event.description }}</p>
-                
-                {% if user.is_superuser %}
-                <a href="{% url 'event' event.type event.pk %}" class="read-btn">REGISTERED USERS</a>
-                {% elif user.is_authenticated %}
-                        {% if event in user.events.all %}
-                            <a href="{% url 'event' event.type event.pk %}" class="read-btn">ALREADY REGISTERED</a>
-                        {% else %}
-                            <a href="{% url 'event' event.type event.pk %}" class="read-btn">REGISTER</a>
-                        {% endif %}
-                {% else %}
-                    <a href="{% url 'event' event.type event.pk %}" class="read-btn">REGISTER</a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
-    {% endfor %}
-</div>
-</div> -->
-<!-- Blog Area End -->
 {% endblock %}
 

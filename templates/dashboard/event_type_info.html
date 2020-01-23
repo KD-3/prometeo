@@ -1,21 +1,23 @@
 {% extends "dashboard/base.html" %}
 {% load static %}
-{% block title %} Events Info {% endblock %}
+{% block title %} Events ({{ type }}) Info {% endblock %}
 
 {% block content %}
 
-<h1>All Events</h1>
+<h1 style="text-transform: capitalize;">{{ type }} Events</h1>
+<hr>
+<i class="fas fa-external-link-alt"></i> <a href="{% url 'events' type %}">Go to actual {{ type }} events page</a><br>
+<i class="fas fa-download"></i> <a href="{% get_media_prefix %}workbooks/{{ wbname }}" download="{{ wbname }}"> Download Participants Excel Sheet for {{ type }} events</a>
 <hr>
 <div class="card mb-3">
-    <div class="card-header">
+    <div class="card-header" style="text-transform: capitalize;">
       <i class="fas fa-table"></i>
-      Events Table</div>
+      {{ type }} Events Table</div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <th>Event Name</th>
-                    <th>Event Type</th>
                     <th>Participation Type</th>
                     <th>Date</th>
                     <th>Time</th>
@@ -28,7 +30,6 @@
                     {% for event in events %}
                     <tr>
                         <td><a href="{% url 'event_info' event.type event.pk %}">{{ event.name }}</a></td>
-                        <td style="text-transform: capitalize;">{{ event.type }}</td>
                         <td style="text-transform: capitalize;">{{ event.participation_type }}
                             {% if event.participation_type == 'team' %}
                             ({{ event.min_team_size }} to {{ event.max_team_size }} Members)
@@ -42,7 +43,7 @@
                         <td>
                             {{ event.participants.all.count }}
                         </td>
-                        </tr>
+                    </tr>
                     {% endfor %}
 
                 </tbody>

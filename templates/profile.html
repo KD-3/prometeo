@@ -63,10 +63,10 @@
                   <ul class="nav nav-tabs justify-content-center">
                      
                     <li class="nav-item">
-                      <a class="nav-link active" href="#details" data-toggle="tab">Details</a>
+                      <a class="nav-link" href="#details" data-toggle="tab">Details</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#reg-events" data-toggle="tab">Registered Events</a>
+                      <a class="nav-link active" href="#reg-events" data-toggle="tab">Registered Events</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#teams" data-toggle="tab">Teams</a>
@@ -97,7 +97,7 @@
 
                 
                 <div class="tab-content">
-                    <div class="tab-pane fade" id="reg-events">
+                    <div class="tab-pane fade in active show" id="reg-events">
                         <div class="card-body">
                             {% if user.events.all.count == 0 %}
                             <h3>You haven't registered for any events yet.</h3>
@@ -172,7 +172,7 @@
                             <a href="#" class="btn btn-primary btn-round">Become an Ambassador</a>
                         </div>
                     </div> -->
-                    <div class="tab-pane fade in active show" id="details">
+                    <div class="tab-pane fade" id="details">
                         <div class="card-body" style="text-align:left">
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
@@ -304,7 +304,7 @@
                     <div class="tab-pane fade" id="teams" style="text-align: left;padding-bottom:20px;">
                         <div class="card-body">
                             {% if user.teams.all.count == 0 %}
-                            <h3>You haven't created or joined any teams yet.</h3>
+                            <h3 class="text-center">You haven't created or joined any teams yet.</h3>
                             {% endif %}
                                 {% for team in user.teams.all %}
                                     <div class="card {% if forloop.counter|divisibleby:2 %}bg-danger{% else %}bg-primary{% endif %}" style="margin-bottom:0px;">

@@ -115,7 +115,7 @@
                             {% endif %}
                         {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% get_media_prefix %}workbooks/{{ wbname }}" download="{{ wbname }}">Registered Users</a>
+                            <a class="nav-link" href="{% url 'event_info' event.type event.pk %}">Registered Users</a>
                         </li>
                         {% endif %}
                     {% else %}

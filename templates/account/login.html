@@ -54,13 +54,14 @@
           <div class="card card-login">
               <div class="card-header card-header-primary text-center">
                 <h4 class="card-title">Login</h4>
-                <div class="social-line">
-                  <a href="{% provider_login_url 'google' %}" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-google-plus-square" style="font-size:30px;"></i>
-                  </a>
-   
-                </div>
+                
               </div>
+              <p class="description text-center" style="padding-left:20px; padding-right:20px">Login with Google<br>
+                <a href="{% provider_login_url 'google' %}" class="btn btn-just-icon btn-link">
+                  <i class="fa fa-google-plus-square text-primary" style="font-size:35px;"></i>
+                </a>
+ 
+              </p>
         <p class="description text-center" style="padding-left:20px; padding-right:20px">Or Be Classical</p>
         {% if form.non_field_errors %}
           {% for error in form.non_field_errors %} 

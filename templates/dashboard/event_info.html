@@ -1,0 +1,117 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block title %} {{ event.name }} {% endblock %}
+
+{% block content %}
+
+<h1>Event Info: {{ event.name }} ({{ event.type }})</h1>
+<hr>
+<h2>Details</h2>
+<ul>
+    <li><b>Name: </b>{{ event.name }}</li>
+    <li><b>Type: </b>{{ event.type }}</li>
+    <li><b>Participation Type: </b>
+        {{ event.participation_type }}
+        {% if event.participation_type == 'team' %}
+        ({{ event.min_team_size }} to {{ event.max_team_size }} Members)
+        {% endif %}
+    </li>
+    <li><b>Host: </b>{% if event.host %} {{ event.host }} {% else %} NA {% endif %}</li>
+    <li><b>External Link: </b>{% if event.external_link %} {{ event.external_link }} {% else %} NA {% endif %}</li>
+    <li><b>Date: </b>{% if event.date %} {{ event.date }} {% else %} NA {% endif %}</li>
+    <li><b>Time: </b>{% if event.time %} {{ event.time }} {% else %} NA {% endif %}</li>
+    <li><b>Venue: </b>{% if event.venue %} {{ event.venue }} {% else %} NA {% endif %}</li>
+    <li><b>Participants Registered: </b>{{ event.participants.all.count }}</li>
+</ul>
+<i class="fas fa-external-link-alt"></i> <a href="{% url 'event' event.type event.pk %}">Go to actual page</a><br>
+<i class="fas fa-download"></i> <a href="{% get_media_prefix %}workbooks/{{ wbname }}" download="{{ wbname }}"> Download Participants Excel Sheet</a>
+<hr>
+
+<h2 style="text-transform: capitalize;">
+    {% if event.participation_type == 'team' %}
+    Registered Teams
+    {% else %}
+    Registered Users
+    {% endif %}
+</h2>
+<hr>
+<div class="card mb-3">
+    <div class="card-header" style="text-transform: capitalize;">
+      <i class="fas fa-table"></i>
+      Participants Table</div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    {% if event.participation_type == 'individual' %}
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Contact</th>
+                    <th>Current Year</th>
+                    <th>College</th>
+                    <th>City</th>
+                    <th>Gender</th>
+                    {% else %}
+                    <th>Team ID</th>
+                    <th>Team Name</th>
+                    <th>Created By</th>
+                    <th>Members</th>
+                    {% endif %}
+                </thead>
+                <tbody>
+                    {% if event.participation_type == 'individual' %}
+                        {% for participant in event.participants.all %}
+                        <tr>
+                            <td><a href="{% url 'user_info' participant.pk %}">{{ participant.username }}</a></td>
+                            <td>{{ participant.email }}</td>
+                            <td>{{ participant.first_name }}</td>
+                            <td>{{ participant.last_name }}</td>
+                            <td>{{ participant.contact }}</td>
+                            <td>
+                                {% if cur_user.current_year == 'first_year' %}
+                                First Year
+                                {% elif cur_user.current_year == 'second_year' %}
+                                Second Year
+                                {% elif cur_user.current_year == 'third_year' %}
+                                Third Year
+                                {% elif cur_user.current_year == 'fourth_year' %}
+                                Fourth Year
+                                {% elif cur_user.current_year == 'fifth_year' %}
+                                Fifth Year
+                                {% endif %}
+                            </td>
+                            <td>{{ participant.college }}</td>
+                            <td>{{ participant.city }}</td>
+                            <td>{{ participant.gender }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% for team in event.participating_teams.all %}
+                        {% if team.members.all.count < event.min_team_size or team.members.all.count > event.max_team_size %}
+                        <tr style="background: #ff7f7f;">
+                        {% else %}
+                        <tr>
+                        {% endif %}
+                            <td>{{ team.id }}</td>
+                            <td>{{ team.name }}</td>
+                            <td><a href="{% url 'user_info' team.leader.pk %}">{{ team.leader.username }} ({{ team.leader.first_name }} {{ team.leader.last_name }})</a></td>
+                            <td>
+                                <ol>
+                                    {% for member in team.members.all %}
+                                    <li><a href="{% url 'user_info' member.pk %}">{{ member.username }} ({{ member.first_name }} {{ member.last_name }})</a></li>
+                                    {% endfor %}
+                                </ol>
+                            </td>
+                        
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

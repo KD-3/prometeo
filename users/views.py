@@ -47,7 +47,7 @@ def make_ambassador(request):
             [request.user.email],
             fail_silently=False,
         )
-        messages.success(request, 'You have successfully become a Campus Ambassador. Your invite referral code has been sent to your registered email ID.')
+        messages.success(request, f'You have successfully become a Campus Ambassador. Your invite referral code is {request.user.invite_referral} which has also been sent to your registered email ID.')
 
         return redirect('user_profile')
 
@@ -76,7 +76,7 @@ def create_team(request, eventid):
                 fail_silently=False,
             )
             # form.save_m2m()
-            return redirect('team_created')
+            return redirect('team_created', team.pk)
     else:
         form = TeamCreationForm()
     return render(request, 'create_team.html', {'form': form, 'event':event})
@@ -108,8 +108,9 @@ def join_team(request):
         form = TeamJoiningForm()
     return render(request, 'join_team.html', {'form': form})
 
-def team_created(request):
-    return render(request, 'team_created.html')
+def team_created(request, teamid):
+    team = get_object_or_404(Team, id=teamid)
+    return render(request, 'team_created.html', {'team' : team})
 
 def join_team_confirm(request):
     teamId = request.GET['id']
@@ -133,7 +134,7 @@ def user_signed_up_(request, user, **kwargs):
             [user.email],
             fail_silently=False,
         )
-        messages.success(request, 'Your Campus Ambassador invite referral code has been mailed to your registered email ID.')
+        messages.success(request, f'Your Campus Ambassador invite referral code is {user.invite_referral} which has also been mailed to your registered email ID.')
 
     
 @login_required

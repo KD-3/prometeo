@@ -9,6 +9,11 @@
 
 {% block pageheader %} {% endblock %}
 {% block infocontent %}
-    <h3 class="h3" id="head_banner">{% trans "Your team has been created" %}</h3>
-    <p id="verification_sent_info">{% blocktrans %}An email has been sent to your registered email id containing the Team ID and other details. If you don't receive it within a few minutes, please contact us. Remember to check your SPAM FOLDER.{% endblocktrans %}</p>
+    <h3 class="h3" id="head_banner">Your team has been created</h3>
+    <h4>Team Name: {{ team.name }}
+        <br>
+        Team ID: {{ team.id }}
+    </h4>
+    <p id="verification_sent_info">{% blocktrans %}An email has also been sent to your registered email id containing the Team ID and other details. If you don't receive it within a few minutes, please contact us. Remember to check your SPAM FOLDER.{% endblocktrans %}</p>
+    <a href="{% url 'event' team.event.type team.event.pk %}" class="btn btn-outline-primary">Go Back to Event Page</a>
 {% endblock %}
