@@ -125,10 +125,15 @@
           <a class="dropdown-item" href="{% url 'event_type_info' 'workshop' %}">Workshops</a>
         </div>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'users_info' %}">
           <i class="fas fa-users"></i>
           <span>Users</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'mass_mail' %}">
+          <i class="fas fa-envelope"></i>
+          <span>Send Mass Mail</span></a>
       </li>
     </ul>
 
@@ -136,12 +141,12 @@
         <div class="container-fluid">
 
             <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
+            <!-- <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                 <a href="#">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">Tables</li>
-            </ol>
+            </ol> -->
 
             {% block content %}
             {% endblock %}
@@ -201,6 +206,8 @@
 
   <!-- Demo scripts for this page-->
   <script src="{% static 'dashboard/js/demo/datatables-demo.js' %}"></script>
+
+  {% block scripts %}{% endblock %}
 
 </body>
 

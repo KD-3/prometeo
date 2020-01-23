@@ -1,0 +1,59 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% load get_dict_item %}
+{% block title %} Users Info {% endblock %}
+
+{% block content %}
+    <h1>Mass Mail</h1>
+    <hr>
+    <p>Select all events the participants of which you want to send email to:</p>
+    <button type="button" class="btn btn-primary" onclick="selectAll()" style="margin-bottom: 20px;">Select All Events</button>
+    <form method="POST" action="{% url 'mass_mail' %}">
+        {% csrf_token %}
+        <h3>Technical Events</h3>
+        <hr>
+        {% for event in technical %}
+        <div class="form-check" id="technical">
+            <input type="checkbox" class="form-check-input" id="check{{ event.pk }}" name="check{{ event.pk }}" style="height:17px; width:17px;">
+            <label class="form-check-label" for="exampleCheck1">{{ event.name }}</label>
+        </div>
+        {% endfor %}
+        <h3 style="margin-top: 30px;">Informals</h3>
+        <hr>
+        {% for event in informal %}
+        <div class="form-check" id="informal">
+            <input type="checkbox" class="form-check-input" id="check{{ event.pk }}" name="check{{ event.pk }}" style="height:17px; width:17px;">
+            <label class="form-check-label" for="check{{ event.pk }}">{{ event.name }}</label>
+        </div>
+        {% endfor %}
+        <h3 style="margin-top: 30px;">Workshops</h3>
+        <hr>
+        {% for event in workshop %}
+        <div class="form-check" id="workshop">
+            <input type="checkbox" class="form-check-input" id="check{{ event.pk }}" name="check{{ event.pk }}" style="height:17px; width:17px;">
+            <label class="form-check-label" for="check{{ event.pk }}">{{ event.name }}</label>
+        </div>
+        {% endfor %}
+        <div class="form-group" style="margin-top: 30px;">
+            <label for="subject">Subject</label>
+            <input type="text" class="form-control" id="subject" name="subject">
+        </div>
+        <div class="form-group">
+            <label for="message">Body/Message</label>
+            <textarea class="form-control" id="message" name="message" rows="10"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-bottom: 30px;">Send</button>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function selectAll() {
+        var check_boxes = document.getElementsByClassName("form-check-input");
+        for (var i = 0; i < check_boxes.length; i++) {
+            check_boxes[i].checked = true;
+        }
+    }
+</script>
+
+{% endblock %}

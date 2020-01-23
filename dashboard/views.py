@@ -1,9 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test, login_required
 from users.models import *
+from events.models import *
 import xlsxwriter
 import os
 from django.conf import settings
+from django.core.mail import send_mail
+from django.contrib import messages
+
 # Create your views here.
 
 @user_passes_test(lambda u: u.is_superuser, login_url='/admin/login/?next=/dashboard/users/')
@@ -215,3 +219,31 @@ def event_info(request, type, eventid):
     
     workbook.close()
     return render(request, 'dashboard/event_info.html', {'event':event, 'wbname':wbname})
+
+@user_passes_test(lambda u: u.is_superuser, login_url='/admin/login/?next=/dashboard/mass_mail/')
+def mass_mail(request):
+    technical = Event.objects.filter(type='technical')
+    informal = Event.objects.filter(type='informal')
+    workshop = Event.objects.filter(type='workshop')
+    events = Event.objects.all()
+    if (request.method == 'POST'):
+        recepients = []
+        for event in events:
+            if(request.POST.get('check'+str(event.pk))):
+                for participant in event.participants.all():
+                    if(participant.email not in recepients):
+                        recepients.append(participant.email)
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        print(recepients)
+        send_mail(
+            subject,
+            message,
+            "info.noreply@prometeo.in",
+            recepients,
+            fail_silently=False
+        )
+        messages.success(request, "Mails sent!")
+        return redirect('mass_mail')
+    else:
+        return render(request, 'dashboard/mass_mail.html', {'technical':technical, 'informal':informal, 'workshop': workshop})

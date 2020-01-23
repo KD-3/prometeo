@@ -7,4 +7,5 @@ urlpatterns = [
     path('events/', events_info, name='events_info'),
     path('events/<slug:type>/', event_type_info, name='event_type_info'),
     path('events/<slug:type>/<int:eventid>/', event_info, name='event_info'),
+    path('mass_mail/', mass_mail, name='mass_mail'),
 ]
