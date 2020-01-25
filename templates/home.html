@@ -63,11 +63,15 @@
                     <div class="col-lg-6" data-aos="fade-down" data-aos-duration="1000" data-aos-once="true">
 
                         <div class="event-name">
-                            <h2 class="title">Prometeo 2k20</h2>
-                            <h4>January 23-26</h4><br>
+                            <h2 class="title">Upcoming: 
+                              {% for event in next_events %}
+                                {{ event.name }}{% if not forloop.counter == next_count %},{% endif %}
+                              {% endfor %}
+                            </h2>
+                            <h4>{{ next_dt }}</h4><br>
                             <!-- <a href="{% static 'pdf/Industry_Day_Schedule.pdf' %}" target="_blank" class="btn btn-outline-primary">View Schedule</a> -->
                         </div>
-                        <!-- <div class="countdown-timer" id="countdown">
+                        <div class="countdown-timer" id="countdown" data-next-time = "{{ next_dt_str }}">
                           <div class="row">
                           <div class="col-lg-3 col-md-3 col-sm-3 col-3 col-timer">
                             <div class="card card-pricing bg-primary"><div class="card-body ">
@@ -114,7 +118,7 @@
                             </div>
                             </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="col-lg-6" style="padding-top:30px;" data-aos="fade-left" data-aos-duration="1000" data-aos-once="true">
                         <video src="{% static 'img/video1.mp4' %}" width="100%" height="auto" controls
@@ -271,6 +275,7 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="{% static 'js/particles.js' %}"></script>
 <script>
+  
   $(document).ready(function() {
     AOS.init();
     particlesJS.load('particle-div', '{% static "js/particles.json" %}');
