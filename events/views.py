@@ -33,6 +33,8 @@ def registered(request):
 @login_required
 def register_for_event(request, eventid):
     event = Event.objects.get(pk=eventid)
+    if(not event.registration_open):
+        return redirect('event', event.type, event.pk)
     request.user.events.add(event)
     messages.success(request, f"Successfully registered for '{event.name}'.")
     return redirect(user_profile)

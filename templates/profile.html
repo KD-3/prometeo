@@ -312,6 +312,9 @@
                                             {% if team.leader == user %}
                                             <a href="{% url 'edit_team' team.id %}" style="color:white"><i class="material-icons" style="float:right; margin-top:10px;">edit</i></a>
                                             {% endif %}
+                                            {% if team.leader == user %}
+                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#delete-team" style="color:white" onclick="deleteModal('{{ team.name }}', '{{ team.event.name }}', '{{ team.id }}')"><i class="material-icons" style="float:right; margin-top:10px;">delete</i></a>
+                                            {% endif %}
                                             <h5 class="card-category card-category-social" style="text-transform: capitalize;">
                                                 Registered for {{ team.event.name }} ({{ team.event.type }} Event)
                                             </h5>
@@ -398,6 +401,38 @@
     </div>
   </div>
 
+  <div class="modal fade" id="delete-team" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirm Delete Team</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       <div class="modal-body">
+            Are you sure you want to delete team '<span id="team-name"></span>'? You will automtically be deregistered from the event '<span id="event-name"></span>'. You may register for it again if you wish.
+       </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <a href="#" class="btn btn-primary" id="delete-team-link">Delete Team</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}
 
-<!-- {% block scripts %} <script src="{% static 'js/tabs.js' %}"></script> {% endblock %} -->
+{% block scripts %}
+<script>
+    function deleteModal(name, event, teamid) {
+        link = document.getElementById("delete-team-link");
+        team_name = document.getElementById("team-name");
+        event_name = document.getElementById("event-name");
+        link.href = "/users/profile/delete_team/" + teamid;
+        team_name.innerHTML = name;
+        event_name.innerHTML = event;
+
+    }
+</script>
+{% endblock %}

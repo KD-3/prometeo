@@ -5,8 +5,10 @@ from events.models import *
 import xlsxwriter
 import os
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.contrib import messages
+from django.views.generic.edit import FormView
+from .forms import *
 
 # Create your views here.
 
@@ -222,28 +224,60 @@ def event_info(request, type, eventid):
 
 @user_passes_test(lambda u: u.is_superuser, login_url='/admin/login/?next=/dashboard/mass_mail/')
 def mass_mail(request):
-    technical = Event.objects.filter(type='technical')
-    informal = Event.objects.filter(type='informal')
-    workshop = Event.objects.filter(type='workshop')
-    events = Event.objects.all()
+    # technical = Event.objects.filter(type='technical')
+    # informal = Event.objects.filter(type='informal')
+    # workshop = Event.objects.filter(type='workshop')
+    # events = Event.objects.all()
     if (request.method == 'POST'):
-        recepients = []
-        for event in events:
-            if(request.POST.get('check'+str(event.pk))):
+        form = EmailForm(request.POST, request.FILES)
+        if(form.is_valid()):
+            recepients = []
+            for event in form.cleaned_data['events']:
                 for participant in event.participants.all():
                     if(participant.email not in recepients):
                         recepients.append(participant.email)
-        subject = request.POST.get('subject')
-        message = request.POST.get('message')
-        print(recepients)
-        send_mail(
-            subject,
-            message,
-            "info.noreply@prometeo.in",
-            recepients,
-            fail_silently=False
-        )
-        messages.success(request, "Mails sent!")
-        return redirect('mass_mail')
+            sender = ''
+            if(form.cleaned_data['sender']):
+                sender = form.cleaned_data['sender']
+            else:
+                sender = 'info.noreply@prometeo.in'
+            
+            email = EmailMessage(form.cleaned_data['subject'], form.cleaned_data['message'], sender, recepients)
+            for file in request.FILES.getlist('attachments'):
+                email.attach(file.name, file.read(), file.content_type)
+            email.send()
+            messages.success(request, "Mails sent!")
+            return redirect('mass_mail')
+        # recepients = []
+        # for event in events:
+        #     if(request.POST.get('check'+str(event.pk))):
+        #         for participant in event.participants.all():
+        #             if(participant.email not in recepients):
+        #                 recepients.append(participant.email)
+        # subject = request.POST.get('subject')
+        # message = request.POST.get('message')
+        # print(recepients)
+        # send_mail(
+        #     subject,
+        #     message,
+        #     "info.noreply@prometeo.in",
+        #     recepients,
+        #     fail_silently=False
+        # )
+        # messages.success(request, "Mails sent!")
+        # return redirect('mass_mail')
     else:
-        return render(request, 'dashboard/mass_mail.html', {'technical':technical, 'informal':informal, 'workshop': workshop})
+        form = EmailForm()
+    return render(request, 'dashboard/mass_mail.html', {'form':form})
+
+@user_passes_test(lambda u: u.is_superuser, login_url='/admin/login/?next=/dashboard/events/')
+def change_registration(request, type, eventid, value):
+    event = get_object_or_404(Event, pk=eventid)
+    if(value == 'open'):
+        event.registration_open = True
+        messages.success(request, 'Successfully opened registration for event ' + event.name + '.')
+    else:
+        event.registration_open = False
+        messages.success(request, 'Successfully closed registration for event ' + event.name + '.')
+    event.save()
+    return redirect('event_info', type, eventid)

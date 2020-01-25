@@ -83,45 +83,51 @@
                     </li>
                     {% endif %}
                     {% if user.is_authenticated %}
-                        
-                        {% if event.external_link %}
+                        {% if event in user.events.all %}
+                        <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#registeredModal">
+                            Already Registered
+                        </a>
+                        </li>
+                        {% elif not event.registration_open %}
+                        <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#closedModal">
+                          Registration Closed
+                        </a>
+                        </li>
+                        {% elif event.external_link %}
                         <li class="nav-item">
                           <a class="nav-link" href="{{ event.external_link }}">Register</a>
                         </li>
                         {% elif event.participation_type == 'team' %}
                             <li class="nav-item">
-                                {% if event in user.events.all %}
-                                <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#registeredModal">
-                                    Already Registered
-                                </a>
                                 <!-- <a class="nav-link" href="javascript:void(0)">Already Registered</a> -->
-                                {% else %}
                                 <a class="nav-link" href="javascript:void(0)" onclick="openTab(event, 'register')">Register</a>
-                                {% endif %}
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                {% if event in user.events.all %}
-                                <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#registeredModal">
-                                    Already Registered
-                                </a>
                                 <!-- <a class="nav-link" href="javascript:void(0)">Already Registered</a> -->
-                                {% else %}
                                 <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#confirmModal">
                                   Register
-                              </a>
-                                {% endif %}
+                                </a>
                             </li>
                         {% endif %}
-                        {% if user.is_superuser %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'event_info' event.type event.pk %}">Registered Users</a>
-                        </li>
-                        {% endif %}
+      
+                    {% elif not event.registration_open %}
+                    <li class="nav-item">
+                      <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#closedModal">
+                        Registration Closed
+                      </a>
+                    </li>
                     {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/accounts/login?next={% url 'event' event.type event.pk %}">Login To Register</a>
-                        </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/accounts/login?next={% url 'event' event.type event.pk %}">Login To Register</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                      <li class="nav-item">
+                          <a class="nav-link" href="{% url 'event_info' event.type event.pk %}">Registered Users</a>
+                      </li>
                     {% endif %}
                   </ul>
                 </div>
@@ -301,6 +307,23 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           <a href="{% url 'register' event.pk %}" class="btn btn-primary">Register</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="closedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Registrations have been closed for this event.</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

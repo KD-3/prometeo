@@ -174,10 +174,23 @@ def edit_team(request, teamid):
                 form.add_error('members', 'You cannot remove the leader (creator) of the team from the team.')
             else:
                 form.save()
-                for member in form.cleaned_data['members']:
-                    member.events.remove(team.event)
+                for member in team.members.all():
+                    if member not in form.cleaned_data['members']:
+                        member.events.remove(team.event)
                 messages.success(request, f"The team details have been updated.")
                 return redirect('user_profile')
     else:
         form = EditTeamForm(team, instance=team)
     return render(request, 'edit_team.html', {'form':form, 'team':team})
+
+@login_required
+def delete_team(request, teamid):
+    team = get_object_or_404(Team, id=teamid)
+    if(request.user != team.leader):
+        messages.info(request, "Only the team leader (creator) can delete the team.")
+        return redirect('user_profile')
+    for member in team.members.all():
+        member.events.remove(team.event)
+    messages.success(request, f"Successfully deleted team '{team.name}'.")
+    team.delete()
+    return redirect('user_profile')

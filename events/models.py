@@ -29,6 +29,7 @@ class Event(models.Model):
     date = models.DateField(verbose_name="Event Date", null=True, blank=True)
     time = models.TimeField(null=True, blank=True, verbose_name="Event Time")
     venue = models.CharField(max_length=50, null=True, blank=True, verbose_name="Event Venue")
+    registration_open = models.BooleanField(verbose_name="Registrations Open", default=True, blank=True)
     type = models.CharField(max_length=15,choices=EVENT_CHOICES,default='event', verbose_name='Event Type')
     def __str__(self):
         return self.name

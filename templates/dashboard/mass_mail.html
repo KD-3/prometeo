@@ -1,14 +1,27 @@
 {% extends "dashboard/base.html" %}
 {% load static %}
 {% load get_dict_item %}
+{% load widget_tweaks %}
 {% block title %} Users Info {% endblock %}
+
+{% block styles %}
+<style>
+    #id_events {
+        padding-left:10px;
+        list-style-type: none;
+    }
+    
+</style>
+{% endblock %}
 
 {% block content %}
     <h1>Mass Mail</h1>
     <hr>
     <p>Select all events the participants of which you want to send email to:</p>
     <button type="button" class="btn btn-primary" onclick="selectAll()" style="margin-bottom: 20px;">Select All Events</button>
-    <form method="POST" action="{% url 'mass_mail' %}">
+    <button type="button" class="btn btn-primary" onclick="deselectAll()" style="margin-bottom: 20px;">Deselect All Events</button>
+    
+    <!-- <form method="POST" action="{% url 'mass_mail' %}">
         {% csrf_token %}
         <h3>Technical Events</h3>
         <hr>
@@ -42,16 +55,51 @@
             <label for="message">Body/Message</label>
             <textarea class="form-control" id="message" name="message" rows="10"></textarea>
         </div>
+        <input type="file" name="attachments"
         <button type="submit" class="btn btn-primary" style="margin-bottom: 30px;">Send</button>
+    </form> -->
+    <form method="POST" enctype="multipart/form-data" action="{% url 'mass_mail' %}">
+        {% csrf_token %}
+        {% for field in form %}
+        {% if field.name == 'events' %}
+        <div>
+            <label>Events</label>
+            {% if field.errors %}
+                {% for error in field.errors %}
+                <div style="color:red; margin-bottom:20px;">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            {% render_field field style="height:19px; width:19px;" %}
+        </div>
+        
+        {% else %}
+        <div class="form-group">
+            <label>{{ field.label }}</label>
+            {% render_field field class="form-control"%}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                <div style="color:red">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        {% endif %}
+        {% endfor %}
+        <input type="submit" value="Send" class="btn btn-primary" style="margin-bottom: 30px;">
     </form>
 {% endblock %}
 
 {% block scripts %}
 <script>
     function selectAll() {
-        var check_boxes = document.getElementsByClassName("form-check-input");
+        var check_boxes = document.getElementsByName("events");
         for (var i = 0; i < check_boxes.length; i++) {
             check_boxes[i].checked = true;
+        }
+    }
+    function deselectAll() {
+        var check_boxes = document.getElementsByName("events");
+        for (var i = 0; i < check_boxes.length; i++) {
+            check_boxes[i].checked = false;
         }
     }
 </script>

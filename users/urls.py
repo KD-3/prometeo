@@ -10,5 +10,7 @@ urlpatterns = [
     path('profile/update/', update_profile, name='update_profile'),
     path('profile/ambassador/', make_ambassador, name="make_ambassador"),
     path('profile/edit_team/<slug:teamid>/', edit_team, name='edit_team'),
+    path('profile/delete_team/<slug:teamid>/', delete_team, name='delete_team'),
+
 
 ]

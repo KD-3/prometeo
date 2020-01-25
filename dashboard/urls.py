@@ -8,4 +8,5 @@ urlpatterns = [
     path('events/<slug:type>/', event_type_info, name='event_type_info'),
     path('events/<slug:type>/<int:eventid>/', event_info, name='event_info'),
     path('mass_mail/', mass_mail, name='mass_mail'),
+    path('events/<slug:type>/<int:eventid>/change_registration/<slug:value>/', change_registration, name="change_registration")
 ]

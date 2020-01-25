@@ -23,6 +23,7 @@
                     <th>Host</th>
                     <th>External Link</th>
                     <th>Participants</th>
+                    <th>Registration</th>
                 </thead>
                 <tbody>
                     {% for event in events %}
@@ -42,6 +43,7 @@
                         <td>
                             {{ event.participants.all.count }}
                         </td>
+                        <td>{% if event.registration_open %} Open {% else %} Closed {% endif %}</td>
                         </tr>
                     {% endfor %}
 
