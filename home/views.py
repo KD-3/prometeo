@@ -20,7 +20,7 @@ def home(request):
                 min_dt = next_dt
     next_dt_str = min_dt.strftime('%Y/%m/%d %H:%M:%S')
     
-    return render(request, 'home.html', {'carousel' : carousel, 'next_events': next_events, 'next_dt':next_dt, 'next_dt_str' : next_dt_str, 'next_count' : len(next_events)})
+    return render(request, 'home.html', {'carousel' : carousel, 'next_events': next_events, 'next_dt':min_dt, 'next_dt_str' : next_dt_str, 'next_count' : len(next_events)})
 
 def home_redirect(request):
     return redirect(home)
