@@ -71,7 +71,10 @@
             {% endif %}
             {% render_field field style="height:19px; width:19px;" %}
         </div>
-        
+        {%  elif field.name == 'iitj' %}
+        <div style="margin-bottom: 30px;">
+        {% render_field field style="height:19px; width:19px;" %} Include IITJ emails
+        </div>
         {% else %}
         <div class="form-group">
             <label>{{ field.label }}</label>

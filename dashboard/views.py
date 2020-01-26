@@ -232,10 +232,16 @@ def mass_mail(request):
         form = EmailForm(request.POST, request.FILES)
         if(form.is_valid()):
             recepients = []
+            iitj = request.POST.get('iitj')
+            # print(iitj)
             for event in form.cleaned_data['events']:
                 for participant in event.participants.all():
                     if(participant.email not in recepients):
-                        recepients.append(participant.email)
+                        if(iitj):
+                            recepients.append(participant.email)
+                        elif ('iitj.ac.in' not in participant.email):
+                            recepients.append(participant.email)
+
             sender = ''
             if(form.cleaned_data['sender']):
                 sender = form.cleaned_data['sender']
